@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+
+[build.processing]
+  skip_processing = false
+
+[build.processing.html]
+  pretty_urls = true
+
+# Disable prerendering
+[build.processing.images]
+  compress = true

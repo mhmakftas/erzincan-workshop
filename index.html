@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erzincan'ın Jeolojik ve Kültürel Mirası Çalıştayı</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; overflow-x:hidden; }
+body {
+  font-family:'Inter', sans-serif;
+  background:#0a0f1a;
+  color:#e8e6e3;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ========== CUSTOM CURSOR ========== */
+.cursor-dot {
+  width:8px; height:8px;
+  background:#d4a853;
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:99999;
+  transition: transform 0.1s;
+  mix-blend-mode:difference;
+}
+.cursor-ring {
+  width:40px; height:40px;
+  border:2px solid rgba(212,168,83,0.5);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  z-index:99998;
+  transition: transform 0.15s, width 0.3s, height 0.3s;
+  mix-blend-mode:difference;
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+  position:fixed; top:0; left:0; width:100%; z-index:1000;
+  padding:1.2rem 3rem;
+  display:flex; align-items:center; justify-content:space-between;
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+  backdrop-filter:blur(0px);
+}
+.navbar.scrolled {
+  background:rgba(10,15,26,0.92);
+  backdrop-filter:blur(20px);
+  padding:0.8rem 3rem;
+  border-bottom:1px solid rgba(212,168,83,0.15);
+}
+.nav-logo {
+  font-family:'Playfair Display', serif;
+  font-size:1.4rem; font-weight:700;
+  color:#d4a853;
+  letter-spacing:0.05em;
+}
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a {
+  color:#b0b8c8; text-decoration:none;
+  font-size:0.85rem; font-weight:500;
+  letter-spacing:0.08em; text-transform:uppercase;
+  position:relative;
+  transition: color 0.3s;
+}
+.nav-links a::after {
+  content:''; position:absolute;
+  bottom:-4px; left:0; width:0; height:2px;
+  background:#d4a853;
+  transition: width 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.nav-links a:hover { color:#d4a853; }
+.nav-links a:hover::after { width:100%; }
+.nav-cta {
+  padding:0.6rem 1.8rem;
+  background:transparent;
+  border:1.5px solid #d4a853;
+  color:#d4a853;
+  font-family:'Inter', sans-serif;
+  font-size:0.8rem; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  cursor:pointer;
+  transition: all 0.3s;
+  text-decoration:none;
+}
+.nav-cta:hover {
+  background:#d4a853;
+  color:#0a0f1a;
+}
+
+/* Language Switcher */
+.lang-switcher {
+  display:flex; gap:0; margin-left:1.5rem;
+  border:1px solid rgba(255,255,255,0.12);
+  overflow:hidden;
+}
+.lang-btn {
+  padding:0.4rem 0.7rem;
+  background:transparent;
+  border:none;
+  color:rgba(255,255,255,0.4);
+  font-family:'Inter',sans-serif;
+  font-size:0.7rem; font-weight:600;
+  letter-spacing:0.08em;
+  cursor:pointer;
+  transition:all 0.3s;
+  border-right:1px solid rgba(255,255,255,0.08);
+}
+.lang-btn:last-child { border-right:none; }
+.lang-btn.active {
+  background:rgba(212,168,83,0.15);
+  color:#d4a853;
+}
+.lang-btn:hover { color:#d4a853; }
+
+/* ========== HERO ========== */
+.hero {
+  position:relative;
+  height:100vh; min-height:700px;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(135deg, rgba(10,15,26,0.7), rgba(10,15,26,0.4)),
+    url('fotolar/buzul-golu.jpg') center/cover;
+  transform:scale(1.1);
+  transition: transform 8s cubic-bezier(0.22,1,0.36,1);
+}
+.hero.loaded .hero-bg { transform:scale(1); }
+.hero-overlay {
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 30% 80%, rgba(212,168,83,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(43,138,126,0.06) 0%, transparent 50%),
+    linear-gradient(to bottom, rgba(10,15,26,0.3) 0%, rgba(10,15,26,0.8) 100%);
+}
+
+/* Particle canvas */
+#hero-particles {
+  position:absolute; inset:0;
+  pointer-events:none;
+  opacity:0.4;
+}
+
+.hero-content {
+  position:relative; z-index:2;
+  text-align:center;
+  max-width:1000px;
+  padding:0 2rem;
+}
+.hero-date {
+  display:inline-flex; align-items:center; gap:0.8rem;
+  font-size:0.85rem; font-weight:500;
+  letter-spacing:0.2em; text-transform:uppercase;
+  color:#d4a853;
+  margin-bottom:2rem;
+  opacity:0; transform:translateY(30px);
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero-date .line { width:40px; height:1px; background:#d4a853; }
+.hero-title {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  font-weight:900;
+  line-height:1.05;
+  color:#fff;
+  margin-bottom:0.8rem;
+  opacity:0; transform:translateY(40px);
+  animation: fadeUp 1s 0.5s forwards;
+}
+.hero-title .gold { color:#d4a853; }
+.hero-subtitle {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(1.4rem,3vw,2.4rem);
+  font-weight:400;
+  font-style:italic;
+  color:rgba(255,255,255,0.7);
+  margin-bottom:2.5rem;
+  opacity:0; transform:translateY(40px);
+  animation: fadeUp 1s 0.7s forwards;
+}
+.hero-location {
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.5);
+  letter-spacing:0.1em;
+  margin-bottom:3rem;
+  opacity:0; transform:translateY(30px);
+  animation: fadeUp 0.8s 0.9s forwards;
+}
+.hero-btns {
+  display:flex; gap:1.2rem; justify-content:center; flex-wrap:wrap;
+  opacity:0; transform:translateY(30px);
+  animation: fadeUp 0.8s 1.1s forwards;
+}
+.btn-primary {
+  padding:1rem 3rem;
+  background:#d4a853;
+  color:#0a0f1a;
+  font-family:'Inter', sans-serif;
+  font-size:0.85rem; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase;
+  border:none; cursor:pointer;
+  position:relative; overflow:hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration:none;
+}
+.btn-primary:hover {
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(212,168,83,0.3);
+}
+.btn-primary::after {
+  content:'';
+  position:absolute; top:50%; left:50%;
+  width:0; height:0;
+  background:rgba(255,255,255,0.2);
+  border-radius:50%;
+  transition: width 0.6s, height 0.6s, top 0.6s, left 0.6s;
+}
+.btn-primary:active::after {
+  width:300px; height:300px;
+  top:calc(50% - 150px); left:calc(50% - 150px);
+}
+.btn-outline {
+  padding:1rem 3rem;
+  background:transparent;
+  border:1.5px solid rgba(255,255,255,0.3);
+  color:#fff;
+  font-family:'Inter', sans-serif;
+  font-size:0.85rem; font-weight:500;
+  letter-spacing:0.12em; text-transform:uppercase;
+  cursor:pointer;
+  transition: all 0.3s;
+  text-decoration:none;
+}
+.btn-outline:hover {
+  border-color:#d4a853;
+  color:#d4a853;
+}
+
+/* Hero scroll indicator */
+.scroll-indicator {
+  position:absolute; bottom:3rem; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:0.5rem;
+  opacity:0; animation: fadeIn 1s 1.5s forwards;
+}
+.scroll-indicator span {
+  font-size:0.7rem; letter-spacing:0.15em;
+  text-transform:uppercase; color:rgba(255,255,255,0.4);
+}
+.scroll-line {
+  width:1px; height:50px;
+  background:linear-gradient(to bottom, #d4a853, transparent);
+  animation: scrollPulse 2s infinite;
+}
+
+/* ========== COUNTDOWN ========== */
+.countdown-section {
+  padding:5rem 3rem;
+  background:linear-gradient(135deg, #0d1321, #0a0f1a);
+  border-top:1px solid rgba(212,168,83,0.1);
+  border-bottom:1px solid rgba(212,168,83,0.1);
+}
+.countdown-wrap {
+  max-width:900px; margin:0 auto;
+  display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;
+}
+.countdown-item {
+  text-align:center;
+  opacity:0; transform:translateY(30px);
+}
+.countdown-item.visible {
+  animation: fadeUp 0.6s forwards;
+}
+.countdown-num {
+  font-family:'Space Grotesk', sans-serif;
+  font-size:4.5rem; font-weight:700;
+  color:#d4a853;
+  line-height:1;
+  background:linear-gradient(135deg, #d4a853, #e8c97a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.countdown-label {
+  font-size:0.75rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  margin-top:0.5rem;
+}
+
+/* ========== SECTION COMMON ========== */
+.section { padding:8rem 3rem; position:relative; }
+.section-label {
+  font-size:0.75rem;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:#d4a853;
+  margin-bottom:1rem;
+}
+.section-title {
+  font-family:'Playfair Display', serif;
+  font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:700;
+  color:#fff;
+  margin-bottom:1.5rem;
+  line-height:1.15;
+}
+.section-desc {
+  font-size:1.05rem;
+  line-height:1.8;
+  color:rgba(255,255,255,0.6);
+  max-width:650px;
+}
+
+/* ========== ABOUT ========== */
+.about { overflow:hidden; }
+.about-grid {
+  max-width:1300px; margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5rem;
+  align-items:center;
+}
+.about-img-wrap {
+  position:relative;
+  opacity:0; transform:translateX(-60px);
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.about-img-wrap.visible {
+  opacity:1; transform:translateX(0);
+}
+.about-img {
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  filter:brightness(0.9) contrast(1.05);
+}
+.about-img-accent {
+  position:absolute;
+  top:-20px; left:-20px;
+  width:100%; height:100%;
+  border:2px solid rgba(212,168,83,0.3);
+  z-index:-1;
+  transition: all 0.6s;
+}
+.about-img-wrap:hover .about-img-accent {
+  top:-30px; left:-30px;
+}
+.about-text {
+  opacity:0; transform:translateX(60px);
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s;
+}
+.about-text.visible {
+  opacity:1; transform:translateX(0);
+}
+.about-stats {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:2rem;
+  margin-top:3rem;
+  padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+.stat-num {
+  font-family:'Space Grotesk', sans-serif;
+  font-size:2.5rem; font-weight:700;
+  color:#d4a853;
+}
+.stat-label {
+  font-size:0.8rem;
+  color:rgba(255,255,255,0.4);
+  letter-spacing:0.05em;
+  margin-top:0.3rem;
+}
+
+/* ========== TOPICS / PROGRAM ========== */
+.topics {
+  background:linear-gradient(180deg, #0a0f1a, #0d1524);
+}
+.topics-grid {
+  max-width:1300px; margin:3rem auto 0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(350px, 1fr));
+  gap:1.5rem;
+}
+.topic-card {
+  padding:2.5rem;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+  position:relative;
+  overflow:hidden;
+  transition: all 0.4s cubic-bezier(0.22,1,0.36,1);
+  opacity:0; transform:translateY(40px);
+}
+.topic-card.visible {
+  opacity:1; transform:translateY(0);
+}
+.topic-card::before {
+  content:'';
+  position:absolute; top:0; left:0;
+  width:3px; height:0;
+  background:#d4a853;
+  transition: height 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.topic-card:hover {
+  background:rgba(255,255,255,0.04);
+  border-color:rgba(212,168,83,0.2);
+  transform:translateY(-4px);
+}
+.topic-card:hover::before { height:100%; }
+.topic-num {
+  font-family:'Space Grotesk', sans-serif;
+  font-size:3rem; font-weight:700;
+  color:rgba(212,168,83,0.15);
+  line-height:1;
+  margin-bottom:1rem;
+}
+.topic-title {
+  font-family:'Playfair Display', serif;
+  font-size:1.3rem; font-weight:700;
+  color:#fff;
+  margin-bottom:0.8rem;
+}
+.topic-desc {
+  font-size:0.9rem;
+  line-height:1.7;
+  color:rgba(255,255,255,0.5);
+}
+
+/* ========== SPEAKERS ========== */
+.speakers-grid {
+  max-width:1300px; margin:3rem auto 0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:2rem;
+}
+.speaker-card {
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  opacity:0; transform:scale(0.9);
+  transition: all 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.speaker-card.visible {
+  opacity:1; transform:scale(1);
+}
+.speaker-img {
+  width:100%;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  filter:grayscale(60%) brightness(0.8);
+  transition: all 0.5s;
+}
+.speaker-card:hover .speaker-img {
+  filter:grayscale(0%) brightness(1);
+  transform:scale(1.05);
+}
+.speaker-info {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:2rem 1.5rem 1.5rem;
+  background:linear-gradient(to top, rgba(10,15,26,0.95), transparent);
+}
+.speaker-name {
+  font-family:'Playfair Display', serif;
+  font-size:1.2rem; font-weight:700; color:#fff;
+}
+.speaker-role {
+  font-size:0.8rem;
+  color:#d4a853;
+  letter-spacing:0.05em;
+  margin-top:0.3rem;
+}
+.speaker-uni {
+  font-size:0.78rem;
+  color:rgba(255,255,255,0.5);
+  margin-top:0.2rem;
+}
+
+/* ========== GALLERY ========== */
+.gallery {
+  background:#0d1524;
+  overflow:hidden;
+}
+.gallery-marquee {
+  display:flex; gap:1.5rem;
+  animation: marquee 35s linear infinite;
+  width:max-content;
+  margin-top:3rem;
+}
+.gallery-marquee img {
+  height:350px;
+  object-fit:cover;
+  filter:brightness(0.85);
+  transition: filter 0.3s, transform 0.3s;
+}
+.gallery-marquee img:hover {
+  filter:brightness(1);
+  transform:scale(1.03);
+}
+
+/* ========== VENUE ========== */
+.venue-grid {
+  max-width:1300px; margin:0 auto;
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:4rem;
+  align-items:center;
+}
+.venue-map {
+  width:100%;
+  aspect-ratio:16/10;
+  background:#1a2235;
+  border:1px solid rgba(255,255,255,0.06);
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,0.3);
+  font-size:0.9rem;
+  opacity:0; transform:translateX(-40px);
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.venue-map.visible { opacity:1; transform:translateX(0); }
+.venue-details {
+  opacity:0; transform:translateX(40px);
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s;
+}
+.venue-details.visible { opacity:1; transform:translateX(0); }
+.venue-item {
+  padding:1.5rem 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.venue-item-label {
+  font-size:0.75rem;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:#d4a853;
+  margin-bottom:0.4rem;
+}
+.venue-item-value {
+  font-size:1.1rem;
+  color:rgba(255,255,255,0.8);
+}
+
+/* ========== SCHEDULE / TIMELINE ========== */
+.schedule {
+  background:linear-gradient(180deg, #0a0f1a, #0d1524);
+}
+.timeline {
+  max-width:900px; margin:3rem auto 0;
+  position:relative;
+}
+.timeline::before {
+  content:'';
+  position:absolute; left:50%; top:0; bottom:0;
+  width:1px;
+  background:linear-gradient(to bottom, transparent, rgba(212,168,83,0.3), transparent);
+}
+.timeline-item {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3rem;
+  margin-bottom:3rem;
+  opacity:0; transform:translateY(30px);
+  transition: all 0.6s cubic-bezier(0.22,1,0.36,1);
+}
+.timeline-item.visible {
+  opacity:1; transform:translateY(0);
+}
+.timeline-item:nth-child(even) .tl-content { order:2; text-align:left; }
+.timeline-item:nth-child(even) .tl-time { order:1; text-align:right; }
+.tl-time {
+  font-family:'Space Grotesk', sans-serif;
+  font-size:1.1rem; font-weight:600;
+  color:#d4a853;
+  padding-top:0.3rem;
+}
+.tl-content { }
+.tl-title {
+  font-family:'Playfair Display', serif;
+  font-size:1.15rem; font-weight:700;
+  color:#fff;
+  margin-bottom:0.4rem;
+}
+.tl-desc {
+  font-size:0.88rem;
+  color:rgba(255,255,255,0.5);
+  line-height:1.6;
+}
+.tl-speaker-tag {
+  display:inline-block;
+  margin-top:0.6rem;
+  padding:0.25rem 0.8rem;
+  background:rgba(212,168,83,0.1);
+  border:1px solid rgba(212,168,83,0.2);
+  font-size:0.75rem;
+  color:#d4a853;
+  letter-spacing:0.05em;
+}
+
+/* ========== SPONSORS ========== */
+.sponsors {
+  background:#0d1524;
+}
+.sponsors-row {
+  max-width:1100px; margin:2rem auto;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:4rem; flex-wrap:wrap;
+}
+.sponsor-logo {
+  width:140px; height:70px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,0.25);
+  font-size:0.8rem; font-weight:600;
+  letter-spacing:0.05em;
+  transition: all 0.3s;
+}
+.sponsor-logo:hover {
+  border-color:rgba(212,168,83,0.3);
+  color:rgba(255,255,255,0.5);
+}
+.sponsor-tier {
+  text-align:center;
+  margin-bottom:1rem;
+  font-size:0.7rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.3);
+}
+
+/* ========== REGISTER / CTA ========== */
+.register-section {
+  padding:8rem 3rem;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.register-section::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(212,168,83,0.06) 0%, transparent 70%);
+}
+.register-section .section-title { margin:0 auto 1rem; }
+.register-section .section-desc { margin:0 auto 3rem; text-align:center; }
+.register-form {
+  max-width:500px; margin:0 auto;
+  display:flex; flex-direction:column; gap:1rem;
+}
+.register-form input {
+  padding:1rem 1.5rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:#fff;
+  font-family:'Inter', sans-serif;
+  font-size:0.95rem;
+  transition: border-color 0.3s;
+  outline:none;
+}
+.register-form input:focus {
+  border-color:#d4a853;
+}
+.register-form input::placeholder {
+  color:rgba(255,255,255,0.3);
+}
+.form-success {
+  display:none;
+  text-align:center;
+  padding:3rem 2rem;
+  max-width:500px;
+  margin:0 auto;
+}
+.form-success.show { display:block; }
+.form-success .check-circle {
+  width:80px; height:80px;
+  border-radius:50%;
+  background:rgba(212,168,83,0.12);
+  border:2px solid #d4a853;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 1.5rem;
+  font-size:2.5rem;
+  animation: scaleIn 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes scaleIn {
+  0% { transform:scale(0); opacity:0; }
+  100% { transform:scale(1); opacity:1; }
+}
+.form-success h3 {
+  font-family:'Playfair Display',serif;
+  font-size:1.6rem; color:#fff;
+  margin-bottom:0.8rem;
+}
+.form-success p {
+  color:rgba(255,255,255,0.5);
+  font-size:0.95rem; line-height:1.7;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding:4rem 3rem 2rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  background:#080c16;
+}
+.footer-grid {
+  max-width:1300px; margin:0 auto;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;
+}
+.footer-brand {
+  font-family:'Playfair Display', serif;
+  font-size:1.6rem; font-weight:700;
+  color:#d4a853;
+  margin-bottom:1rem;
+}
+.footer-desc {
+  font-size:0.88rem;
+  color:rgba(255,255,255,0.4);
+  line-height:1.7;
+  max-width:350px;
+}
+.footer-heading {
+  font-size:0.75rem;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:#d4a853;
+  margin-bottom:1.2rem;
+}
+.footer-links { list-style:none; }
+.footer-links li { margin-bottom:0.8rem; }
+.footer-links a {
+  color:rgba(255,255,255,0.4);
+  text-decoration:none;
+  font-size:0.88rem;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color:#d4a853; }
+.footer-bottom {
+  max-width:1300px; margin:3rem auto 0;
+  padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;
+  justify-content:space-between;
+  font-size:0.78rem;
+  color:rgba(255,255,255,0.25);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp {
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeIn {
+  to { opacity:1; }
+}
+@keyframes scrollPulse {
+  0%,100% { opacity:0.3; transform:scaleY(1); }
+  50% { opacity:1; transform:scaleY(1.2); }
+}
+@keyframes marquee {
+  0% { transform:translateX(0); }
+  100% { transform:translateX(-50%); }
+}
+@keyframes float {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-10px); }
+}
+
+/* ========== REVEAL ANIMATION ========== */
+.reveal {
+  opacity:0;
+  transform:translateY(40px);
+  transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ========== MAGNETIC TEXT ========== */
+.text-reveal {
+  overflow:hidden;
+  display:inline-block;
+}
+.text-reveal span {
+  display:inline-block;
+  transform:translateY(105%);
+  animation: textReveal 0.8s forwards;
+}
+@keyframes textReveal {
+  to { transform:translateY(0); }
+}
+
+/* ========== TOPO LINES BG ========== */
+.topo-bg {
+  position:absolute; inset:0;
+  opacity:0.04;
+  pointer-events:none;
+  background-image:
+    repeating-conic-gradient(
+      rgba(212,168,83,0.3) 0% 25%, transparent 0% 50%
+    );
+  background-size:60px 60px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width:1024px) {
+  .about-grid, .venue-grid { grid-template-columns:1fr; gap:3rem; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .timeline::before { left:0; }
+  .timeline-item { grid-template-columns:1fr; gap:0.5rem; }
+  .tl-time { text-align:left !important; }
+  .tl-content { text-align:left !important; order:2 !important; }
+}
+@media (max-width:768px) {
+  .navbar { padding:1rem 1.5rem; }
+  .nav-links { display:none; }
+  .section { padding:5rem 1.5rem; }
+  .countdown-wrap { gap:2rem; }
+  .countdown-num { font-size:3rem; }
+  .topics-grid { grid-template-columns:1fr; }
+  .speakers-grid { grid-template-columns:repeat(2, 1fr); }
+  .footer-grid { grid-template-columns:1fr; }
+  .cursor-dot, .cursor-ring { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">ERZİNCAN '26</div>
+  <ul class="nav-links">
+    <li><a href="#about" data-i18n="nav_about">Hakkında</a></li>
+    <li><a href="#topics" data-i18n="nav_topics">Konular</a></li>
+    <li><a href="#speakers" data-i18n="nav_speakers">Konuşmacılar</a></li>
+    <li><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
+    <li><a href="#venue" data-i18n="nav_venue">Mekan</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:0;">
+    <a href="#register" class="nav-cta" data-i18n="nav_cta">Kayıt Ol</a>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('tr')"><img src="https://flagcdn.com/w20/tr.png" width="16" height="11" alt="TR" style="vertical-align:-1px;margin-right:4px;">TR</button>
+      <button class="lang-btn" onclick="setLang('en')"><img src="https://flagcdn.com/w20/gb.png" width="16" height="11" alt="EN" style="vertical-align:-1px;margin-right:4px;">EN</button>
+      <button class="lang-btn" onclick="setLang('it')"><img src="https://flagcdn.com/w20/it.png" width="16" height="11" alt="IT" style="vertical-align:-1px;margin-right:4px;">IT</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <canvas id="hero-particles"></canvas>
+  <div class="hero-content">
+    <div class="hero-date">
+      <span class="line"></span>
+      <span data-i18n="hero_date">18 — 21 Haziran 2026</span>
+      <span class="line"></span>
+    </div>
+    <h1 class="hero-title" data-i18n-html="hero_title">
+      Erzincan'ın<br>
+      <span class="gold">Jeolojik</span> ve Kültürel<br>
+      Mirası Çalıştayı
+    </h1>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">Binlerce yıllık jeolojik mirası keşfet</p>
+    <p class="hero-location" data-i18n="hero_location">📍 Erzincan Binali Yıldırım Üniversitesi &bull; Erzincan, Türkiye</p>
+    <div class="hero-btns">
+      <a href="#register" class="btn-primary" data-i18n="hero_btn_register">Kayıt Ol</a>
+      <a href="#topics" class="btn-outline" data-i18n="hero_btn_program">Programı İncele</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span data-i18n="scroll_explore">Keşfet</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="countdown-wrap" id="countdown">
+    <div class="countdown-item"><div class="countdown-num" id="cd-days">228</div><div class="countdown-label" data-i18n="cd_days">Gün</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-hours">14</div><div class="countdown-label" data-i18n="cd_hours">Saat</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-mins">32</div><div class="countdown-label" data-i18n="cd_mins">Dakika</div></div>
+    <div class="countdown-item"><div class="countdown-num" id="cd-secs">08</div><div class="countdown-label" data-i18n="cd_secs">Saniye</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <img src="fotolar/girlevik.jpg" alt="Erzincan" class="about-img">
+      <div class="about-img-accent"></div>
+    </div>
+    <div class="about-text">
+      <div class="section-label" data-i18n="about_label">Çalıştay Hakkında</div>
+      <h2 class="section-title" data-i18n-html="about_title">Anadolu'nun Kalbinde<br>Jeolojik Keşif</h2>
+      <p class="section-desc" data-i18n="about_p1">
+        Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları'ndan Munzur Sıradağları'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan'ın binlerce yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.
+      </p>
+      <p class="section-desc" style="margin-top:1rem;" data-i18n="about_p2">
+        Dört günlük program boyunca saha gezileri, atölye çalışmaları, poster sunumları ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, buzul göllerini, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.
+      </p>
+      <div class="about-stats">
+        <div><div class="stat-num">30+</div><div class="stat-label" data-i18n="stat_speakers">Konuşmacı</div></div>
+        <div><div class="stat-num">4</div><div class="stat-label" data-i18n="stat_days">Gün</div></div>
+        <div><div class="stat-num">5</div><div class="stat-label" data-i18n="stat_trips">Saha Gezisi</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOPICS -->
+<section class="section topics" id="topics">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="topics_label">Çalıştay Konuları</div>
+    <h2 class="section-title reveal" data-i18n="topics_title">Araştırma Alanları</h2>
+    <p class="section-desc reveal" data-i18n="topics_desc">Disiplinlerarası bir yaklaşımla Erzincan'ın doğal ve kültürel mirasının farklı boyutlarını ele alıyoruz.</p>
+  </div>
+  <div class="topics-grid">
+    <div class="topic-card">
+      <div class="topic-num">01</div>
+      <div class="topic-title" data-i18n="t1_title">Tektonik ve Sismoloji</div>
+      <div class="topic-desc" data-i18n="t1_desc">Kuzey Anadolu Fay Hattı'nın Erzincan segmenti, deprem tarihi, aktif tektonik yapılar ve sismik risk değerlendirmesi.</div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-num">02</div>
+      <div class="topic-title" data-i18n="t2_title">Buzul Jeolojisi ve Jeomorfoloji</div>
+      <div class="topic-desc" data-i18n="t2_desc">Keşiş Dağı buzul gölleri, moren çökelleri, periglasyal şekiller ve kuvaterner iklim değişiklikleri.</div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-num">03</div>
+      <div class="topic-title" data-i18n="t3_title">Stratigrafik ve Sedimantoloji</div>
+      <div class="topic-desc" data-i18n="t3_desc">Kemah Formasyonu, Erzincan Ovası sedimantasyonu, miyosen ve pliyosen çökel kayıtları.</div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-num">04</div>
+      <div class="topic-title" data-i18n="t4_title">Kültürel Miras ve Arkeoloji</div>
+      <div class="topic-desc" data-i18n="t4_desc">Altıntepe Höyüğü, Kemah Kalesi, Mama Hatun Türbesi, tarihi yapıların korunması ve restorasyon çalışmaları.</div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-num">05</div>
+      <div class="topic-title" data-i18n="t5_title">Jeoturizm ve Sürdürülebilirlik</div>
+      <div class="topic-desc" data-i18n="t5_desc">Karanlık Kanyon, Girlevik Şelalesi, jeoparklar ve eko-turizm potansiyeli, sürdürülebilir kalkınma stratejileri.</div>
+    </div>
+    <div class="topic-card">
+      <div class="topic-num">06</div>
+      <div class="topic-title" data-i18n="t6_title">Doğal Kaynaklar ve Çevre</div>
+      <div class="topic-desc" data-i18n="t6_desc">Fırat Nehri havzası, su kaynakları yönetimi, maden kaynakları, biyoçeşitlilik ve çevre koruma.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPEAKERS -->
+<section class="section" id="speakers">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="speakers_label">Davetli Konuşmacılar</div>
+    <h2 class="section-title reveal" data-i18n="speakers_title">Uzman Kadromuz</h2>
+    <p class="section-desc reveal" data-i18n="speakers_desc">Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.</p>
+  </div>
+  <div class="speakers-grid">
+    <div class="speaker-card">
+      <img src="fotolar/speaker1.jpg" alt="Konuşmacı" class="speaker-img">
+      <div class="speaker-info">
+        <div class="speaker-name">Prof. Dr. [İsim]</div>
+        <div class="speaker-role">Tektonik & Sismoloji</div>
+        <div class="speaker-uni">Erzincan Binali Yıldırım Üniversitesi</div>
+      </div>
+    </div>
+    <div class="speaker-card">
+      <img src="fotolar/speaker2.jpg" alt="Konuşmacı" class="speaker-img">
+      <div class="speaker-info">
+        <div class="speaker-name">Prof. Dr. [İsim]</div>
+        <div class="speaker-role">Buzul Jeolojisi</div>
+        <div class="speaker-uni">İstanbul Teknik Üniversitesi</div>
+      </div>
+    </div>
+    <div class="speaker-card">
+      <img src="fotolar/speaker3.jpg" alt="Konuşmacı" class="speaker-img">
+      <div class="speaker-info">
+        <div class="speaker-name">Prof. Dr. [İsim]</div>
+        <div class="speaker-role">Kültürel Miras</div>
+        <div class="speaker-uni">Ankara Üniversitesi</div>
+      </div>
+    </div>
+    <div class="speaker-card">
+      <img src="fotolar/kemah-fm.jpg" alt="Konuşmacı" class="speaker-img">
+      <div class="speaker-info">
+        <div class="speaker-name">Prof. Dr. [İsim]</div>
+        <div class="speaker-role">Stratigrafik</div>
+        <div class="speaker-uni">Hacettepe Üniversitesi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section gallery" id="gallery">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="gallery_label">Galeri</div>
+    <h2 class="section-title reveal" data-i18n="gallery_title">Erzincan'dan Kareler</h2>
+  </div>
+  <div class="gallery-marquee">
+    <img src="fotolar/buzul-golu.jpg" alt="Buzul Gölü">
+    <img src="fotolar/kemah-formasyonu.jpg" alt="Kemah Formasyonu">
+    <img src="fotolar/girlevik.jpg" alt="Girlevik">
+    <img src="fotolar/moren.jpg" alt="Keşiş Dağı">
+    <img src="fotolar/speaker1.jpg" alt="Erzincan">
+    <img src="fotolar/speaker2.jpg" alt="Erzincan">
+    <img src="fotolar/speaker3.jpg" alt="Erzincan">
+    <!-- Duplicate for seamless loop -->
+    <img src="fotolar/buzul-golu.jpg" alt="Buzul Gölü">
+    <img src="fotolar/kemah-formasyonu.jpg" alt="Kemah Formasyonu">
+    <img src="fotolar/girlevik.jpg" alt="Girlevik">
+    <img src="fotolar/moren.jpg" alt="Keşiş Dağı">
+    <img src="fotolar/speaker1.jpg" alt="Erzincan">
+    <img src="fotolar/speaker2.jpg" alt="Erzincan">
+    <img src="fotolar/speaker3.jpg" alt="Erzincan">
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="section schedule" id="schedule">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="schedule_label">Program</div>
+    <h2 class="section-title reveal" data-i18n="schedule_title">Çalıştay Programı</h2>
+    <p class="section-desc reveal" data-i18n="schedule_desc">Dört gün sürecek yoğun ve verimli bir program sizi bekliyor.</p>
+
+    <!-- Day tabs -->
+    <div style="display:flex;gap:1rem;margin-top:2rem;margin-bottom:1rem;flex-wrap:wrap;">
+      <button class="day-tab active" onclick="switchDay(1)" data-i18n="day1_tab">1. Gün — 18 Haziran</button>
+      <button class="day-tab" onclick="switchDay(2)" data-i18n="day2_tab">2. Gün — 19 Haziran</button>
+      <button class="day-tab" onclick="switchDay(3)" data-i18n="day3_tab">3. Gün — 20 Haziran</button>
+      <button class="day-tab" onclick="switchDay(4)" data-i18n="day4_tab">4. Gün — 21 Haziran</button>
+    </div>
+    <style>
+      .day-tab {
+        padding:0.7rem 2rem;
+        background:transparent;
+        border:1px solid rgba(255,255,255,0.1);
+        color:rgba(255,255,255,0.5);
+        font-family:'Inter',sans-serif;
+        font-size:0.85rem; font-weight:500;
+        cursor:pointer;
+        transition:all 0.3s;
+        letter-spacing:0.03em;
+      }
+      .day-tab.active {
+        border-color:#d4a853;
+        color:#d4a853;
+        background:rgba(212,168,83,0.08);
+      }
+      .day-tab:hover { border-color:rgba(212,168,83,0.5); color:#d4a853; }
+      .day-panel { display:none; }
+      .day-panel.active { display:block; }
+    </style>
+  </div>
+
+  <div class="day-panel active" id="day1">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Açılış Töreni</div>
+          <div class="tl-desc">Hoş geldiniz konuşmaları ve çalıştayın tanıtımı</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Kuzey Anadolu Fay Hattı ve Erzincan</div>
+          <div class="tl-desc">Erzincan segmentinin tektonik özellikleri ve sismik aktivite</div>
+          <span class="tl-speaker-tag">Davetli Konuşmacı</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">11:30</div>
+        <div class="tl-content">
+          <div class="tl-title">Keşiş Dağı Buzul Gölleri</div>
+          <div class="tl-desc">Yedi Göller bölgesinin buzul jeomorfolojisi ve paleoklimatik önemi</div>
+          <span class="tl-speaker-tag">Davetli Konuşmacı</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Poster Sunumları — Oturum I</div>
+          <div class="tl-desc">Katılımcı poster sunumları ve tartışma</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Panel: Jeoturizm Potansiyeli</div>
+          <div class="tl-desc">Erzincan'ın jeoturizm değerlerinin tartışılması</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Karşılama Yemeği</div>
+          <div class="tl-desc">Erzincan yöresel mutfağı eşliğinde tanışma yemeği</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-panel" id="day2">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-time">08:30</div>
+        <div class="tl-content">
+          <div class="tl-title">Saha Gezisi: Kemah Formasyonu</div>
+          <div class="tl-desc">Erken Miyosen yaşlı kıvrımlı yapıların incelenmesi</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">12:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Saha Gezisi: Kemah Kalesi & Karanlık Kanyon</div>
+          <div class="tl-desc">Tarihi kale ve jeolojik oluşumların yerinde incelenmesi</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Atölye: CBS ile Jeolojik Haritalama</div>
+          <div class="tl-desc">Coğrafi Bilgi Sistemleri kullanarak jeolojik haritalama uygulamaları</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">17:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Poster Sunumları — Oturum II</div>
+          <div class="tl-desc">Katılımcı poster sunumları ve tartışma</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-panel" id="day3">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Altıntepe Höyüğü ve Urartu Mirası</div>
+          <div class="tl-desc">Erzincan'ın arkeolojik zenginlikleri ve Urartu dönemi</div>
+          <span class="tl-speaker-tag">Davetli Konuşmacı</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-content">
+          <div class="tl-title">Mama Hatun Türbesi: Mimari Analiz</div>
+          <div class="tl-desc">Selçuklu dönemi mimarisinin incelenmesi</div>
+          <span class="tl-speaker-tag">Davetli Konuşmacı</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-content">
+          <div class="tl-title">Saha Gezisi: Girlevik Şelalesi</div>
+          <div class="tl-desc">Traverten oluşumları ve hidrojeolojik inceleme</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Poster Sunumları — Oturum III</div>
+          <div class="tl-desc">Katılımcı poster sunumları ve tartışma</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-panel" id="day4">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Doğal Kaynaklar ve Çevre Paneli</div>
+          <div class="tl-desc">Fırat Nehri havzası, su kaynakları yönetimi ve biyoçeşitlilik</div>
+          <span class="tl-speaker-tag">Davetli Konuşmacı</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-content">
+          <div class="tl-title">Sürdürülebilir Kalkınma ve Jeoparklar</div>
+          <div class="tl-desc">Erzincan'ın jeopark potansiyeli ve sürdürülebilir kalkınma stratejileri</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-content">
+          <div class="tl-title">Saha Gezisi: Karanlık Kanyon</div>
+          <div class="tl-desc">Kanyon jeomorfolojisi ve ekoturizm potansiyelinin incelenmesi</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Kapanış Oturumu & Sonuç Bildirgesi</div>
+          <div class="tl-desc">Çalıştay sonuçlarının değerlendirilmesi ve gelecek adımlar</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-content">
+          <div class="tl-title">Veda Yemeği</div>
+          <div class="tl-desc">Çalıştay değerlendirmesi ve sertifika takdimi</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VENUE -->
+<section class="section" id="venue">
+  <div class="venue-grid">
+    <div class="venue-map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48870.42791827858!2d39.4689!3d39.7467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407837d1c7b9f4e5%3A0x4c2b1b7e60f4f3a9!2sErzincan!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+        width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2);" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="venue-details">
+      <div class="section-label" data-i18n="venue_label">Mekan</div>
+      <h2 class="section-title" data-i18n="venue_title">Etkinlik Yeri</h2>
+      <div class="venue-item">
+        <div class="venue-item-label">Üniversite</div>
+        <div class="venue-item-value">Erzincan Binali Yıldırım Üniversitesi</div>
+      </div>
+      <div class="venue-item">
+        <div class="venue-item-label">Salon</div>
+        <div class="venue-item-value">Merkezi Konferans Salonu</div>
+      </div>
+      <div class="venue-item">
+        <div class="venue-item-label">Adres</div>
+        <div class="venue-item-value">Yalnızbağ Yerleşkesi, 24100 Erzincan</div>
+      </div>
+      <div class="venue-item">
+        <div class="venue-item-label">Ulaşım</div>
+        <div class="venue-item-value">Erzincan Havalimanı'na 8 km</div>
+      </div>
+      <div class="venue-item">
+        <div class="venue-item-label">Konaklama</div>
+        <div class="venue-item-value">Anlaşmalı oteller için iletişime geçin</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSORS -->
+<section class="section sponsors" id="sponsors">
+  <div style="max-width:1300px;margin:0 auto;text-align:center;">
+    <div class="section-label reveal" data-i18n="sponsors_label">Destekçiler</div>
+    <h2 class="section-title reveal" data-i18n="sponsors_title">Kurumsal Destekçilerimiz</h2>
+    <div class="sponsor-tier" style="margin-top:3rem;">Ana Sponsor</div>
+    <div class="sponsors-row">
+      <div class="sponsor-logo" style="width:200px;height:90px;">TÜBİTAK</div>
+      <div class="sponsor-logo" style="width:200px;height:90px;">MTA</div>
+    </div>
+    <div class="sponsor-tier" style="margin-top:2rem;">Kurumsal Destek</div>
+    <div class="sponsors-row">
+      <div class="sponsor-logo">EBYU</div>
+      <div class="sponsor-logo">JEMIRKO</div>
+      <div class="sponsor-logo">TMMOB</div>
+      <div class="sponsor-logo">JMO</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<section class="section register-section" id="register">
+  <div class="section-label reveal" data-i18n="reg_label">Kayıt</div>
+  <h2 class="section-title reveal" data-i18n="reg_title">Çalıştaya Katılın</h2>
+  <p class="section-desc reveal" data-i18n="reg_desc">Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.</p>
+  <form class="register-form reveal" id="registerForm" name="workshop-register" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="workshop-register">
+    <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+    <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
+    <input type="email" name="email" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
+    <input type="text" name="institution" data-ph-i18n="ph_inst" placeholder="Kurum / Üniversite">
+    <input type="text" name="field" data-ph-i18n="ph_field" placeholder="Uzmanlık Alanınız">
+    <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="reg_btn">Ön Kayıt Yap</button>
+  </form>
+  <div class="form-success" id="formSuccess">
+    <div class="check-circle">✓</div>
+    <h3 data-i18n="success_title">Kaydınız Alınmıştır!</h3>
+    <p data-i18n="success_desc">Ön kaydınız başarıyla tamamlanmıştır. Detaylı bilgi ve onay e-postanız en kısa sürede iletilecektir.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Erzincan '26</div>
+      <p class="footer-desc" data-i18n="footer_desc">Erzincan'ın Jeolojik ve Kültürel Mirası Çalıştayı, Erzincan Binali Yıldırım Üniversitesi ev sahipliğinde düzenlenmektedir.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Bağlantılar</div>
+      <ul class="footer-links">
+        <li><a href="#about">Hakkında</a></li>
+        <li><a href="#topics">Konular</a></li>
+        <li><a href="#speakers">Konuşmacılar</a></li>
+        <li><a href="#schedule">Program</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Bilgiler</div>
+      <ul class="footer-links">
+        <li><a href="#venue">Mekan & Ulaşım</a></li>
+        <li><a href="#register">Kayıt</a></li>
+        <li><a href="#">Bildiri Gönder</a></li>
+        <li><a href="#">SSS</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">İletişim</div>
+      <ul class="footer-links">
+        <li><a href="mailto:calistay@erzincan.edu.tr">calistay@erzincan.edu.tr</a></li>
+        <li><a href="#">+90 446 XXX XX XX</a></li>
+        <li><a href="#">Twitter / X</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 Erzincan Jeolojik ve Kültürel Miras Çalıştayı</span>
+    <span>Tüm hakları saklıdır.</span>
+  </div>
+</footer>
+
+<script>
+// ========== CUSTOM CURSOR ==========
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX - 4 + 'px';
+  dot.style.top = mouseY - 4 + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.15;
+  ringY += (mouseY - ringY) * 0.15;
+  ring.style.left = ringX - 20 + 'px';
+  ring.style.top = ringY - 20 + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Hover effect on links/buttons
+document.querySelectorAll('a, button, .topic-card, .speaker-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    ring.style.width = '60px'; ring.style.height = '60px';
+    ring.style.borderColor = 'rgba(212,168,83,0.8)';
+  });
+  el.addEventListener('mouseleave', () => {
+    ring.style.width = '40px'; ring.style.height = '40px';
+    ring.style.borderColor = 'rgba(212,168,83,0.5)';
+  });
+});
+
+// ========== NAVBAR SCROLL ==========
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 80);
+});
+
+// ========== HERO LOADED ==========
+window.addEventListener('load', () => {
+  document.querySelector('.hero').classList.add('loaded');
+});
+
+// ========== HERO PARTICLES ==========
+const canvas = document.getElementById('hero-particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() {
+    this.reset();
+  }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.3;
+    this.speedY = (Math.random() - 0.5) * 0.3;
+    this.opacity = Math.random() * 0.5 + 0.1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(212,168,83,${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+
+  // Draw connections
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(212,168,83,${0.08 * (1 - dist / 120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ========== COUNTDOWN ==========
+function updateCountdown() {
+  const target = new Date('2026-06-18T09:00:00+03:00');
+  const now = new Date();
+  const diff = target - now;
+  if (diff <= 0) return;
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const s = Math.floor((diff % (1000*60)) / 1000);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ========== FORM SUBMISSION ==========
+const regForm = document.getElementById('registerForm');
+const formSuccess = document.getElementById('formSuccess');
+regForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(regForm);
+  fetch('/', {
+    method:'POST',
+    headers:{'Content-Type':'application/x-www-form-urlencoded'},
+    body: new URLSearchParams(formData).toString()
+  }).then(() => {
+    regForm.style.display = 'none';
+    formSuccess.classList.add('show');
+  }).catch(() => {
+    regForm.style.display = 'none';
+    formSuccess.classList.add('show');
+  });
+});
+
+// ========== INTERSECTION OBSERVER ==========
+const observerOpts = { threshold:0.15, rootMargin:'0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOpts);
+
+document.querySelectorAll('.reveal, .topic-card, .speaker-card, .timeline-item, .countdown-item, .about-img-wrap, .about-text, .venue-map, .venue-details').forEach(el => {
+  observer.observe(el);
+});
+
+// Stagger topic cards
+document.querySelectorAll('.topic-card').forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.1}s`;
+});
+document.querySelectorAll('.speaker-card').forEach((card, i) => {
+  card.style.transitionDelay = `${i * 0.15}s`;
+});
+document.querySelectorAll('.countdown-item').forEach((item, i) => {
+  item.style.animationDelay = `${i * 0.15}s`;
+});
+document.querySelectorAll('.timeline-item').forEach((item, i) => {
+  item.style.transitionDelay = `${i * 0.1}s`;
+});
+
+// ========== PARALLAX ==========
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg && scrollY < window.innerHeight) {
+    heroBg.style.transform = `scale(${1 + scrollY * 0.0001}) translateY(${scrollY * 0.3}px)`;
+  }
+});
+
+// ========== DAY SWITCHER ==========
+function switchDay(n) {
+  document.querySelectorAll('.day-tab').forEach((t,i) => t.classList.toggle('active', i === n-1));
+  document.querySelectorAll('.day-panel').forEach((p,i) => p.classList.toggle('active', i === n-1));
+  // Re-observe timeline items
+  document.querySelectorAll(`#day${n} .timeline-item`).forEach(el => {
+    el.classList.remove('visible');
+    observer.observe(el);
+  });
+}
+
+// ========== SMOOTH ANCHOR ==========
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+});
+
+// ========== i18n LANGUAGE SYSTEM ==========
+let currentLang = 'tr';
+const T = {
+  tr: {
+    nav_about:'Hakkında', nav_topics:'Konular', nav_speakers:'Konuşmacılar', nav_schedule:'Program', nav_venue:'Mekan', nav_cta:'Kayıt Ol',
+    hero_date:'18 — 21 Haziran 2026',
+    hero_title:'Erzincan\'ın<br><span class="gold">Jeolojik</span> ve Kültürel<br>Mirası Çalıştayı',
+    hero_subtitle:'Binlerce yıllık jeolojik mirası keşfet',
+    hero_location:'📍 Erzincan Binali Yıldırım Üniversitesi \u2022 Erzincan, Türkiye',
+    hero_btn_register:'Kayıt Ol', hero_btn_program:'Programı İncele',
+    scroll_explore:'Keşfet',
+    cd_days:'Gün', cd_hours:'Saat', cd_mins:'Dakika', cd_secs:'Saniye',
+    about_label:'Çalıştay Hakkında',
+    about_title:'Anadolu\'nun Kalbinde<br>Jeolojik Keşif',
+    about_p1:'Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları\'ndan Munzur Sıradağları\'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan\'ın binlerce yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.',
+    about_p2:'Dört günlük program boyunca saha gezileri, atölye çalışmaları, poster sunumları ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, buzul göllerini, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.',
+    stat_speakers:'Konuşmacı', stat_days:'Gün', stat_trips:'Saha Gezisi',
+    topics_label:'Çalıştay Konuları', topics_title:'Araştırma Alanları',
+    topics_desc:'Disiplinlerarası bir yaklaşımla Erzincan\'ın doğal ve kültürel mirasının farklı boyutlarını ele alıyoruz.',
+    t1_title:'Tektonik ve Sismoloji', t1_desc:'Kuzey Anadolu Fay Hattı\'nın Erzincan segmenti, deprem tarihi, aktif tektonik yapılar ve sismik risk değerlendirmesi.',
+    t2_title:'Buzul Jeolojisi ve Jeomorfoloji', t2_desc:'Keşiş Dağı buzul gölleri, moren çökelleri, periglasyal şekiller ve kuvaterner iklim değişiklikleri.',
+    t3_title:'Stratigrafik ve Sedimantoloji', t3_desc:'Kemah Formasyonu, Erzincan Ovası sedimantasyonu, miyosen ve pliyosen çökel kayıtları.',
+    t4_title:'Kültürel Miras ve Arkeoloji', t4_desc:'Altıntepe Höyüğü, Kemah Kalesi, Mama Hatun Türbesi, tarihi yapıların korunması ve restorasyon çalışmaları.',
+    t5_title:'Jeoturizm ve Sürdürülebilirlik', t5_desc:'Karanlık Kanyon, Girlevik Şelalesi, jeoparklar ve eko-turizm potansiyeli, sürdürülebilir kalkınma stratejileri.',
+    t6_title:'Doğal Kaynaklar ve Çevre', t6_desc:'Fırat Nehri havzası, su kaynakları yönetimi, maden kaynakları, biyoçeşitlilik ve çevre koruma.',
+    speakers_label:'Davetli Konuşmacılar', speakers_title:'Uzman Kadromuz', speakers_desc:'Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.',
+    gallery_label:'Galeri', gallery_title:'Erzincan\'dan Kareler',
+    schedule_label:'Program', schedule_title:'Çalıştay Programı', schedule_desc:'Dört gün sürecek yoğun ve verimli bir program sizi bekliyor.',
+    day1_tab:'1. Gün — 18 Haziran', day2_tab:'2. Gün — 19 Haziran', day3_tab:'3. Gün — 20 Haziran', day4_tab:'4. Gün — 21 Haziran',
+    venue_label:'Mekan', venue_title:'Etkinlik Yeri',
+    sponsors_label:'Destekçiler', sponsors_title:'Kurumsal Destekçilerimiz',
+    reg_label:'Kayıt', reg_title:'Çalıştaya Katılın', reg_desc:'Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.', reg_btn:'Ön Kayıt Yap',
+    ph_name:'Adınız Soyadınız', ph_email:'E-posta Adresiniz', ph_inst:'Kurum / Üniversite', ph_field:'Uzmanlık Alanınız',
+    success_title:'Kaydınız Alınmıştır!', success_desc:'Ön kaydınız başarıyla tamamlanmıştır. Detaylı bilgi ve onay e-postanız en kısa sürede iletilecektir.',
+    footer_desc:'Erzincan\'ın Jeolojik ve Kültürel Mirası Çalıştayı, Erzincan Binali Yıldırım Üniversitesi ev sahipliğinde düzenlenmektedir.'
+  },
+  en: {
+    nav_about:'About', nav_topics:'Topics', nav_speakers:'Speakers', nav_schedule:'Program', nav_venue:'Venue', nav_cta:'Register',
+    hero_date:'June 18 — 21, 2026',
+    hero_title:'Erzincan\'s<br><span class="gold">Geological</span> & Cultural<br>Heritage Workshop',
+    hero_subtitle:'Discover millennia of geological heritage',
+    hero_location:'📍 Erzincan Binali Yıldırım University \u2022 Erzincan, Türkiye',
+    hero_btn_register:'Register', hero_btn_program:'View Program',
+    scroll_explore:'Explore',
+    cd_days:'Days', cd_hours:'Hours', cd_mins:'Minutes', cd_secs:'Seconds',
+    about_label:'About the Workshop',
+    about_title:'Geological Discovery<br>in the Heart of Anatolia',
+    about_p1:'Erzincan, situated on the North Anatolian Fault Zone, possesses a unique geological heritage extending from the Esence Mountains to the Munzur Range. This workshop aims to bring together geologists, archaeologists, cultural heritage specialists and researchers to explore Erzincan\'s millennia-old natural and cultural richness.',
+    about_p2:'Throughout the four-day program, participants will have the opportunity to examine the region\'s geological formations, glacial lakes, historical structures and cultural heritage through field trips, workshops, poster sessions and invited speaker sessions.',
+    stat_speakers:'Speakers', stat_days:'Days', stat_trips:'Field Trips',
+    topics_label:'Workshop Topics', topics_title:'Research Areas',
+    topics_desc:'We address different dimensions of Erzincan\'s natural and cultural heritage through an interdisciplinary approach.',
+    t1_title:'Tectonics & Seismology', t1_desc:'The Erzincan segment of the North Anatolian Fault Zone, earthquake history, active tectonic structures and seismic risk assessment.',
+    t2_title:'Glacial Geology & Geomorphology', t2_desc:'Keşiş Mountain glacial lakes, moraine deposits, periglacial landforms and Quaternary climate changes.',
+    t3_title:'Stratigraphy & Sedimentology', t3_desc:'Kemah Formation, Erzincan Plain sedimentation, Miocene and Pliocene sedimentary records.',
+    t4_title:'Cultural Heritage & Archaeology', t4_desc:'Altıntepe Mound, Kemah Castle, Mama Hatun Tomb, conservation and restoration of historical structures.',
+    t5_title:'Geotourism & Sustainability', t5_desc:'Dark Canyon, Girlevik Waterfall, geoparks and eco-tourism potential, sustainable development strategies.',
+    t6_title:'Natural Resources & Environment', t6_desc:'Euphrates River basin, water resources management, mineral resources, biodiversity and environmental conservation.',
+    speakers_label:'Invited Speakers', speakers_title:'Our Expert Panel', speakers_desc:'Leading academics and researchers contribute to our workshop.',
+    gallery_label:'Gallery', gallery_title:'Scenes from Erzincan',
+    schedule_label:'Program', schedule_title:'Workshop Program', schedule_desc:'An intensive and productive four-day program awaits you.',
+    day1_tab:'Day 1 — Jun 18', day2_tab:'Day 2 — Jun 19', day3_tab:'Day 3 — Jun 20', day4_tab:'Day 4 — Jun 21',
+    venue_label:'Venue', venue_title:'Event Location',
+    sponsors_label:'Supporters', sponsors_title:'Our Institutional Partners',
+    reg_label:'Registration', reg_title:'Join the Workshop', reg_desc:'Fill out the form to take advantage of early registration. Places are limited.', reg_btn:'Pre-Register',
+    ph_name:'Full Name', ph_email:'Email Address', ph_inst:'Institution / University', ph_field:'Field of Expertise',
+    success_title:'Registration Received!', success_desc:'Your pre-registration has been completed successfully. A confirmation email with detailed information will be sent to you shortly.',
+    footer_desc:'The Geological and Cultural Heritage of Erzincan Workshop is hosted by Erzincan Binali Yıldırım University.'
+  },
+  it: {
+    nav_about:'Chi siamo', nav_topics:'Temi', nav_speakers:'Relatori', nav_schedule:'Programma', nav_venue:'Sede', nav_cta:'Registrati',
+    hero_date:'18 — 21 Giugno 2026',
+    hero_title:'Patrimonio<br><span class="gold">Geologico</span> e Culturale<br>di Erzincan — Workshop',
+    hero_subtitle:'Scopri millenni di patrimonio geologico',
+    hero_location:'📍 Università Erzincan Binali Yıldırım \u2022 Erzincan, Turchia',
+    hero_btn_register:'Registrati', hero_btn_program:'Vedi Programma',
+    scroll_explore:'Scopri',
+    cd_days:'Giorni', cd_hours:'Ore', cd_mins:'Minuti', cd_secs:'Secondi',
+    about_label:'Informazioni sul Workshop',
+    about_title:'Scoperta Geologica<br>nel Cuore dell\'Anatolia',
+    about_p1:'Erzincan, situata sulla Faglia Nord-Anatolica, possiede un patrimonio geologico unico che si estende dai Monti Esence alla Catena del Munzur. Questo workshop mira a riunire geologi, archeologi, specialisti del patrimonio culturale e ricercatori per esplorare la ricchezza naturale e culturale millenaria di Erzincan.',
+    about_p2:'Durante il programma di quattro giorni, i partecipanti avranno l\'opportunità di esaminare le formazioni geologiche, i laghi glaciali, le strutture storiche e il patrimonio culturale della regione attraverso escursioni, laboratori, sessioni poster e relazioni su invito.',
+    stat_speakers:'Relatori', stat_days:'Giorni', stat_trips:'Escursioni',
+    topics_label:'Temi del Workshop', topics_title:'Aree di Ricerca',
+    topics_desc:'Affrontiamo diverse dimensioni del patrimonio naturale e culturale di Erzincan con un approccio interdisciplinare.',
+    t1_title:'Tettonica e Sismologia', t1_desc:'Il segmento di Erzincan della Faglia Nord-Anatolica, storia sismica, strutture tettoniche attive e valutazione del rischio sismico.',
+    t2_title:'Geologia Glaciale e Geomorfologia', t2_desc:'Laghi glaciali del Monte Keşiş, depositi morenici, forme periglaciali e cambiamenti climatici quaternari.',
+    t3_title:'Stratigrafia e Sedimentologia', t3_desc:'Formazione di Kemah, sedimentazione della Piana di Erzincan, registrazioni sedimentarie mioceniche e plioceniche.',
+    t4_title:'Patrimonio Culturale e Archeologia', t4_desc:'Tumulo di Altıntepe, Castello di Kemah, Tomba di Mama Hatun, conservazione e restauro di strutture storiche.',
+    t5_title:'Geoturismo e Sostenibilità', t5_desc:'Canyon Oscuro, Cascata Girlevik, geoparchi e potenziale eco-turistico, strategie di sviluppo sostenibile.',
+    t6_title:'Risorse Naturali e Ambiente', t6_desc:'Bacino dell\'Eufrate, gestione delle risorse idriche, risorse minerarie, biodiversità e conservazione ambientale.',
+    speakers_label:'Relatori Invitati', speakers_title:'Il Nostro Team di Esperti', speakers_desc:'Accademici e ricercatori di spicco contribuiscono al nostro workshop.',
+    gallery_label:'Galleria', gallery_title:'Immagini da Erzincan',
+    schedule_label:'Programma', schedule_title:'Programma del Workshop', schedule_desc:'Un programma intenso e produttivo di quattro giorni vi attende.',
+    day1_tab:'Giorno 1 — 18 Giu', day2_tab:'Giorno 2 — 19 Giu', day3_tab:'Giorno 3 — 20 Giu', day4_tab:'Giorno 4 — 21 Giu',
+    venue_label:'Sede', venue_title:'Luogo dell\'Evento',
+    sponsors_label:'Sostenitori', sponsors_title:'I Nostri Partner Istituzionali',
+    reg_label:'Registrazione', reg_title:'Partecipa al Workshop', reg_desc:'Compila il modulo per usufruire della registrazione anticipata. I posti sono limitati.', reg_btn:'Pre-Registrazione',
+    ph_name:'Nome e Cognome', ph_email:'Indirizzo Email', ph_inst:'Istituzione / Università', ph_field:'Campo di Competenza',
+    success_title:'Registrazione Ricevuta!', success_desc:'La pre-registrazione è stata completata con successo. Un\'email di conferma con informazioni dettagliate vi sarà inviata a breve.',
+    footer_desc:'Il Workshop sul Patrimonio Geologico e Culturale di Erzincan è ospitato dall\'Università Erzincan Binali Yıldırım.'
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  // Update buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('onclick').includes("'" + lang + "'"));
+  });
+  // Update text content
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[lang] && T[lang][key]) el.textContent = T[lang][key];
+  });
+  // Update innerHTML (for elements with <br> and <span>)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (T[lang] && T[lang][key]) el.innerHTML = T[lang][key];
+  });
+  // Update placeholders
+  document.querySelectorAll('[data-ph-i18n]').forEach(el => {
+    const key = el.getAttribute('data-ph-i18n');
+    if (T[lang] && T[lang][key]) el.placeholder = T[lang][key];
+  });
+}
+</script>
+</body>
+</html>
