@@ -834,6 +834,64 @@ a, button { cursor: none; }
   color:rgba(255,255,255,0.25);
 }
 
+/* ========== VISITOR COUNTER — specimen card ========== */
+.visitor-counter {
+  max-width:1300px; margin:2.5rem auto 0;
+  padding-top:2rem;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:flex; justify-content:center;
+}
+.specimen-card {
+  border:1px solid rgba(212,168,83,0.15);
+  padding:1rem 2.2rem;
+  display:flex; align-items:center; gap:1.6rem;
+  position:relative;
+}
+.specimen-card::before {
+  content:''; position:absolute;
+  inset:3px; border:1px solid rgba(212,168,83,0.08);
+  pointer-events:none;
+}
+.specimen-id {
+  display:flex; flex-direction:column; align-items:center; gap:0.15rem;
+}
+.specimen-id-label {
+  font-family:'Inter', sans-serif;
+  font-size:0.5rem;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.2);
+}
+.specimen-id-number {
+  font-family:'Playfair Display', serif;
+  font-size:1.8rem;
+  font-weight:700;
+  color:#d4a853;
+  letter-spacing:0.06em;
+  line-height:1;
+}
+.specimen-divider {
+  width:1px; height:36px;
+  background:rgba(212,168,83,0.15);
+}
+.specimen-meta {
+  display:flex; flex-direction:column; gap:0.15rem;
+}
+.specimen-meta-title {
+  font-family:'Playfair Display', serif;
+  font-size:0.68rem;
+  font-style:italic;
+  color:rgba(255,255,255,0.35);
+  letter-spacing:0.08em;
+}
+.specimen-meta-sub {
+  font-family:'Inter', sans-serif;
+  font-size:0.5rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.15);
+}
+
 /* ========== ANIMATIONS ========== */
 @keyframes fadeUp {
   to { opacity:1; transform:translateY(0); }
@@ -1456,6 +1514,19 @@ a, button { cursor: none; }
     <span data-i18n="footer_copy">&copy; 2026 Erzincan Jeolojik ve Kültürel Miras Çalıştayı</span>
     <span data-i18n="footer_rights">Tüm hakları saklıdır.</span>
   </div>
+  <div class="visitor-counter">
+    <div class="specimen-card">
+      <div class="specimen-id">
+        <span class="specimen-id-label">No.</span>
+        <span class="specimen-id-number" id="visitorCount">—</span>
+      </div>
+      <div class="specimen-divider"></div>
+      <div class="specimen-meta">
+        <span class="specimen-meta-title" data-i18n="visitor_label">Toplam Ziyaretçi</span>
+        <span class="specimen-meta-sub">Erzincan — 2026</span>
+      </div>
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -1778,7 +1849,8 @@ const T = {
     // Footer
     footer_links:'Bağlantılar', footer_info:'Bilgiler', footer_contact:'İletişim',
     footer_venue_transport:'Mekan & Ulaşım', footer_register:'Kayıt', footer_submit:'Bildiri Gönder', footer_faq:'SSS',
-    footer_copy:'© 2026 Erzincan Jeolojik ve Kültürel Miras Çalıştayı', footer_rights:'Tüm hakları saklıdır.'
+    footer_copy:'© 2026 Erzincan Jeolojik ve Kültürel Miras Çalıştayı', footer_rights:'Tüm hakları saklıdır.',
+    visitor_label:'Toplam Ziyaretçi'
   },
   en: {
     nav_home_dot:'Home', nav_about:'About', nav_topics:'Topics', nav_speakers:'Speakers', nav_schedule:'Program', nav_venue:'Venue', nav_cta:'Register',
@@ -1852,7 +1924,8 @@ const T = {
     // Footer
     footer_links:'Links', footer_info:'Information', footer_contact:'Contact',
     footer_venue_transport:'Venue & Transport', footer_register:'Registration', footer_submit:'Submit Paper', footer_faq:'FAQ',
-    footer_copy:'© 2026 Erzincan Geological & Cultural Heritage Workshop', footer_rights:'All rights reserved.'
+    footer_copy:'© 2026 Erzincan Geological & Cultural Heritage Workshop', footer_rights:'All rights reserved.',
+    visitor_label:'Total Visitors'
   },
   it: {
     nav_home_dot:'Home', nav_about:'Chi siamo', nav_topics:'Temi', nav_speakers:'Relatori', nav_schedule:'Programma', nav_venue:'Sede', nav_cta:'Registrati',
@@ -1926,7 +1999,8 @@ const T = {
     // Footer
     footer_links:'Link', footer_info:'Informazioni', footer_contact:'Contatti',
     footer_venue_transport:'Sede e Trasporti', footer_register:'Registrazione', footer_submit:'Invia Articolo', footer_faq:'FAQ',
-    footer_copy:'© 2026 Workshop Patrimonio Geologico e Culturale di Erzincan', footer_rights:'Tutti i diritti riservati.'
+    footer_copy:'© 2026 Workshop Patrimonio Geologico e Culturale di Erzincan', footer_rights:'Tutti i diritti riservati.',
+    visitor_label:'Visitatori Totali'
   }
 };
 
@@ -1953,6 +2027,32 @@ function setLang(lang) {
     if (T[lang] && T[lang][key]) el.placeholder = T[lang][key];
   });
 }
+</script>
+
+<script>
+// ========== VISITOR COUNTER ==========
+// Google Apps Script endpoint — deploy your own (see counter-script.js)
+(function() {
+  var COUNTER_URL = 'https://script.google.com/macros/s/AKfycbyUQUyaeaynPb9PqLlBckpT7DbZveXSHAFelGWcVKKDtGowxaX8fuaPgMIsjWRDlFG4/exec';
+  var el = document.getElementById('visitorCount');
+
+  function animateCount(target) {
+    var duration = 1200, start = performance.now();
+    function tick(now) {
+      var progress = Math.min((now - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(target * eased).toLocaleString('tr-TR');
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Increment on every page load
+  fetch(COUNTER_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(data) { animateCount(data.count); })
+    .catch(function() { el.textContent = '—'; });
+})();
 </script>
 </body>
 </html>
