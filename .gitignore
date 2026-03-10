@@ -1,0 +1,8 @@
+.claude/
+.playwright-mcp/
+*.log
+apps-script-kod.js
+counter-script.js
+counter-final.png
+footer-counter.png
+footer-visitor-counter.png
