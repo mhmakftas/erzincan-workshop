@@ -146,6 +146,42 @@ a, button { cursor: none; }
 }
 .nav-links a:hover { color:#d4a853; }
 .nav-links a:hover::after { width:100%; }
+/* Navbar dropdown */
+.nav-dropdown { position:relative; }
+.nav-dropdown > span {
+  color:#b0b8c8; font-size:0.85rem; font-weight:500;
+  letter-spacing:0.08em; text-transform:uppercase;
+  cursor:pointer; transition:color 0.3s;
+  display:flex; align-items:center; gap:0.3rem;
+}
+.nav-dropdown > span::after {
+  content:'▾'; font-size:0.65rem; transition:transform 0.3s;
+}
+.nav-dropdown:hover > span { color:#d4a853; }
+.nav-dropdown:hover > span::after { transform:rotate(180deg); }
+.nav-dropdown-menu {
+  position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
+  background:rgba(10,15,26,0.97); border:1px solid rgba(212,168,83,0.2);
+  border-radius:8px; padding:0.5rem 0; min-width:200px;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity 0.25s, visibility 0.25s, transform 0.25s;
+  transform:translateX(-50%) translateY(8px);
+  backdrop-filter:blur(10px); box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  z-index:1001;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity:1; visibility:visible; pointer-events:auto;
+  transform:translateX(-50%) translateY(0);
+}
+.nav-dropdown-menu a {
+  display:block; padding:0.6rem 1.2rem;
+  font-size:0.8rem !important; white-space:nowrap;
+}
+.nav-dropdown-menu a::after { display:none !important; }
+.nav-dropdown-menu::before {
+  content:''; position:absolute; top:-12px; left:0; width:100%; height:12px;
+}
+.nav-dropdown-menu a:hover { background:rgba(212,168,83,0.1); }
 .nav-cta {
   padding:0.6rem 1.8rem;
   background:transparent;
@@ -197,13 +233,16 @@ a, button { cursor: none; }
 }
 .hero-bg {
   position:absolute; inset:0;
-  background:
-    linear-gradient(135deg, rgba(10,15,26,0.7), rgba(10,15,26,0.4)),
-    url('fotolar/kemah-formasyonu.jpg') center/cover;
-  transform:scale(1.1);
-  transition: transform 8s cubic-bezier(0.22,1,0.36,1);
+  background-size:cover; background-position:center;
+  transition: opacity 1.5s ease;
 }
-.hero.loaded .hero-bg { transform:scale(1); }
+.hero-bg-a, .hero-bg-b {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  transition: opacity 1.5s ease;
+}
+.hero-bg-a { opacity:1; z-index:0; }
+.hero-bg-b { opacity:0; z-index:1; }
 .hero-overlay {
   position:absolute; inset:0;
   background:
@@ -225,14 +264,23 @@ a, button { cursor: none; }
   max-width:1000px;
   padding:0 2rem;
 }
+.hero-intl {
+  display:inline-block;
+  font-size:0.8rem; font-weight:500;
+  letter-spacing:0.35em; text-transform:uppercase;
+  color:rgba(212,168,83,0.7);
+  margin-bottom:0.6rem;
+  opacity:0; transform:translateY(20px);
+  animation: fadeUp 0.7s 0.2s forwards;
+}
 .hero-date {
   display:inline-flex; align-items:center; gap:0.8rem;
   font-size:0.85rem; font-weight:500;
   letter-spacing:0.2em; text-transform:uppercase;
   color:#d4a853;
-  margin-bottom:2rem;
+  margin-bottom:0.5rem; margin-top:0;
   opacity:0; transform:translateY(30px);
-  animation: fadeUp 0.8s 0.3s forwards;
+  animation: fadeUp 0.8s 0.9s forwards;
 }
 .hero-date .line { width:40px; height:1px; background:#d4a853; }
 .hero-erzincan-img {
@@ -400,6 +448,7 @@ a, button { cursor: none; }
   color:rgba(255,255,255,0.6);
   max-width:650px;
 }
+.template-content .section-desc { margin:0 auto; text-align:center; }
 
 /* ========== ABOUT ========== */
 .about { overflow:hidden; }
@@ -587,30 +636,27 @@ a, button { cursor: none; }
 }
 
 /* ========== VENUE ========== */
-.venue-grid {
-  max-width:1300px; margin:0 auto;
+.venue-maps-row {
+  max-width:1300px; margin:2.5rem auto 0;
   display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:4rem;
-  align-items:center;
+  grid-template-columns:1fr 1fr;
+  gap:2rem;
 }
-.venue-map {
-  width:100%;
+.venue-map-box {
+  position:relative;
   aspect-ratio:16/10;
   background:#1a2235;
-  border:1px solid rgba(255,255,255,0.06);
-  display:flex; align-items:center; justify-content:center;
-  color:rgba(255,255,255,0.3);
-  font-size:0.9rem;
-  opacity:0; transform:translateX(-40px);
-  transition: all 0.8s cubic-bezier(0.22,1,0.36,1);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  overflow:hidden;
 }
-.venue-map.visible { opacity:1; transform:translateX(0); }
-.venue-details {
-  opacity:0; transform:translateX(40px);
-  transition: all 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s;
+.venue-map-box iframe { width:100%; height:100%; }
+.venue-details-row {
+  max-width:1300px; margin:2rem auto 0;
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+  gap:1.5rem;
 }
-.venue-details.visible { opacity:1; transform:translateX(0); }
 .venue-item {
   padding:1.5rem 0;
   border-bottom:1px solid rgba(255,255,255,0.06);
@@ -688,25 +734,34 @@ a, button { cursor: none; }
   background:#0d1524;
 }
 .sponsors-row {
-  max-width:1100px; margin:2rem auto;
+  max-width:1200px; margin:2rem auto;
   display:flex;
   justify-content:center;
-  align-items:center;
-  gap:4rem; flex-wrap:wrap;
+  align-items:flex-start;
+  gap:3rem; flex-wrap:wrap;
 }
-.sponsor-logo {
-  width:140px; height:70px;
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.06);
-  display:flex; align-items:center; justify-content:center;
-  color:rgba(255,255,255,0.25);
-  font-size:0.8rem; font-weight:600;
-  letter-spacing:0.05em;
-  transition: all 0.3s;
+.sponsor-item {
+  display:flex; flex-direction:column; align-items:center;
+  max-width:180px; text-align:center;
 }
-.sponsor-logo:hover {
-  border-color:rgba(212,168,83,0.3);
-  color:rgba(255,255,255,0.5);
+.sponsor-item img {
+  width:100px; height:100px;
+  object-fit:contain;
+  border-radius:12px;
+  background:rgba(255,255,255,0.95);
+  padding:10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.sponsor-item img:hover {
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(212,168,83,0.2);
+}
+.sponsor-item .sponsor-name {
+  margin-top:0.6rem;
+  font-size:0.72rem;
+  color:rgba(255,255,255,0.55);
+  line-height:1.3;
+  letter-spacing:0.01em;
 }
 .sponsor-tier {
   text-align:center;
@@ -782,6 +837,226 @@ a, button { cursor: none; }
 .form-success p {
   color:rgba(255,255,255,0.5);
   font-size:0.95rem; line-height:1.7;
+}
+
+/* ========== SUBMIT PAPER ========== */
+.submit-paper-section { background:#0d1524; }
+.submit-form {
+  display:grid; gap:1rem;
+  max-width:560px; margin:2rem auto 0;
+}
+.submit-form input, .submit-form select {
+  padding:1rem 1.5rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  color:#fff;
+  font-family:'Inter', sans-serif;
+  font-size:0.95rem;
+  transition: border-color 0.3s;
+  outline:none;
+}
+.submit-form input:focus, .submit-form select:focus { border-color:#d4a853; }
+.submit-form input::placeholder { color:rgba(255,255,255,0.3); }
+.file-upload-area {
+  border:2px dashed rgba(212,168,83,0.3);
+  border-radius:12px;
+  padding:2rem;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.3s;
+  position:relative;
+}
+.file-upload-area:hover { border-color:#d4a853; background:rgba(212,168,83,0.05); }
+.file-upload-area input[type="file"] {
+  position:absolute; inset:0; opacity:0; cursor:pointer;
+}
+.file-upload-icon { font-size:2rem; color:#d4a853; margin-bottom:0.5rem; }
+.file-upload-text { color:rgba(255,255,255,0.5); font-size:0.85rem; }
+.file-upload-text strong { color:rgba(255,255,255,0.8); }
+.file-name-display { color:#d4a853; margin-top:0.5rem; font-size:0.85rem; display:none; }
+.submit-info-badge {
+  display:inline-block;
+  background:rgba(212,168,83,0.1);
+  border:1px solid rgba(212,168,83,0.25);
+  color:#d4a853;
+  padding:0.5rem 1.2rem;
+  border-radius:6px;
+  font-size:0.8rem;
+  letter-spacing:0.05em;
+  margin-top:1rem;
+}
+
+/* ========== TRIP FORM ========== */
+.trip-warning {
+  background:rgba(212,168,83,0.08);
+  border:1px solid rgba(212,168,83,0.2);
+  border-radius:8px;
+  padding:0.75rem 1.5rem;
+  color:rgba(255,255,255,0.7);
+  font-size:0.9rem;
+  margin:1rem auto 0;
+  text-align:center;
+  width:fit-content;
+  max-width:100%;
+}
+.trip-warning strong { color:#d4a853; }
+#tripForm select { border-radius:8px; }
+#tripForm select option { background:#0f1526; color:#fff; }
+
+/* ========== FAQ ========== */
+.faq-list {
+  max-width:800px; margin:2rem auto 0;
+  display:flex; flex-direction:column; gap:0.5rem;
+}
+.faq-item {
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:8px;
+  overflow:hidden;
+  transition:border-color 0.3s;
+}
+.faq-item.active { border-color:rgba(212,168,83,0.3); }
+.faq-q {
+  padding:1.2rem 1.5rem;
+  cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:1rem; color:rgba(255,255,255,0.85);
+  font-weight:500;
+  transition:color 0.3s;
+}
+.faq-q:hover { color:#d4a853; }
+.faq-q::after {
+  content:'+'; font-size:1.4rem; color:#d4a853;
+  transition:transform 0.3s;
+  flex-shrink:0; margin-left:1rem;
+}
+.faq-item.active .faq-q::after { content:'\2212'; }
+.faq-a {
+  max-height:0; overflow:hidden;
+  transition:max-height 0.4s cubic-bezier(0.22,1,0.36,1), padding 0.3s;
+  padding:0 1.5rem;
+  color:rgba(255,255,255,0.5);
+  font-size:0.9rem; line-height:1.7;
+}
+.faq-item.active .faq-a {
+  max-height:300px;
+  padding:0 1.5rem 1.2rem;
+}
+
+/* ========== GALLERY CATEGORIES + LIGHTBOX ========== */
+.gallery-filters {
+  display:flex; flex-wrap:wrap; gap:0.5rem;
+  justify-content:center;
+  margin:2rem auto 0;
+  max-width:1300px;
+}
+.gallery-filter-btn {
+  padding:0.5rem 1.2rem;
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:50px;
+  background:transparent;
+  color:rgba(255,255,255,0.6);
+  font-family:'Inter',sans-serif;
+  font-size:0.8rem;
+  cursor:pointer;
+  transition:all 0.3s;
+  letter-spacing:0.03em;
+}
+.gallery-filter-btn:hover { border-color:rgba(212,168,83,0.4); color:#d4a853; }
+.gallery-filter-btn.active {
+  background:rgba(212,168,83,0.15);
+  border-color:#d4a853;
+  color:#d4a853;
+}
+.gallery-grid {
+  max-width:1300px; margin:2rem auto 0;
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:0.8rem;
+}
+.gallery-source {
+  text-align:center;
+  font-size:0.7rem;
+  color:rgba(255,255,255,0.35);
+  margin-top:1.5rem;
+  letter-spacing:0.02em;
+}
+.gallery-item {
+  position:relative;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  border-radius:8px;
+  cursor:pointer;
+}
+.gallery-item img {
+  width:100%; height:100%;
+  object-fit:cover;
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.3s;
+  filter:brightness(0.8);
+}
+.gallery-item:hover img {
+  transform:scale(1.08);
+  filter:brightness(1);
+}
+.gallery-item-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(10,15,26,0.7) 0%, transparent 60%);
+  opacity:0;
+  transition:opacity 0.3s;
+  display:flex; align-items:flex-end;
+  padding:1rem;
+}
+.gallery-item:hover .gallery-item-overlay { opacity:1; }
+.gallery-item-overlay span {
+  color:#fff; font-size:0.75rem;
+  letter-spacing:0.05em;
+}
+
+/* Lightbox */
+.lightbox {
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,0.92);
+  backdrop-filter:blur(20px);
+  display:none; align-items:center; justify-content:center;
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.lightbox.active { display:flex; opacity:1; }
+.lightbox-img {
+  max-width:90vw; max-height:85vh;
+  object-fit:contain;
+  border-radius:8px;
+  animation:lbZoom 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes lbZoom {
+  0% { transform:scale(0.8); opacity:0; }
+  100% { transform:scale(1); opacity:1; }
+}
+.lightbox-close {
+  position:absolute; top:1.5rem; right:2rem;
+  color:#fff; font-size:2rem; cursor:pointer;
+  width:44px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  transition:background 0.3s;
+}
+.lightbox-close:hover { background:rgba(255,255,255,0.2); }
+.lightbox-nav {
+  position:absolute; top:50%; transform:translateY(-50%);
+  color:#fff; font-size:2.5rem; cursor:pointer;
+  width:50px; height:50px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  transition:background 0.3s;
+}
+.lightbox-nav:hover { background:rgba(255,255,255,0.2); }
+.lightbox-prev { left:1.5rem; }
+.lightbox-next { right:1.5rem; }
+.lightbox-caption {
+  position:absolute; bottom:1.5rem; left:50%; transform:translateX(-50%);
+  color:rgba(255,255,255,0.7); font-size:0.85rem;
+  background:rgba(0,0,0,0.5); padding:0.4rem 1.2rem; border-radius:4px;
 }
 
 /* ========== FOOTER ========== */
@@ -949,9 +1224,133 @@ a, button { cursor: none; }
   background-size:60px 60px;
 }
 
+/* ========== TEMPLATE PAGES ========== */
+.template-content {
+  max-width:1300px;
+  margin:0 auto;
+}
+.template-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));
+  gap:1.5rem;
+  margin-top:2.5rem;
+}
+.template-card {
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;
+  padding:2rem;
+  transition:all 0.4s;
+}
+.template-card:hover {
+  border-color:rgba(212,168,83,0.3);
+  background:rgba(255,255,255,0.05);
+}
+.template-card-title {
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;
+  color:#d4a853;
+  margin-bottom:0.8rem;
+  font-weight:600;
+}
+.template-card-text {
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.6);
+  line-height:1.7;
+}
+.template-highlight {
+  display:inline-block;
+  background:rgba(212,168,83,0.1);
+  border:1px solid rgba(212,168,83,0.2);
+  border-radius:6px;
+  padding:0.3rem 0.8rem;
+  font-size:0.8rem;
+  color:#d4a853;
+  margin:0.3rem 0.3rem 0 0;
+  font-family:'Space Grotesk',monospace;
+}
+.template-download-btn {
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  margin-top:2rem;
+  padding:0.9rem 2rem;
+  background:transparent;
+  border:1px solid #d4a853;
+  color:#d4a853;
+  font-family:'Inter',sans-serif;
+  font-size:0.85rem;
+  font-weight:500;
+  text-decoration:none;
+  letter-spacing:0.05em;
+  transition:all 0.3s;
+}
+.template-download-btn:hover {
+  background:rgba(212,168,83,0.1);
+}
+.template-ref-example {
+  background:rgba(255,255,255,0.02);
+  border-left:3px solid rgba(212,168,83,0.4);
+  padding:1rem 1.5rem;
+  margin-top:1rem;
+  font-size:0.85rem;
+  color:rgba(255,255,255,0.5);
+  line-height:1.8;
+  font-family:'Inter',sans-serif;
+}
+.template-section-divider {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  margin:2.5rem 0 1.5rem;
+  color:rgba(255,255,255,0.3);
+  font-size:0.75rem;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+}
+.template-section-divider::before,
+.template-section-divider::after {
+  content:'';
+  flex:1;
+  height:1px;
+  background:rgba(255,255,255,0.08);
+}
+/* ========== VENUE ROUTE MAP ========== */
+.venue-maps-container {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1rem;
+}
+@media (max-width:768px) {
+  .venue-maps-container { grid-template-columns:1fr; }
+}
+.venue-map-card {
+  position:relative;
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.06);
+}
+.venue-map-card-label {
+  position:absolute;
+  top:0.8rem;
+  left:0.8rem;
+  background:rgba(10,15,26,0.85);
+  backdrop-filter:blur(8px);
+  padding:0.4rem 0.9rem;
+  font-size:0.7rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:#d4a853;
+  border:1px solid rgba(212,168,83,0.25);
+  border-radius:4px;
+  z-index:2;
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width:1024px) {
-  .about-grid, .venue-grid { grid-template-columns:1fr; gap:3rem; }
+  .about-grid { grid-template-columns:1fr; gap:3rem; }
+  .venue-maps-row { grid-template-columns:1fr; }
+  .gallery-grid { grid-template-columns:repeat(3, 1fr); }
   .footer-grid { grid-template-columns:1fr 1fr; }
   .timeline::before { left:0; }
   .timeline-item { grid-template-columns:1fr; gap:0.5rem; }
@@ -968,6 +1367,9 @@ a, button { cursor: none; }
   .speakers-grid { grid-template-columns:repeat(2, 1fr); }
   .footer-grid { grid-template-columns:1fr; }
   .cursor-dot, .cursor-ring { display:none; }
+  .gallery-grid { grid-template-columns:repeat(2, 1fr); }
+  .venue-maps-row { grid-template-columns:1fr; }
+  .venue-details-row { grid-template-columns:1fr 1fr; }
 }
 </style>
 </head>
@@ -988,7 +1390,7 @@ a, button { cursor: none; }
     <span class="dot-nav-dot"></span>
   </a>
   <a href="#topics" class="dot-nav-item" data-section="topics">
-    <span class="dot-nav-label" data-i18n="nav_topics">Konular</span>
+    <span class="dot-nav-label" data-i18n="nav_topics">Oturumlar</span>
     <span class="dot-nav-dot"></span>
   </a>
   <a href="#speakers" class="dot-nav-item" data-section="speakers">
@@ -999,6 +1401,14 @@ a, button { cursor: none; }
     <span class="dot-nav-label" data-i18n="gallery_label">Galeri</span>
     <span class="dot-nav-dot"></span>
   </a>
+  <a href="#extended-abstract" class="dot-nav-item" data-section="extended-abstract">
+    <span class="dot-nav-label" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri</span>
+    <span class="dot-nav-dot"></span>
+  </a>
+  <a href="#abstract-format" class="dot-nav-item" data-section="abstract-format">
+    <span class="dot-nav-label" data-i18n="nav_abs_format">Bildiri Özeti</span>
+    <span class="dot-nav-dot"></span>
+  </a>
   <a href="#schedule" class="dot-nav-item" data-section="schedule">
     <span class="dot-nav-label" data-i18n="nav_schedule">Program</span>
     <span class="dot-nav-dot"></span>
@@ -1007,19 +1417,44 @@ a, button { cursor: none; }
     <span class="dot-nav-label" data-i18n="nav_venue">Mekan</span>
     <span class="dot-nav-dot"></span>
   </a>
+  <a href="#submit-paper" class="dot-nav-item" data-section="submit-paper">
+    <span class="dot-nav-label" data-i18n="nav_submit">Bildiri Gönder</span>
+    <span class="dot-nav-dot"></span>
+  </a>
   <a href="#register" class="dot-nav-item" data-section="register">
     <span class="dot-nav-label" data-i18n="nav_cta">Kayıt Ol</span>
+    <span class="dot-nav-dot"></span>
+  </a>
+  <a href="#faq" class="dot-nav-item" data-section="faq">
+    <span class="dot-nav-label" data-i18n="nav_faq">SSS</span>
     <span class="dot-nav-dot"></span>
   </a>
 </nav>
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <div class="nav-logo">ERZİNCAN '26</div>
+  <div class="nav-logo">ERJEKUM '26</div>
   <ul class="nav-links">
+    <li><a href="#hero" data-i18n="nav_home">Giriş</a></li>
     <li><a href="#about" data-i18n="nav_about">Hakkında</a></li>
-    <li><a href="#topics" data-i18n="nav_topics">Konular</a></li>
+    <li><a href="#topics" data-i18n="nav_topics">Oturumlar</a></li>
     <li><a href="#speakers" data-i18n="nav_speakers">Konuşmacılar</a></li>
+    <li class="nav-dropdown">
+      <span data-i18n="nav_templates">Şablonlar</span>
+      <div class="nav-dropdown-menu">
+        <a href="#extended-abstract" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri</a>
+        <a href="#abstract-format" data-i18n="nav_abs_format">Bildiri Özeti</a>
+        <a href="#submit-paper" data-i18n="nav_submit">Bildiri Gönder</a>
+      </div>
+    </li>
+    <li class="nav-dropdown">
+      <span data-i18n="nav_forms">Formlar</span>
+      <div class="nav-dropdown-menu">
+        <a href="#register" data-i18n="nav_form_register">Çalıştay Kayıt</a>
+        <a href="#trip-register" data-i18n="nav_form_trip">Teknik Gezi Kaydı</a>
+        <a href="#submit-paper" data-i18n="nav_form_submit">Bildiri Gönder</a>
+      </div>
+    </li>
     <li><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
     <li><a href="#venue" data-i18n="nav_venue">Mekan</a></li>
   </ul>
@@ -1035,20 +1470,22 @@ a, button { cursor: none; }
 
 <!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg-a"></div>
+  <div class="hero-bg-b"></div>
   <div class="hero-overlay"></div>
   <canvas id="hero-particles"></canvas>
   <div class="hero-content">
-    <div class="hero-date">
-      <span class="line"></span>
-      <span data-i18n="hero_date">18 — 21 Haziran 2026</span>
-      <span class="line"></span>
-    </div>
+    <p class="hero-intl" data-i18n="hero_intl">Uluslararası Katılımlı</p>
     <img src="fotolar/erzincan-text.png" alt="ERZİNCAN" class="hero-erzincan-img">
     <h1 class="hero-title" data-i18n-html="hero_title">
       <span class="gold">Jeolojik</span> ve Kültürel<br>
       Mirası Çalıştayı
     </h1>
+    <div class="hero-date">
+      <span class="line"></span>
+      <span data-i18n="hero_date">18 — 20 Haziran 2026</span>
+      <span class="line"></span>
+    </div>
     <p class="hero-subtitle" data-i18n="hero_subtitle">Binlerce yıllık jeolojik mirası keşfet</p>
     <p class="hero-location" data-i18n="hero_location">📍 Erzincan Binali Yıldırım Üniversitesi &bull; Erzincan, Türkiye</p>
     <div class="hero-btns">
@@ -1086,12 +1523,12 @@ a, button { cursor: none; }
         Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları'ndan Munzur Sıradağları'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan'ın binlerce yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.
       </p>
       <p class="section-desc" style="margin-top:1rem;" data-i18n="about_p2">
-        Dört günlük program boyunca saha gezileri, atölye çalışmaları, poster sunumları ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, buzul göllerini, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.
+        Üç günlük program boyunca bilimsel oturumlar, teknik arazi gezileri ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, traverten teraslarını, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.
       </p>
       <div class="about-stats">
-        <div><div class="stat-num">30+</div><div class="stat-label" data-i18n="stat_speakers">Konuşmacı</div></div>
-        <div><div class="stat-num">4</div><div class="stat-label" data-i18n="stat_days">Gün</div></div>
-        <div><div class="stat-num">5</div><div class="stat-label" data-i18n="stat_trips">Saha Gezisi</div></div>
+        <div><div class="stat-num">21+</div><div class="stat-label" data-i18n="stat_speakers">Sunum</div></div>
+        <div><div class="stat-num">3</div><div class="stat-label" data-i18n="stat_days">Gün</div></div>
+        <div><div class="stat-num">2</div><div class="stat-label" data-i18n="stat_trips">Teknik Gezi</div></div>
       </div>
     </div>
   </div>
@@ -1100,40 +1537,30 @@ a, button { cursor: none; }
 <!-- TOPICS -->
 <section class="section topics" id="topics">
   <div style="max-width:1300px;margin:0 auto;">
-    <div class="section-label reveal" data-i18n="topics_label">Çalıştay Konuları</div>
-    <h2 class="section-title reveal" data-i18n="topics_title">Araştırma Alanları</h2>
-    <p class="section-desc reveal" data-i18n="topics_desc">Disiplinlerarası bir yaklaşımla Erzincan'ın doğal ve kültürel mirasının farklı boyutlarını ele alıyoruz.</p>
+    <div class="section-label reveal" data-i18n="topics_label">Oturumlar</div>
+    <h2 class="section-title reveal" data-i18n="topics_title">Çalıştay Oturumları</h2>
+    <p class="section-desc reveal" data-i18n="topics_desc">Çalıştay kapsamında dört ana oturumda sunumlar gerçekleştirilecektir.</p>
   </div>
   <div class="topics-grid">
     <div class="topic-card">
       <div class="topic-num">01</div>
-      <div class="topic-title" data-i18n="t1_title">Tektonik ve Sismoloji</div>
-      <div class="topic-desc" data-i18n="t1_desc">Kuzey Anadolu Fay Hattı'nın Erzincan segmenti, deprem tarihi, aktif tektonik yapılar ve sismik risk değerlendirmesi.</div>
+      <div class="topic-title" data-i18n="t1_title">Jeolojik Miras</div>
+      <div class="topic-desc" data-i18n="t1_desc">İçerik yakında eklenecektir.</div>
     </div>
     <div class="topic-card">
       <div class="topic-num">02</div>
-      <div class="topic-title" data-i18n="t2_title">Buzul Jeolojisi ve Jeomorfoloji</div>
-      <div class="topic-desc" data-i18n="t2_desc">Keşiş Dağı buzul gölleri, moren çökelleri, periglasyal şekiller ve kuvaterner iklim değişiklikleri.</div>
+      <div class="topic-title" data-i18n="t2_title">Jeomorfoloji</div>
+      <div class="topic-desc" data-i18n="t2_desc">İçerik yakında eklenecektir.</div>
     </div>
     <div class="topic-card">
       <div class="topic-num">03</div>
-      <div class="topic-title" data-i18n="t3_title">Stratigrafik ve Sedimantoloji</div>
-      <div class="topic-desc" data-i18n="t3_desc">Kemah Formasyonu, Erzincan Ovası sedimantasyonu, miyosen ve pliyosen çökel kayıtları.</div>
+      <div class="topic-title" data-i18n="t3_title">Kültürel Miras</div>
+      <div class="topic-desc" data-i18n="t3_desc">İçerik yakında eklenecektir.</div>
     </div>
     <div class="topic-card">
       <div class="topic-num">04</div>
-      <div class="topic-title" data-i18n="t4_title">Kültürel Miras ve Arkeoloji</div>
-      <div class="topic-desc" data-i18n="t4_desc">Altıntepe Höyüğü, Kemah Kalesi, Mama Hatun Türbesi, tarihi yapıların korunması ve restorasyon çalışmaları.</div>
-    </div>
-    <div class="topic-card">
-      <div class="topic-num">05</div>
-      <div class="topic-title" data-i18n="t5_title">Jeoturizm ve Sürdürülebilirlik</div>
-      <div class="topic-desc" data-i18n="t5_desc">Karanlık Kanyon, Girlevik Şelalesi, jeoparklar ve eko-turizm potansiyeli, sürdürülebilir kalkınma stratejileri.</div>
-    </div>
-    <div class="topic-card">
-      <div class="topic-num">06</div>
-      <div class="topic-title" data-i18n="t6_title">Doğal Kaynaklar ve Çevre</div>
-      <div class="topic-desc" data-i18n="t6_desc">Fırat Nehri havzası, su kaynakları yönetimi, maden kaynakları, biyoçeşitlilik ve çevre koruma.</div>
+      <div class="topic-title" data-i18n="t4_title">Karma Oturum</div>
+      <div class="topic-desc" data-i18n="t4_desc">İçerik yakında eklenecektir.</div>
     </div>
   </div>
 </section>
@@ -1187,22 +1614,339 @@ a, button { cursor: none; }
     <div class="section-label reveal" data-i18n="gallery_label">Galeri</div>
     <h2 class="section-title reveal" data-i18n="gallery_title">Erzincan'dan Kareler</h2>
   </div>
-  <div class="gallery-marquee">
-    <img src="fotolar/buzul-golu.jpg" alt="Buzul Gölü">
-    <img src="fotolar/kemah-formasyonu.jpg" alt="Kemah Formasyonu">
-    <img src="fotolar/girlevik.jpg" alt="Girlevik">
-    <img src="fotolar/moren.jpg" alt="Keşiş Dağı">
-    <img src="fotolar/speaker1.jpg" alt="Erzincan">
-    <img src="fotolar/speaker2.jpg" alt="Erzincan">
-    <img src="fotolar/speaker3.jpg" alt="Erzincan">
-    <!-- Duplicate for seamless loop -->
-    <img src="fotolar/buzul-golu.jpg" alt="Buzul Gölü">
-    <img src="fotolar/kemah-formasyonu.jpg" alt="Kemah Formasyonu">
-    <img src="fotolar/girlevik.jpg" alt="Girlevik">
-    <img src="fotolar/moren.jpg" alt="Keşiş Dağı">
-    <img src="fotolar/speaker1.jpg" alt="Erzincan">
-    <img src="fotolar/speaker2.jpg" alt="Erzincan">
-    <img src="fotolar/speaker3.jpg" alt="Erzincan">
+  <div class="gallery-filters">
+    <button class="gallery-filter-btn active" data-cat="abrenk-vank" onclick="filterGallery('abrenk-vank')" data-i18n="gal_abrenk_vank">Abrenk Vank Kilisesi</button>
+    <button class="gallery-filter-btn" data-cat="altintepe-hoyuk" onclick="filterGallery('altintepe-hoyuk')" data-i18n="gal_altintepe_hoyuk">Altıntepe Höyük</button>
+    <button class="gallery-filter-btn" data-cat="ardos-golu" onclick="filterGallery('ardos-golu')" data-i18n="gal_ardos_golu">Ardos Gölü</button>
+    <button class="gallery-filter-btn" data-cat="eksisu" onclick="filterGallery('eksisu')" data-i18n="gal_eksisu">Ekşisu</button>
+    <button class="gallery-filter-btn" data-cat="ergan-dagi" onclick="filterGallery('ergan-dagi')" data-i18n="gal_ergan_dagi">Ergan Dağı</button>
+    <button class="gallery-filter-btn" data-cat="girlevik-selalesi" onclick="filterGallery('girlevik-selalesi')" data-i18n="gal_girlevik">Girlevik Şelalesi</button>
+    <button class="gallery-filter-btn" data-cat="karanlik-kanyon" onclick="filterGallery('karanlik-kanyon')" data-i18n="gal_karanlik">Karanlık Kanyon</button>
+    <button class="gallery-filter-btn" data-cat="kemah" onclick="filterGallery('kemah')" data-i18n="gal_kemah">Kemah</button>
+    <button class="gallery-filter-btn" data-cat="kesish-dagi" onclick="filterGallery('kesish-dagi')" data-i18n="gal_kesish_dagi">Keşiş Dağı</button>
+    <button class="gallery-filter-btn" data-cat="konarli-selalesi" onclick="filterGallery('konarli-selalesi')" data-i18n="gal_konarli">Konarlı Şelalesi</button>
+    <button class="gallery-filter-btn" data-cat="mamahatun-turbesi" onclick="filterGallery('mamahatun-turbesi')" data-i18n="gal_mamahatun">Mamahatun Türbesi</button>
+    <button class="gallery-filter-btn" data-cat="merg-yaylasi" onclick="filterGallery('merg-yaylasi')" data-i18n="gal_merg">Merg Yaylası</button>
+    <button class="gallery-filter-btn" data-cat="otlukbeli-golu" onclick="filterGallery('otlukbeli-golu')" data-i18n="gal_otlukbeli">Otlukbeli Gölü</button>
+    <button class="gallery-filter-btn" data-cat="palat-golu" onclick="filterGallery('palat-golu')" data-i18n="gal_palat">Polat Gölü</button>
+    <button class="gallery-filter-btn" data-cat="kockar-sohmarik" onclick="filterGallery('kockar-sohmarik')" data-i18n="gal_sohmarik">Sohmarik Yaylası</button>
+  </div>
+  <div class="gallery-grid" id="galleryGrid">
+<div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_01.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_02.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_09.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_11.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_12.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_13.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_16.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_17.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_22.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_23.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_24.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_25.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_27.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_38.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="otlukbeli-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/otlukbeli-golu/foto_41.jpg" alt="Otlukbeli Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli Gölü</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_01.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_03.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_04.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_21.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_22.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_24.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_25.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_26.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_27.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_45.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_83.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="girlevik-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/girlevik-selalesi/foto_92.jpg" alt="Girlevik Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Girlevik Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_06.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_13.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_21.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_23.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_27.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_29.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_33.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_41.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_43.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_47.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_52.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_56.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_69.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="karanlik-kanyon" onclick="openLightbox(this)"><img src="fotolar/galeri/karanlik-kanyon/foto_70.jpg" alt="Karanlık Kanyon" loading="lazy"><div class="gallery-item-overlay"><span>Karanlık Kanyon</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_01.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_04.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_05.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_06.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_07.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_13.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_14.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_16.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_18.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_19.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_21.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_27.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_28.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_33.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_41.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_43.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_54.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_56.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_58.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="mamahatun-turbesi" onclick="openLightbox(this)"><img src="fotolar/galeri/mamahatun-turbesi/foto_72.jpg" alt="Mamahatun Türbesi" loading="lazy"><div class="gallery-item-overlay"><span>Mamahatun Türbesi</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_01.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_03.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_04.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_17.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_18.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_19.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_24.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_28.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_40.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_43.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_51.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_63.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_83.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kesish-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/kesish-dagi/foto_84.jpg" alt="Keşiş Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Keşiş Dağı</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_01.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_02.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_03.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_05.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_12.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_15.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_16.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_18.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_20.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_26.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_27.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_28.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="kockar-sohmarik" onclick="openLightbox(this)"><img src="fotolar/galeri/kockar-sohmarik/foto_29.jpg" alt="Sohmarik Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Sohmarik Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_01.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_03.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_04.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_06.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_07.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_10.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_11.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_17.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_19.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_21.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_29.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_30.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_35.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_38.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_41.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_55.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_57.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_61.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_66.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_67.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="merg-yaylasi" onclick="openLightbox(this)"><img src="fotolar/galeri/merg-yaylasi/foto_68.jpg" alt="Merg Yaylası" loading="lazy"><div class="gallery-item-overlay"><span>Merg Yaylası</span></div></div>
+      <div class="gallery-item" data-cat="konarli-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/konarli-selalesi/foto_001.jpg" alt="Konarlı Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Konarlı Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="konarli-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/konarli-selalesi/foto_002.jpg" alt="Konarlı Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Konarlı Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="konarli-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/konarli-selalesi/foto_003.jpg" alt="Konarlı Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Konarlı Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="konarli-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/konarli-selalesi/foto_004.jpg" alt="Konarlı Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Konarlı Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="konarli-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/konarli-selalesi/foto_007.jpg" alt="Konarlı Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Konarlı Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="konarli-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/konarli-selalesi/foto_010.jpg" alt="Konarlı Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Konarlı Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="konarli-selalesi" onclick="openLightbox(this)"><img src="fotolar/galeri/konarli-selalesi/foto_011.jpg" alt="Konarlı Şelalesi" loading="lazy"><div class="gallery-item-overlay"><span>Konarlı Şelalesi</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_002.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_004.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_009.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_010.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_014.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_023.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_029.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_039.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_040.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_048.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_059.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_072.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_078.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_079.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_084.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_120.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_139.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_144.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_150.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_151.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_161.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_167.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_169.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_173.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_176.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_194.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_205.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_206.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="kemah" onclick="openLightbox(this)"><img src="fotolar/galeri/kemah/foto_214.jpg" alt="Kemah" loading="lazy"><div class="gallery-item-overlay"><span>Kemah</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_01.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_02.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_04.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_05.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_08.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_15.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_16.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="ardos-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/ardos-golu/foto_35.jpg" alt="Ardos Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Ardos Gölü</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_002.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_003.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_005.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_006.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_007.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_012.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_013.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_015.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_016.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_017.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_021.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_029.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_031.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_034.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_035.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_037.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_041.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_048.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_049.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_050.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_053.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_056.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_072.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_075.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_097.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_098.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_112.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_113.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="eksisu" onclick="openLightbox(this)"><img src="fotolar/galeri/eksisu/foto_167.jpg" alt="Ekşisu" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_011.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_012.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_021.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_022.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_023.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_029.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_031.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_032.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_041.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_043.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_047.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_048.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_062.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_063.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_065.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_082.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_086.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_092.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_093.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_095.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_096.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_098.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_099.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_100.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_102.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_103.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_105.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_106.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_107.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_109.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_110.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_111.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_112.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_115.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_124.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="altintepe-hoyuk" onclick="openLightbox(this)"><img src="fotolar/galeri/altintepe-hoyuk/foto_137.jpg" alt="Altıntepe Höyük" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe Höyük</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_001.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_002.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_009.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_010.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_014.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_016.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_018.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_020.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_027.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_035.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_037.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_045.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_062.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_083.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_101.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_102.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_111.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_122.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_124.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_131.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_139.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_151.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_165.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_166.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_168.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_170.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="ergan-dagi" onclick="openLightbox(this)"><img src="fotolar/galeri/ergan-dagi/foto_181.jpg" alt="Ergan Dağı" loading="lazy"><div class="gallery-item-overlay"><span>Ergan Dağı</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_01.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_02.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_03.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_04.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_06.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_07.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_08.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_09.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_10.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_13.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_14.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_15.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_21.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_23.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_27.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_28.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_30.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_31.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_32.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_34.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_36.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_39.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_40.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_41.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_43.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_44.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_48.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_52.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="abrenk-vank" onclick="openLightbox(this)"><img src="fotolar/galeri/abrenk-vank/foto_57.jpg" alt="Abrenk Vank Kilisesi" loading="lazy"><div class="gallery-item-overlay"><span>Abrenk Vank Kilisesi</span></div></div>
+      <div class="gallery-item" data-cat="palat-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/palat-golu/foto_01.jpg" alt="Polat Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Polat Gölü</span></div></div>
+      <div class="gallery-item" data-cat="palat-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/palat-golu/foto_03.jpg" alt="Polat Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Polat Gölü</span></div></div>
+      <div class="gallery-item" data-cat="palat-golu" onclick="openLightbox(this)"><img src="fotolar/galeri/palat-golu/foto_07.jpg" alt="Polat Gölü" loading="lazy"><div class="gallery-item-overlay"><span>Polat Gölü</span></div></div>
+  </div>
+  <p class="gallery-source" data-i18n="gallery_source">Kaynak: Google Fotoğraflar</p>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-close" onclick="closeLightbox()">&#x2715;</div>
+  <div class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#x2039;</div>
+  <div class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#x203A;</div>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<!-- EXTENDED ABSTRACT TEMPLATE -->
+<section class="section" id="extended-abstract">
+  <div class="template-content" style="text-align:center;">
+    <div class="section-label reveal" data-i18n="ext_abstract_label">Genişletilmiş Bildiri</div>
+    <h2 class="section-title reveal" data-i18n="ext_abstract_title">Genişletilmiş Bildiri Özeti Şablonu</h2>
+    <p class="section-desc reveal" data-i18n="ext_abstract_desc">Genişletilmiş özet bildirilerinizi bu şablona uygun olarak hazırlayınız. Şablonu indirerek doğrudan üzerinden yazabilirsiniz.</p>
+    <div style="margin-top:2rem;">
+      <a href="fotolar/genisletilmis-bildiri-ozeti-sablon.docx" download class="template-download-btn reveal" data-i18n="ext_download_btn">&#x2B73; Şablonu İndir (.docx)</a>
+    </div>
+    <p class="section-desc reveal" style="margin-top:2rem;" data-i18n="ext_submit_hint">Bildirinizi hazırladıktan sonra aşağıdaki bölümden gönderebilirsiniz.</p>
+    <a href="#submit-paper" class="btn-primary reveal" style="display:inline-block;margin-top:1rem;" data-i18n="nav_submit">Bildiri Gönder</a>
+  </div>
+</section>
+
+<!-- ABSTRACT FORMAT -->
+<section class="section" id="abstract-format">
+  <div class="template-content" style="text-align:center;">
+    <div class="section-label reveal" data-i18n="abs_format_label">Bildiri Özeti</div>
+    <h2 class="section-title reveal" data-i18n="abs_format_title">Bildiri Yazım Formatı</h2>
+    <p class="section-desc reveal" data-i18n="abs_format_desc">Bildiri özetlerinizi bu şablona uygun şekilde hazırlayınız. Türkçe ve İngilizce özetler ayrı birer sayfa ile sınırlıdır.</p>
+    <div style="margin-top:2rem;">
+      <a href="fotolar/bildiri-yazim-formati.docx" download class="template-download-btn reveal" data-i18n="abs_download_btn">&#x2B73; Şablonu İndir (.docx)</a>
+    </div>
+    <p class="section-desc reveal" style="margin-top:2rem;" data-i18n="abs_submit_hint">Bildirinizi hazırladıktan sonra aşağıdaki bölümden gönderebilirsiniz.</p>
+    <a href="#submit-paper" class="btn-primary reveal" style="display:inline-block;margin-top:1rem;" data-i18n="nav_submit">Bildiri Gönder</a>
   </div>
 </section>
 
@@ -1211,14 +1955,13 @@ a, button { cursor: none; }
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-label reveal" data-i18n="schedule_label">Program</div>
     <h2 class="section-title reveal" data-i18n="schedule_title">Çalıştay Programı</h2>
-    <p class="section-desc reveal" data-i18n="schedule_desc">Dört gün sürecek yoğun ve verimli bir program sizi bekliyor.</p>
+    <p class="section-desc reveal" data-i18n="schedule_desc">Üç gün sürecek yoğun ve verimli bir program sizi bekliyor.</p>
 
     <!-- Day tabs -->
     <div style="display:flex;gap:1rem;margin-top:2rem;margin-bottom:1rem;flex-wrap:wrap;">
-      <button class="day-tab active" onclick="switchDay(1)" data-i18n="day1_tab">1. Gün — 18 Haziran</button>
-      <button class="day-tab" onclick="switchDay(2)" data-i18n="day2_tab">2. Gün — 19 Haziran</button>
-      <button class="day-tab" onclick="switchDay(3)" data-i18n="day3_tab">3. Gün — 20 Haziran</button>
-      <button class="day-tab" onclick="switchDay(4)" data-i18n="day4_tab">4. Gün — 21 Haziran</button>
+      <button class="day-tab active" onclick="switchDay(1)" data-i18n="day1_tab">1. Gün — 18 Haziran (Perşembe)</button>
+      <button class="day-tab" onclick="switchDay(2)" data-i18n="day2_tab">2. Gün — 19 Haziran (Cuma)</button>
+      <button class="day-tab" onclick="switchDay(3)" data-i18n="day3_tab">3. Gün — 20 Haziran (Cumartesi)</button>
     </div>
     <style>
       .day-tab {
@@ -1243,159 +1986,197 @@ a, button { cursor: none; }
     </style>
   </div>
 
+  <!-- Day 1: 18 Haziran — Bilimsel Sunumlar -->
   <div class="day-panel active" id="day1">
     <div class="timeline">
       <div class="timeline-item">
-        <div class="tl-time">09:00</div>
+        <div class="tl-time">08:30 – 09:30</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d1_s1_title">Açılış Töreni</div>
-          <div class="tl-desc" data-i18n="d1_s1_desc">Hoş geldiniz konuşmaları ve çalıştayın tanıtımı</div>
+          <div class="tl-title" data-i18n="d1_s1_title">Kayıt ve Açılış Konuşmaları</div>
+          <div class="tl-desc" data-i18n="d1_s1_desc">Protokol konuşmaları ve çalıştayın resmi açılışı</div>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="tl-time">10:00</div>
+        <div class="tl-time">09:30 – 10:00</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d1_s2_title">Kuzey Anadolu Fay Hattı ve Erzincan</div>
-          <div class="tl-desc" data-i18n="d1_s2_desc">Erzincan segmentinin tektonik özellikleri ve sismik aktivite</div>
+          <div class="tl-title" data-i18n="d1_s2_title">Nizamettin KAZANCI</div>
+          <div class="tl-desc" data-i18n="d1_s2_desc">JEMİRKO Başkanı — Açılış konuşması</div>
           <span class="tl-speaker-tag" data-i18n="invited_speaker">Davetli Konuşmacı</span>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="tl-time">11:30</div>
+        <div class="tl-time">10:00 – 10:15</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d1_s3_title">Keşiş Dağı Buzul Gölleri</div>
-          <div class="tl-desc" data-i18n="d1_s3_desc">Yedi Göller bölgesinin buzul jeomorfolojisi ve paleoklimatik önemi</div>
-          <span class="tl-speaker-tag" data-i18n="invited_speaker">Davetli Konuşmacı</span>
+          <div class="tl-title" data-i18n="d1_s3_title">Çay / Kahve Arası</div>
+          <div class="tl-desc" data-i18n="d1_s3_desc"></div>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="tl-time">14:00</div>
+        <div class="tl-time">10:15 – 12:25</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d1_s4_title">Poster Sunumları — Oturum I</div>
-          <div class="tl-desc" data-i18n="d1_s4_desc">Katılımcı poster sunumları ve tartışma</div>
+          <div class="tl-title" data-i18n="d1_s4_title">OTURUM 1 — Jeolojik Miras</div>
+          <div class="tl-desc" data-i18n="d1_s4_desc">Bilimsel sunumlar (6 sunum)</div>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="tl-time">16:00</div>
+        <div class="tl-time">12:25 – 13:30</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d1_s5_title">Panel: Jeoturizm Potansiyeli</div>
-          <div class="tl-desc" data-i18n="d1_s5_desc">Erzincan'ın jeoturizm değerlerinin tartışılması</div>
+          <div class="tl-title" data-i18n="d1_s5_title">Öğle Yemeği Arası</div>
+          <div class="tl-desc" data-i18n="d1_s5_desc"></div>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="tl-time">19:00</div>
+        <div class="tl-time">13:30 – 15:20</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d1_s6_title">Karşılama Yemeği</div>
-          <div class="tl-desc" data-i18n="d1_s6_desc">Erzincan yöresel mutfağı eşliğinde tanışma yemeği</div>
+          <div class="tl-title" data-i18n="d1_s6_title">OTURUM 2 — Jeomorfoloji</div>
+          <div class="tl-desc" data-i18n="d1_s6_desc">Bilimsel sunumlar (5 sunum)</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">15:20 – 15:35</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d1_s7_title">Çay / Kahve Arası</div>
+          <div class="tl-desc" data-i18n="d1_s7_desc"></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">15:35 – 16:55</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d1_s8_title">OTURUM 3 — Kültürel Miras</div>
+          <div class="tl-desc" data-i18n="d1_s8_desc">Bilimsel sunumlar (4 sunum)</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">16:55 – 17:10</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d1_s9_title">Çay / Kahve Arası</div>
+          <div class="tl-desc" data-i18n="d1_s9_desc"></div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">17:10 – 19:20</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d1_s10_title">OTURUM 4 — Karma Oturum</div>
+          <div class="tl-desc" data-i18n="d1_s10_desc">Bilimsel sunumlar (6 sunum)</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">20:00 – 23:00</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d1_s11_title">Akşam Yemeği</div>
+          <div class="tl-desc" data-i18n="d1_s11_desc">Esentepe Restoran</div>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Day 2: 19 Haziran — Teknik Gezi -->
   <div class="day-panel" id="day2">
     <div class="timeline">
       <div class="timeline-item">
         <div class="tl-time">08:30</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d2_s1_title">Saha Gezisi: Kemah Formasyonu</div>
-          <div class="tl-desc" data-i18n="d2_s1_desc">Erken Miyosen yaşlı kıvrımlı yapıların incelenmesi</div>
+          <div class="tl-title" data-i18n="d2_s1_title">Teknik Gezi Başlangıcı</div>
+          <div class="tl-desc" data-i18n="d2_s1_desc">Arazi gezisi için hareket</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="tl-time">12:00</div>
+        <div class="tl-time">09:00</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d2_s2_title">Saha Gezisi: Kemah Kalesi & Karanlık Kanyon</div>
-          <div class="tl-desc" data-i18n="d2_s2_desc">Tarihi kale ve jeolojik oluşumların yerinde incelenmesi</div>
+          <div class="tl-title" data-i18n="d2_s2_title">Ekşisu</div>
+          <div class="tl-desc" data-i18n="d2_s2_desc">Ekşisu maden suyu kaynakları ve çevresinin incelenmesi</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d2_s3_title">Volkan Konileri ve Altıntepe Höyüğü</div>
+          <div class="tl-desc" data-i18n="d2_s3_desc">Volkanik yapılar ve Urartu dönemi arkeolojik alanı</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">12:00 – 13:30</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d2_s4_title">Öğle Yemeği</div>
+          <div class="tl-desc" data-i18n="d2_s4_desc">Çağlayan Restoran</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d2_s5_title">Çağlayan ve Gürlevik Şelalesi</div>
+          <div class="tl-desc" data-i18n="d2_s5_desc">Güncel ve fosil tufa oluşumlarının incelenmesi</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">20:00 – 23:00</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d2_s6_title">Gala Yemeği</div>
+          <div class="tl-desc" data-i18n="d2_s6_desc">Ergan Zirve Restoran</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Day 3: 20 Haziran — Teknik Gezi -->
+  <div class="day-panel" id="day3">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-time">08:30</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d3_s1_title">Teknik Gezi Başlangıcı</div>
+          <div class="tl-desc" data-i18n="d3_s1_desc">Arazi gezisi için hareket</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d3_s2_title">Mamahatun Külliyesi</div>
+          <div class="tl-desc" data-i18n="d3_s2_desc">Selçuklu dönemi mimari kompleksinin incelenmesi</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d3_s3_title">Otlukbeli Traverten Sırt ve Konileri</div>
+          <div class="tl-desc" data-i18n="d3_s3_desc">Traverten oluşumlarının jeolojik ve jeomorfolojik incelenmesi</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">12:00 – 13:30</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d3_s4_title">Öğle Yemeği</div>
+          <div class="tl-desc" data-i18n="d3_s4_desc">Ercan Bey Restoran</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-content">
+          <div class="tl-title" data-i18n="d3_s5_title">Otlukbeli Savaşı Mezar Anıtı</div>
+          <div class="tl-desc" data-i18n="d3_s5_desc">Tarihi savaş alanı ve anıtın incelenmesi</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
         </div>
       </div>
       <div class="timeline-item">
         <div class="tl-time">15:00</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d2_s3_title">Atölye: CBS ile Jeolojik Haritalama</div>
-          <div class="tl-desc" data-i18n="d2_s3_desc">Coğrafi Bilgi Sistemleri kullanarak jeolojik haritalama uygulamaları</div>
+          <div class="tl-title" data-i18n="d3_s6_title">Güncel Traverten Terasları</div>
+          <div class="tl-desc" data-i18n="d3_s6_desc">Aktif traverten oluşum süreçlerinin yerinde incelenmesi</div>
+          <span class="tl-speaker-tag" style="background:rgba(76,175,80,0.15);color:#66bb6a;border-color:rgba(76,175,80,0.3);" data-i18n="field_trip_tag">Teknik Gezi</span>
         </div>
       </div>
       <div class="timeline-item">
-        <div class="tl-time">17:00</div>
+        <div class="tl-time">20:00 – 23:00</div>
         <div class="tl-content">
-          <div class="tl-title" data-i18n="d2_s4_title">Poster Sunumları — Oturum II</div>
-          <div class="tl-desc" data-i18n="d2_s4_desc">Katılımcı poster sunumları ve tartışma</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="day-panel" id="day3">
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="tl-time">09:00</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d3_s1_title">Altıntepe Höyüğü ve Urartu Mirası</div>
-          <div class="tl-desc" data-i18n="d3_s1_desc">Erzincan'ın arkeolojik zenginlikleri ve Urartu dönemi</div>
-          <span class="tl-speaker-tag" data-i18n="invited_speaker">Davetli Konuşmacı</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="tl-time">10:30</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d3_s2_title">Mama Hatun Türbesi: Mimari Analiz</div>
-          <div class="tl-desc" data-i18n="d3_s2_desc">Selçuklu dönemi mimarisinin incelenmesi</div>
-          <span class="tl-speaker-tag" data-i18n="invited_speaker">Davetli Konuşmacı</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="tl-time">13:30</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d3_s3_title">Saha Gezisi: Girlevik Şelalesi</div>
-          <div class="tl-desc" data-i18n="d3_s3_desc">Traverten oluşumları ve hidrojeolojik inceleme</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="tl-time">16:00</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d3_s4_title">Poster Sunumları — Oturum III</div>
-          <div class="tl-desc" data-i18n="d3_s4_desc">Katılımcı poster sunumları ve tartışma</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="day-panel" id="day4">
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="tl-time">09:00</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d4_s1_title">Doğal Kaynaklar ve Çevre Paneli</div>
-          <div class="tl-desc" data-i18n="d4_s1_desc">Fırat Nehri havzası, su kaynakları yönetimi ve biyoçeşitlilik</div>
-          <span class="tl-speaker-tag" data-i18n="invited_speaker">Davetli Konuşmacı</span>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="tl-time">10:30</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d4_s2_title">Sürdürülebilir Kalkınma ve Jeoparklar</div>
-          <div class="tl-desc" data-i18n="d4_s2_desc">Erzincan'ın jeopark potansiyeli ve sürdürülebilir kalkınma stratejileri</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="tl-time">13:30</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d4_s3_title">Saha Gezisi: Karanlık Kanyon</div>
-          <div class="tl-desc" data-i18n="d4_s3_desc">Kanyon jeomorfolojisi ve ekoturizm potansiyelinin incelenmesi</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="tl-time">16:00</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d4_s4_title">Kapanış Oturumu & Sonuç Bildirgesi</div>
-          <div class="tl-desc" data-i18n="d4_s4_desc">Çalıştay sonuçlarının değerlendirilmesi ve gelecek adımlar</div>
-        </div>
-      </div>
-      <div class="timeline-item">
-        <div class="tl-time">19:00</div>
-        <div class="tl-content">
-          <div class="tl-title" data-i18n="d4_s5_title">Veda Yemeği</div>
-          <div class="tl-desc" data-i18n="d4_s5_desc">Çalıştay değerlendirmesi ve sertifika takdimi</div>
+          <div class="tl-title" data-i18n="d3_s7_title">Akşam Yemeği</div>
+          <div class="tl-desc" data-i18n="d3_s7_desc">Kapanış yemeği</div>
         </div>
       </div>
     </div>
@@ -1404,34 +2185,42 @@ a, button { cursor: none; }
 
 <!-- VENUE -->
 <section class="section" id="venue">
-  <div class="venue-grid">
-    <div class="venue-map">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d48870.42791827858!2d39.4689!3d39.7467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407837d1c7b9f4e5%3A0x4c2b1b7e60f4f3a9!2sErzincan!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
-        width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg) brightness(0.8) contrast(1.2);" allowfullscreen loading="lazy"></iframe>
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="venue_label">Mekan</div>
+    <h2 class="section-title reveal" data-i18n="venue_title">Etkinlik Yeri</h2>
+  </div>
+  <div class="venue-maps-row">
+    <div class="venue-map-box reveal">
+      <div class="venue-map-card-label" data-i18n="venue_map_city">Erzincan</div>
+      <iframe src="https://maps.google.com/maps?q=Erzincan,Turkey&z=12&t=k&output=embed&hl=tr"
+        width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
     </div>
-    <div class="venue-details">
-      <div class="section-label" data-i18n="venue_label">Mekan</div>
-      <h2 class="section-title" data-i18n="venue_title">Etkinlik Yeri</h2>
-      <div class="venue-item">
-        <div class="venue-item-label" data-i18n="venue_uni_label">Üniversite</div>
-        <div class="venue-item-value" data-i18n="venue_uni_val">Erzincan Binali Yıldırım Üniversitesi</div>
-      </div>
-      <div class="venue-item">
-        <div class="venue-item-label" data-i18n="venue_hall_label">Salon</div>
-        <div class="venue-item-value" data-i18n="venue_hall_val">Merkezi Konferans Salonu</div>
-      </div>
-      <div class="venue-item">
-        <div class="venue-item-label" data-i18n="venue_addr_label">Adres</div>
-        <div class="venue-item-value" data-i18n="venue_addr_val">Yalnızbağ Yerleşkesi, 24100 Erzincan</div>
-      </div>
-      <div class="venue-item">
-        <div class="venue-item-label" data-i18n="venue_transport_label">Ulaşım</div>
-        <div class="venue-item-value" data-i18n="venue_transport_val">Erzincan Havalimanı'na 8 km</div>
-      </div>
-      <div class="venue-item">
-        <div class="venue-item-label" data-i18n="venue_accom_label">Konaklama</div>
-        <div class="venue-item-value" data-i18n="venue_accom_val">Anlaşmalı oteller için iletişime geçin</div>
-      </div>
+    <div class="venue-map-box reveal">
+      <div class="venue-map-card-label" data-i18n="venue_map_campus">Kampüs</div>
+      <iframe src="https://maps.google.com/maps?q=39.8040373,39.3787021&z=16&t=k&output=embed&hl=tr"
+        width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+  <div class="venue-details-row">
+    <div class="venue-item">
+      <div class="venue-item-label" data-i18n="venue_uni_label">Üniversite</div>
+      <div class="venue-item-value" data-i18n="venue_uni_val">Erzincan Binali Yıldırım Üniversitesi</div>
+    </div>
+    <div class="venue-item">
+      <div class="venue-item-label" data-i18n="venue_hall_label">Salon</div>
+      <div class="venue-item-value" data-i18n="venue_hall_val">Prof. Dr. Erdoğan Büyükkasap Kongre ve Kültür Merkezi</div>
+    </div>
+    <div class="venue-item">
+      <div class="venue-item-label" data-i18n="venue_addr_label">Adres</div>
+      <div class="venue-item-value" data-i18n="venue_addr_val">Yalnızbağ Yerleşkesi, 24100 Erzincan</div>
+    </div>
+    <div class="venue-item">
+      <div class="venue-item-label" data-i18n="venue_transport_label">Ulaşım</div>
+      <div class="venue-item-value" data-i18n="venue_transport_val">Erzincan Havalimanı'ndan ~8 km (araçla ~10 dk)</div>
+    </div>
+    <div class="venue-item">
+      <div class="venue-item-label" data-i18n="venue_accom_label">Konaklama</div>
+      <div class="venue-item-value" data-i18n="venue_accom_val">Erzincan Binali Yıldırım Üniversitesi Konukevi</div>
     </div>
   </div>
 </section>
@@ -1441,18 +2230,63 @@ a, button { cursor: none; }
   <div style="max-width:1300px;margin:0 auto;text-align:center;">
     <div class="section-label reveal" data-i18n="sponsors_label">Destekçiler</div>
     <h2 class="section-title reveal" data-i18n="sponsors_title">Kurumsal Destekçilerimiz</h2>
-    <div class="sponsor-tier" style="margin-top:3rem;" data-i18n="sponsor_main">Ana Sponsor</div>
-    <div class="sponsors-row">
-      <div class="sponsor-logo" style="width:200px;height:90px;">TÜBİTAK</div>
-      <div class="sponsor-logo" style="width:200px;height:90px;">MTA</div>
+    <div class="sponsors-row" style="margin-top:3rem;">
+      <div class="sponsor-item reveal">
+        <img src="Logolar/1-EBYU logo.png" alt="EBYÜ">
+        <div class="sponsor-name" data-i18n="sp_ebyu">Erzincan Binali Yıldırım Üniversitesi</div>
+      </div>
+      <div class="sponsor-item reveal">
+        <img src="Logolar/2-Erzincan Valiliği.png" alt="Erzincan Valiliği">
+        <div class="sponsor-name" data-i18n="sp_valilik">Erzincan Valiliği</div>
+      </div>
+      <div class="sponsor-item reveal">
+        <img src="Logolar/7-MTA.png" alt="MTA">
+        <div class="sponsor-name" data-i18n="sp_mta">Maden Tetkik ve Arama Genel Müdürlüğü</div>
+      </div>
+      <div class="sponsor-item reveal">
+        <img src="Logolar/3-JEMİRKO.png" alt="JEMİRKO">
+        <div class="sponsor-name" data-i18n="sp_jemirko">Jeolojik Mirası Koruma Derneği</div>
+      </div>
+      <div class="sponsor-item reveal">
+        <img src="Logolar/5-TMMOB Jeoloji mühendisleri odası Erzincan Temsilciliği.png" alt="JMO">
+        <div class="sponsor-name" data-i18n="sp_jmo">TMMOB Jeoloji Mühendisleri Odası Erzincan Temsilciliği</div>
+      </div>
+      <div class="sponsor-item reveal">
+        <img src="Logolar/4-Erzincan 24 Doğa ve Kültür Varlıkları Koruma Derneği.jpg" alt="Erzincan 24">
+        <div class="sponsor-name" data-i18n="sp_erzincan24">Erzincan 24 Doğa ve Kültür Varlıkları Koruma Derneği</div>
+      </div>
+      <div class="sponsor-item reveal">
+        <img src="Logolar/6-UNESCO_logo_hor_blue_transparent.png" alt="UNESCO" style="background:rgba(255,255,255,0.95);">
+        <div class="sponsor-name" data-i18n="sp_unesco">UNESCO Türkiye Millî Komisyonu</div>
+      </div>
     </div>
-    <div class="sponsor-tier" style="margin-top:2rem;" data-i18n="sponsor_inst">Kurumsal Destek</div>
-    <div class="sponsors-row">
-      <div class="sponsor-logo">EBYU</div>
-      <div class="sponsor-logo">JEMIRKO</div>
-      <div class="sponsor-logo">TMMOB</div>
-      <div class="sponsor-logo">JMO</div>
+  </div>
+</section>
+
+<!-- REGISTER -->
+<!-- SUBMIT PAPER -->
+<section class="section submit-paper-section" id="submit-paper">
+  <div class="section-label reveal" data-i18n="submit_label">Bildiri Gönder</div>
+  <h2 class="section-title reveal" data-i18n="submit_title">Bildirinizi Gönderin</h2>
+  <p class="section-desc reveal" data-i18n="submit_desc">Hazırladığınız bildiriyi PDF veya Word (.doc, .docx) formatında aşağıdaki form aracılığıyla gönderebilirsiniz.</p>
+  <div class="submit-info-badge reveal" data-i18n="submit_formats">Kabul edilen formatlar: PDF, DOC, DOCX</div>
+  <form class="submit-form reveal" id="submitPaperForm">
+    <input type="text" name="authorName" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
+    <input type="email" name="authorEmail" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
+    <input type="text" name="authorInstitution" data-ph-i18n="ph_inst" placeholder="Kurum / Üniversite">
+    <input type="text" name="paperTitle" data-ph-i18n="ph_paper_title" placeholder="Bildiri Başlığı" required>
+    <div class="file-upload-area" id="fileUploadArea">
+      <div class="file-upload-icon">&#x1F4C4;</div>
+      <div class="file-upload-text" data-i18n-html="submit_file_hint"><strong>Dosyanızı seçmek için tıklayın</strong><br>PDF, DOC veya DOCX (maks. 10 MB)</div>
+      <div class="file-name-display" id="fileName"></div>
+      <input type="file" name="paperFile" accept=".pdf,.doc,.docx" required id="paperFileInput">
     </div>
+    <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="submit_btn">Bildiriyi Gönder</button>
+  </form>
+  <div class="form-success" id="submitSuccess">
+    <div class="check-circle">✓</div>
+    <h3 data-i18n="submit_success_title">Bildiriniz Alınmıştır!</h3>
+    <p data-i18n="submit_success_desc">Bildiriniz başarıyla gönderilmiştir. Değerlendirme sonucu e-posta ile bildirilecektir.</p>
   </div>
 </section>
 
@@ -1475,6 +2309,72 @@ a, button { cursor: none; }
   </div>
 </section>
 
+<!-- TECHNICAL TRIP REGISTRATION -->
+<section class="section" id="trip-register">
+  <div class="section-label reveal" data-i18n="trip_label">Teknik Gezi</div>
+  <h2 class="section-title reveal" data-i18n="trip_title">Teknik Gezi Katılımı</h2>
+  <p class="section-desc reveal" data-i18n="trip_desc">Çalıştay kapsamındaki teknik gezilere katılmak için aşağıdaki formu doldurun.</p>
+  <form class="register-form reveal" id="tripForm" style="margin-top:1.5rem;">
+    <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
+    <input type="email" name="email" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
+    <input type="text" name="institution" data-ph-i18n="ph_inst" placeholder="Kurum / Üniversite">
+    <select name="tripDays" required style="padding:1rem 1.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'Inter',sans-serif;font-size:0.95rem;outline:none;">
+      <option value="" disabled selected data-i18n="trip_select_placeholder">Katılım Süresi Seçin</option>
+      <option value="1gun" data-i18n="trip_opt_1">1 Gün — 19 Haziran (Cuma)</option>
+      <option value="2gun" data-i18n="trip_opt_2">2 Gün — 19-20 Haziran (Cuma-Cumartesi)</option>
+    </select>
+    <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="trip_btn">Gezi Kaydı Yap</button>
+  </form>
+  <div class="trip-warning reveal" data-i18n-html="trip_warning"><strong>Teknik gezi, çalıştaya davetli olmayan dışarıdan katılımcılar için ücretlidir.</strong> Detaylı bilgi ve ücret için <a href="mailto:erjekum2026@gmail.com" style="color:#d4a853;">erjekum2026@gmail.com</a> adresinden iletişime geçiniz.</div>
+  <div class="form-success" id="tripSuccess">
+    <div class="check-circle">✓</div>
+    <h3 data-i18n="trip_success_title">Gezi Kaydınız Alınmıştır!</h3>
+    <p data-i18n="trip_success_desc">Teknik gezi kaydınız alınmıştır. Ücret ve detaylar için sizinle iletişime geçilecektir.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="faq_label">SSS</div>
+    <h2 class="section-title reveal" data-i18n="faq_title">Sıkça Sorulan Sorular</h2>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q1" onclick="this.parentElement.classList.toggle('active')">Çalıştay ne zaman ve nerede düzenlenecek?</div>
+      <div class="faq-a" data-i18n="faq_a1">Çalıştay 18-20 Haziran 2026 tarihleri arasında Erzincan Binali Yıldırım Üniversitesi Merkezi Konferans Salonu'nda gerçekleştirilecektir.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q2" onclick="this.parentElement.classList.toggle('active')">Çalıştaya nasıl kayıt olabilirim?</div>
+      <div class="faq-a" data-i18n="faq_a2">Web sitemizin "Kayıt" bölümündeki formu doldurarak ön kayıt yaptırabilirsiniz. Kontenjan sınırlıdır.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q3" onclick="this.parentElement.classList.toggle('active')">Teknik gezilere katılım ücretli mi?</div>
+      <div class="faq-a" data-i18n="faq_a3">Evet, teknik geziler ücretlidir. Detaylı bilgi ve ücretler için erjekum2026@gmail.com adresinden iletişime geçebilirsiniz.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q4" onclick="this.parentElement.classList.toggle('active')">Bildirimi nasıl gönderebilirim?</div>
+      <div class="faq-a" data-i18n="faq_a4">Bildirinizi PDF veya Word formatında "Bildiri Gönder" bölümündeki form aracılığıyla gönderebilirsiniz.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q5" onclick="this.parentElement.classList.toggle('active')">Konaklama imkanı var mı?</div>
+      <div class="faq-a" data-i18n="faq_a5">Anlaşmalı oteller için organizasyon komitesiyle iletişime geçebilirsiniz. Detaylar kayıt sonrasında paylaşılacaktır.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q6" onclick="this.parentElement.classList.toggle('active')">Hangi dillerde sunum yapılabilir?</div>
+      <div class="faq-a" data-i18n="faq_a6">Sunumlar Türkçe veya İngilizce olarak yapılabilir.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q7" onclick="this.parentElement.classList.toggle('active')">Bildiri özeti formatı nedir?</div>
+      <div class="faq-a" data-i18n="faq_a7">Bildiri özeti ve genişletilmiş bildiri şablonlarını web sitemizdeki "Şablonlar" bölümünden indirerek gerekli formata uygun şekilde hazırlayabilirsiniz.</div>
+    </div>
+    <div class="faq-item reveal">
+      <div class="faq-q" data-i18n="faq_q8" onclick="this.parentElement.classList.toggle('active')">Havalimanından üniversiteye nasıl ulaşabilirim?</div>
+      <div class="faq-a" data-i18n="faq_a8">Erzincan Havalimanı, üniversite yerleşkesine yaklaşık 8 km mesafededir (araçla ~10 dakika). Havalimanından taksi veya servis imkanı bulunmaktadır.</div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-grid">
@@ -1486,7 +2386,7 @@ a, button { cursor: none; }
       <div class="footer-heading" data-i18n="footer_links">Bağlantılar</div>
       <ul class="footer-links">
         <li><a href="#about" data-i18n="nav_about">Hakkında</a></li>
-        <li><a href="#topics" data-i18n="nav_topics">Konular</a></li>
+        <li><a href="#topics" data-i18n="nav_topics">Oturumlar</a></li>
         <li><a href="#speakers" data-i18n="nav_speakers">Konuşmacılar</a></li>
         <li><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
       </ul>
@@ -1496,17 +2396,17 @@ a, button { cursor: none; }
       <ul class="footer-links">
         <li><a href="#venue" data-i18n="footer_venue_transport">Mekan & Ulaşım</a></li>
         <li><a href="#register" data-i18n="footer_register">Kayıt</a></li>
-        <li><a href="#" data-i18n="footer_submit">Bildiri Gönder</a></li>
-        <li><a href="#" data-i18n="footer_faq">SSS</a></li>
+        <li><a href="#extended-abstract" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri</a></li>
+        <li><a href="#abstract-format" data-i18n="nav_abs_format">Bildiri Özeti</a></li>
+        <li><a href="#submit-paper" data-i18n="nav_submit">Bildiri Gönder</a></li>
+        <li><a href="#faq" data-i18n="nav_faq">SSS</a></li>
       </ul>
     </div>
     <div>
       <div class="footer-heading" data-i18n="footer_contact">İletişim</div>
       <ul class="footer-links">
-        <li><a href="mailto:calistay@erzincan.edu.tr">calistay@erzincan.edu.tr</a></li>
-        <li><a href="#">+90 446 XXX XX XX</a></li>
-        <li><a href="#">Twitter / X</a></li>
-        <li><a href="#">LinkedIn</a></li>
+        <li><a href="mailto:erjekum2026@gmail.com">erjekum2026@gmail.com</a></li>
+        <li><a href="tel:+904462243032">+90 446 224 3032 <span data-i18n="footer_ext">Dahili: 40280</span></a></li>
       </ul>
     </div>
   </div>
@@ -1661,7 +2561,7 @@ updateCountdown();
 setInterval(updateCountdown, 1000);
 
 // ========== FORM SUBMISSION ==========
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWi9PFfBbQIl_Vs4sMjv50dJju9QeuYK5V2SeA00TSL0bfsywGBrjFHvOhy0fjJ8F5hQ/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz8i4lz0H18jo63tXfNMhXB5dtMd8Z6q8aczY_ly5HzISjdtlzHZ9r189oZacpHDp_T/exec';
 const regForm = document.getElementById('registerForm');
 const formSuccess = document.getElementById('formSuccess');
 regForm.addEventListener('submit', function(e) {
@@ -1670,6 +2570,7 @@ regForm.addEventListener('submit', function(e) {
   btn.disabled = true;
   btn.textContent = currentLang==='en'?'Sending...':currentLang==='it'?'Invio...':'Gönderiliyor...';
   const data = {
+    type: 'register',
     name: regForm.name.value,
     email: regForm.email.value,
     institution: regForm.institution.value,
@@ -1677,8 +2578,7 @@ regForm.addEventListener('submit', function(e) {
   };
   fetch(SCRIPT_URL, {
     method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'text/plain'},
     body: JSON.stringify(data)
   }).then(() => {
     regForm.style.display = 'none';
@@ -1688,6 +2588,169 @@ regForm.addEventListener('submit', function(e) {
     formSuccess.classList.add('show');
   });
 });
+
+// ========== PAPER SUBMISSION FORM ==========
+// Bildiri formu da aynı SCRIPT_URL'yi kullanır (type:'paper' ile ayırt edilir)
+const submitForm = document.getElementById('submitPaperForm');
+const submitSuccess = document.getElementById('submitSuccess');
+const paperFileInput = document.getElementById('paperFileInput');
+const fileNameDisplay = document.getElementById('fileName');
+
+if(paperFileInput) {
+  paperFileInput.addEventListener('change', function() {
+    if(this.files.length > 0) {
+      fileNameDisplay.textContent = this.files[0].name;
+      fileNameDisplay.style.display = 'block';
+    }
+  });
+}
+
+if(submitForm) {
+  submitForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = submitForm.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = currentLang==='en'?'Sending...':currentLang==='it'?'Invio...':'Gönderiliyor...';
+
+    const file = paperFileInput.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function() {
+      const base64 = reader.result.split(',')[1];
+      const data = {
+        type: 'paper',
+        authorName: submitForm.authorName.value,
+        authorEmail: submitForm.authorEmail.value,
+        authorInstitution: submitForm.authorInstitution.value,
+        paperTitle: submitForm.paperTitle.value,
+        fileName: file.name,
+        fileType: file.type,
+        fileData: base64
+      };
+      fetch(SCRIPT_URL, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'text/plain'},
+        body: JSON.stringify(data)
+      }).then(() => {
+        submitForm.style.display = 'none';
+        submitSuccess.classList.add('show');
+      }).catch(() => {
+        submitForm.style.display = 'none';
+        submitSuccess.classList.add('show');
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+// ========== TRIP FORM ==========
+// Teknik gezi formu da aynı SCRIPT_URL'yi kullanır (type:'trip' ile ayırt edilir)
+const tripForm = document.getElementById('tripForm');
+const tripSuccess = document.getElementById('tripSuccess');
+
+if(tripForm) {
+  tripForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = tripForm.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = currentLang==='en'?'Sending...':currentLang==='it'?'Invio...':'Gönderiliyor...';
+    const data = {
+      type: 'trip',
+      name: tripForm.name.value,
+      email: tripForm.email.value,
+      institution: tripForm.institution.value,
+      tripDays: tripForm.tripDays.value
+    };
+    fetch(SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify(data)
+    }).then(() => {
+      tripForm.style.display = 'none';
+      tripSuccess.classList.add('show');
+    }).catch(() => {
+      tripForm.style.display = 'none';
+      tripSuccess.classList.add('show');
+    });
+  });
+}
+
+// ========== GALLERY FILTER + LIGHTBOX ==========
+let galleryItems = [];
+let currentLbIndex = 0;
+
+function filterGallery(cat) {
+  document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+  const items = document.querySelectorAll('.gallery-item');
+  items.forEach(item => {
+    item.style.display = item.dataset.cat === cat ? '' : 'none';
+  });
+}
+
+// Initialize: show first category (alphabetically first = abrenk-vank)
+(function initGallery() {
+  const firstBtn = document.querySelector('.gallery-filter-btn');
+  if(firstBtn) filterGallery(firstBtn.dataset.cat);
+})();
+
+function openLightbox(el) {
+  const grid = document.getElementById('galleryGrid');
+  galleryItems = Array.from(grid.querySelectorAll('.gallery-item')).filter(i => i.style.display !== 'none');
+  currentLbIndex = galleryItems.indexOf(el);
+  const img = el.querySelector('img');
+  document.getElementById('lightboxImg').src = img.src;
+  document.getElementById('lightboxCaption').textContent = el.querySelector('.gallery-item-overlay span')?.textContent || '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function navLightbox(dir) {
+  currentLbIndex = (currentLbIndex + dir + galleryItems.length) % galleryItems.length;
+  const item = galleryItems[currentLbIndex];
+  const img = item.querySelector('img');
+  const lbImg = document.getElementById('lightboxImg');
+  lbImg.style.animation = 'none';
+  lbImg.offsetHeight;
+  lbImg.style.animation = 'lbZoom 0.3s cubic-bezier(0.22,1,0.36,1)';
+  lbImg.src = img.src;
+  document.getElementById('lightboxCaption').textContent = item.querySelector('.gallery-item-overlay span')?.textContent || '';
+}
+
+document.getElementById('lightbox')?.addEventListener('click', function(e) {
+  if(e.target === this) closeLightbox();
+});
+document.addEventListener('keydown', function(e) {
+  if(!document.getElementById('lightbox')?.classList.contains('active')) return;
+  if(e.key === 'Escape') closeLightbox();
+  if(e.key === 'ArrowLeft') navLightbox(-1);
+  if(e.key === 'ArrowRight') navLightbox(1);
+});
+
+// Override filterGallery to show all when category selected
+const _origFilter = filterGallery;
+filterGallery = function(cat) {
+  if(cat === 'all') {
+    const counts = {};
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      const c = item.dataset.cat;
+      counts[c] = (counts[c] || 0) + 1;
+      item.style.display = counts[c] <= 2 ? '' : 'none';
+    });
+  } else {
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.style.display = item.dataset.cat === cat ? '' : 'none';
+    });
+  }
+  document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+};
 
 // ========== INTERSECTION OBSERVER ==========
 const observerOpts = { threshold:0.15, rootMargin:'0px 0px -50px 0px' };
@@ -1717,10 +2780,84 @@ document.querySelectorAll('.timeline-item').forEach((item, i) => {
   item.style.transitionDelay = `${i * 0.1}s`;
 });
 
-// ========== DYNAMIC HERO BACKGROUND ==========
-const heroBgs = ['fotolar/kemah-formasyonu.jpg','fotolar/buzul-golu.jpg','fotolar/girlevik.jpg','fotolar/moren.jpg','fotolar/kemah-fm.jpg'];
-const randomBg = heroBgs[Math.floor(Math.random() * heroBgs.length)];
-document.querySelector('.hero-bg').style.backgroundImage = `linear-gradient(135deg, rgba(10,15,26,0.7), rgba(10,15,26,0.4)), url('${randomBg}')`;
+// ========== HERO BACKGROUND SLIDESHOW ==========
+const heroPhotos = [
+  'fotolar/galeri/abrenk-vank/foto_01.jpg',
+  'fotolar/galeri/altintepe-hoyuk/foto_011.jpg',
+  'fotolar/galeri/ardos-golu/foto_01.jpg',
+  'fotolar/galeri/eksisu/foto_002.jpg',
+  'fotolar/galeri/ergan-dagi/foto_001.jpg',
+  'fotolar/galeri/girlevik-selalesi/foto_01.jpg',
+  'fotolar/galeri/karanlik-kanyon/foto_06.jpg',
+  'fotolar/galeri/kemah/foto_002.jpg',
+  'fotolar/galeri/kockar-sohmarik/foto_01.jpg',
+  'fotolar/galeri/mamahatun-turbesi/foto_01.jpg',
+  'fotolar/galeri/merg-yaylasi/foto_01.jpg',
+  'fotolar/galeri/otlukbeli-golu/foto_01.jpg',
+  'fotolar/galeri/palat-golu/foto_01.jpg',
+  'fotolar/kemah-formasyonu.jpg','fotolar/girlevik.jpg','fotolar/moren.jpg','fotolar/kemah-fm.jpg'
+];
+(function heroSlideshow() {
+  // Fisher-Yates shuffle
+  for(let i = heroPhotos.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [heroPhotos[i], heroPhotos[j]] = [heroPhotos[j], heroPhotos[i]];
+  }
+  const grad = 'linear-gradient(135deg, rgba(10,15,26,0.7), rgba(10,15,26,0.4))';
+  const layerA = document.querySelector('.hero-bg-a');
+  const layerB = document.querySelector('.hero-bg-b');
+  let idx = 0;
+  let showingA = true;
+  layerA.style.backgroundImage = `${grad}, url('${heroPhotos[idx]}')`;
+  setInterval(() => {
+    idx = (idx + 1) % heroPhotos.length;
+    const nextUrl = `${grad}, url('${heroPhotos[idx]}')`;
+    if(showingA) {
+      layerB.style.backgroundImage = nextUrl;
+      layerB.style.opacity = '1';
+      layerA.style.opacity = '0';
+    } else {
+      layerA.style.backgroundImage = nextUrl;
+      layerA.style.opacity = '1';
+      layerB.style.opacity = '0';
+    }
+    showingA = !showingA;
+  }, 6000);
+})();
+
+// ========== ABOUT IMAGE SLIDESHOW ==========
+(function aboutSlideshow() {
+  const aboutPhotos = [
+    'fotolar/girlevik.jpg',
+    'fotolar/galeri/otlukbeli-golu/foto_02.jpg',
+    'fotolar/galeri/karanlik-kanyon/foto_13.jpg',
+    'fotolar/galeri/kemah/foto_004.jpg',
+    'fotolar/galeri/ergan-dagi/foto_002.jpg',
+    'fotolar/galeri/mamahatun-turbesi/foto_04.jpg',
+    'fotolar/galeri/ardos-golu/foto_02.jpg',
+    'fotolar/galeri/merg-yaylasi/foto_03.jpg',
+    'fotolar/galeri/palat-golu/foto_03.jpg',
+    'fotolar/galeri/girlevik-selalesi/foto_03.jpg'
+  ];
+  // Fisher-Yates shuffle
+  for(let i = aboutPhotos.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [aboutPhotos[i], aboutPhotos[j]] = [aboutPhotos[j], aboutPhotos[i]];
+  }
+  const img = document.querySelector('.about-img');
+  if(!img) return;
+  img.src = aboutPhotos[0];
+  img.style.transition = 'opacity 1.2s ease';
+  let idx = 0;
+  setInterval(() => {
+    idx = (idx + 1) % aboutPhotos.length;
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = aboutPhotos[idx];
+      img.style.opacity = '1';
+    }, 600);
+  }, 7000);
+})();
 
 // ========== DOT NAVIGATION TRACKING ==========
 const dotNavItems = document.querySelectorAll('.dot-nav-item');
@@ -1778,8 +2915,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 let currentLang = 'tr';
 const T = {
   tr: {
-    nav_home_dot:'Ana Sayfa', nav_about:'Hakkında', nav_topics:'Konular', nav_speakers:'Konuşmacılar', nav_schedule:'Program', nav_venue:'Mekan', nav_cta:'Kayıt Ol',
-    hero_date:'18 — 21 Haziran 2026',
+    nav_home:'Giriş', nav_home_dot:'Ana Sayfa', nav_about:'Hakkında', nav_topics:'Oturumlar', nav_speakers:'Konuşmacılar', nav_templates:'Şablonlar', nav_ext_abstract:'Genişletilmiş Bildiri', nav_abs_format:'Bildiri Özeti', nav_submit:'Bildiri Gönder', nav_forms:'Formlar', nav_form_register:'Çalıştay Kayıt', nav_form_trip:'Teknik Gezi Kaydı', nav_form_submit:'Bildiri Gönder', nav_faq:'SSS', nav_schedule:'Program', nav_venue:'Mekan', nav_cta:'Kayıt Ol',
+    hero_intl:'Uluslararası Katılımlı', hero_date:'18 — 20 Haziran 2026',
     hero_title:'<span class="gold">Jeolojik</span> ve Kültürel<br>Mirası Çalıştayı',
     hero_subtitle:'Binlerce yıllık jeolojik mirası keşfet',
     hero_location:'📍 Erzincan Binali Yıldırım Üniversitesi \u2022 Erzincan, Türkiye',
@@ -1789,72 +2926,120 @@ const T = {
     about_label:'Çalıştay Hakkında',
     about_title:'Anadolu\'nun Kalbinde<br>Jeolojik Keşif',
     about_p1:'Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları\'ndan Munzur Sıradağları\'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan\'ın binlerce yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.',
-    about_p2:'Dört günlük program boyunca saha gezileri, atölye çalışmaları, poster sunumları ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, buzul göllerini, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.',
-    stat_speakers:'Konuşmacı', stat_days:'Gün', stat_trips:'Saha Gezisi',
-    topics_label:'Çalıştay Konuları', topics_title:'Araştırma Alanları',
-    topics_desc:'Disiplinlerarası bir yaklaşımla Erzincan\'ın doğal ve kültürel mirasının farklı boyutlarını ele alıyoruz.',
-    t1_title:'Tektonik ve Sismoloji', t1_desc:'Kuzey Anadolu Fay Hattı\'nın Erzincan segmenti, deprem tarihi, aktif tektonik yapılar ve sismik risk değerlendirmesi.',
-    t2_title:'Buzul Jeolojisi ve Jeomorfoloji', t2_desc:'Keşiş Dağı buzul gölleri, moren çökelleri, periglasyal şekiller ve kuvaterner iklim değişiklikleri.',
-    t3_title:'Stratigrafik ve Sedimantoloji', t3_desc:'Kemah Formasyonu, Erzincan Ovası sedimantasyonu, miyosen ve pliyosen çökel kayıtları.',
-    t4_title:'Kültürel Miras ve Arkeoloji', t4_desc:'Altıntepe Höyüğü, Kemah Kalesi, Mama Hatun Türbesi, tarihi yapıların korunması ve restorasyon çalışmaları.',
-    t5_title:'Jeoturizm ve Sürdürülebilirlik', t5_desc:'Karanlık Kanyon, Girlevik Şelalesi, jeoparklar ve eko-turizm potansiyeli, sürdürülebilir kalkınma stratejileri.',
-    t6_title:'Doğal Kaynaklar ve Çevre', t6_desc:'Fırat Nehri havzası, su kaynakları yönetimi, maden kaynakları, biyoçeşitlilik ve çevre koruma.',
+    about_p2:'Üç günlük program boyunca bilimsel oturumlar, teknik arazi gezileri ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, traverten teraslarını, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.',
+    stat_speakers:'Sunum', stat_days:'Gün', stat_trips:'Teknik Gezi',
+    topics_label:'Oturumlar', topics_title:'Çalıştay Oturumları',
+    topics_desc:'Çalıştay kapsamında dört ana oturumda sunumlar gerçekleştirilecektir.',
+    t1_title:'Jeolojik Miras', t1_desc:'İçerik yakında eklenecektir.',
+    t2_title:'Jeomorfoloji', t2_desc:'İçerik yakında eklenecektir.',
+    t3_title:'Kültürel Miras', t3_desc:'İçerik yakında eklenecektir.',
+    t4_title:'Karma Oturum', t4_desc:'İçerik yakında eklenecektir.',
     speakers_label:'Davetli Konuşmacılar', speakers_title:'Uzman Kadromuz', speakers_desc:'Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.',
-    gallery_label:'Galeri', gallery_title:'Erzincan\'dan Kareler',
-    schedule_label:'Program', schedule_title:'Çalıştay Programı', schedule_desc:'Dört gün sürecek yoğun ve verimli bir program sizi bekliyor.',
-    day1_tab:'1. Gün — 18 Haziran', day2_tab:'2. Gün — 19 Haziran', day3_tab:'3. Gün — 20 Haziran', day4_tab:'4. Gün — 21 Haziran',
+    gallery_label:'Galeri', gallery_title:'Erzincan\'dan Kareler', gallery_source:'Kaynak: Google Fotoğraflar',
+    gal_abrenk_vank:'Abrenk Vank Kilisesi', gal_altintepe_hoyuk:'Altıntepe Höyük', gal_ardos_golu:'Ardos Gölü', gal_eksisu:'Ekşisu', gal_ergan_dagi:'Ergan Dağı', gal_girlevik:'Girlevik Şelalesi', gal_karanlik:'Karanlık Kanyon', gal_kemah:'Kemah', gal_kesish_dagi:'Keşiş Dağı', gal_konarli:'Konarlı Şelalesi', gal_mamahatun:'Mamahatun Türbesi', gal_merg:'Merg Yaylası', gal_otlukbeli:'Otlukbeli Gölü', gal_palat:'Polat Gölü', gal_sohmarik:'Sohmarik Yaylası',
+    // Templates (simplified)
+    ext_abstract_label:'Genişletilmiş Bildiri', ext_abstract_title:'Genişletilmiş Bildiri Özeti Şablonu',
+    ext_abstract_desc:'Genişletilmiş özet bildirilerinizi bu şablona uygun olarak hazırlayınız. Şablonu indirerek doğrudan üzerinden yazabilirsiniz.',
+    ext_download_btn:'\u2B73 Şablonu İndir (.docx)',
+    ext_submit_hint:'Bildirinizi hazırladıktan sonra aşağıdaki bölümden gönderebilirsiniz.',
+    abs_format_label:'Bildiri Özeti', abs_format_title:'Bildiri Yazım Formatı',
+    abs_format_desc:'Bildiri özetlerinizi bu şablona uygun şekilde hazırlayınız. Türkçe ve İngilizce özetler ayrı birer sayfa ile sınırlıdır.',
+    abs_download_btn:'\u2B73 Şablonu İndir (.docx)',
+    abs_submit_hint:'Bildirinizi hazırladıktan sonra aşağıdaki bölümden gönderebilirsiniz.',
+    // Submit Paper
+    submit_label:'Bildiri Gönder', submit_title:'Bildirinizi Gönderin',
+    submit_desc:'Hazırladığınız bildiriyi PDF veya Word (.doc, .docx) formatında aşağıdaki form aracılığıyla gönderebilirsiniz.',
+    submit_formats:'Kabul edilen formatlar: PDF, DOC, DOCX',
+    submit_file_hint:'<strong>Dosyanızı seçmek için tıklayın</strong><br>PDF, DOC veya DOCX (maks. 10 MB)',
+    submit_btn:'Bildiriyi Gönder',
+    submit_success_title:'Bildiriniz Alınmıştır!',
+    submit_success_desc:'Bildiriniz başarıyla gönderilmiştir. Değerlendirme sonucu e-posta ile bildirilecektir.',
+    ph_paper_title:'Bildiri Başlığı',
+    // Trip
+    trip_label:'Teknik Gezi', trip_title:'Teknik Gezi Katılımı',
+    trip_desc:'Çalıştay kapsamındaki teknik gezilere katılmak için aşağıdaki formu doldurun.',
+    trip_warning:'<strong>Teknik gezi, çalıştaya davetli olmayan dışarıdan katılımcılar için ücretlidir.</strong> Detaylı bilgi ve ücret için <a href="mailto:erjekum2026@gmail.com" style="color:#d4a853;">erjekum2026@gmail.com</a> adresinden iletişime geçiniz.',
+    trip_select_placeholder:'Katılım Süresi Seçin',
+    trip_opt_1:'1 Gün — 19 Haziran (Cuma)', trip_opt_2:'2 Gün — 19-20 Haziran (Cuma-Cumartesi)',
+    trip_btn:'Gezi Kaydı Yap',
+    trip_success_title:'Gezi Kaydınız Alınmıştır!',
+    trip_success_desc:'Teknik gezi kaydınız alınmıştır. Ücret ve detaylar için sizinle iletişime geçilecektir.',
+    // FAQ
+    faq_label:'SSS', faq_title:'Sıkça Sorulan Sorular',
+    faq_q1:'Çalıştay ne zaman ve nerede düzenlenecek?', faq_a1:'Çalıştay 18-20 Haziran 2026 tarihleri arasında Erzincan Binali Yıldırım Üniversitesi Prof. Dr. Erdoğan Büyükkasap Kongre ve Kültür Merkezi\'nde gerçekleştirilecektir.',
+    faq_q2:'Çalıştaya nasıl kayıt olabilirim?', faq_a2:'Web sitemizin "Kayıt" bölümündeki formu doldurarak ön kayıt yaptırabilirsiniz. Kontenjan sınırlıdır.',
+    faq_q3:'Teknik gezilere katılım ücretli mi?', faq_a3:'Teknik gezi, çalıştaya davetli olmayan dışarıdan katılımcılar için ücretlidir. Detaylı bilgi ve ücretler için erjekum2026@gmail.com adresinden iletişime geçebilirsiniz.',
+    faq_q4:'Bildirimi nasıl gönderebilirim?', faq_a4:'Bildirinizi PDF veya Word formatında "Bildiri Gönder" bölümündeki form aracılığıyla gönderebilirsiniz.',
+    faq_q5:'Konaklama imkanı var mı?', faq_a5:'Konaklama Erzincan Binali Yıldırım Üniversitesi Konukevi\'nde sağlanacaktır. Detaylar kayıt sonrasında paylaşılacaktır.',
+    faq_q6:'Hangi dillerde sunum yapılabilir?', faq_a6:'Sunumlar Türkçe veya İngilizce olarak yapılabilir.',
+    faq_q7:'Bildiri özeti formatı nedir?', faq_a7:'Bildiri özeti ve genişletilmiş bildiri şablonlarını web sitemizdeki "Şablonlar" bölümünden indirerek gerekli formata uygun şekilde hazırlayabilirsiniz.',
+    faq_q8:'Havalimanından üniversiteye nasıl ulaşabilirim?', faq_a8:'Erzincan Havalimanı, üniversite yerleşkesine yaklaşık 8 km mesafededir (araçla ~10 dakika). Havalimanından taksi veya servis imkanı bulunmaktadır.',
+    // Venue
+    venue_map_city:'Erzincan', venue_map_campus:'Kampüs',
+    footer_ext:'Dahili: 40280',
+    // Schedule
+    schedule_label:'Program', schedule_title:'Çalıştay Programı', schedule_desc:'Üç gün sürecek yoğun ve verimli bir program sizi bekliyor.',
+    day1_tab:'1. Gün — 18 Haziran (Perşembe)', day2_tab:'2. Gün — 19 Haziran (Cuma)', day3_tab:'3. Gün — 20 Haziran (Cumartesi)',
+    // Day 1
+    d1_s1_title:'Kayıt ve Açılış Konuşmaları', d1_s1_desc:'Protokol konuşmaları ve çalıştayın resmi açılışı',
+    d1_s2_title:'Nizamettin KAZANCI', d1_s2_desc:'JEMİRKO Başkanı — Açılış konuşması',
+    d1_s3_title:'Çay / Kahve Arası', d1_s3_desc:'',
+    d1_s4_title:'OTURUM 1 — Jeolojik Miras', d1_s4_desc:'Bilimsel sunumlar (6 sunum)',
+    d1_s5_title:'Öğle Yemeği Arası', d1_s5_desc:'',
+    d1_s6_title:'OTURUM 2 — Jeomorfoloji', d1_s6_desc:'Bilimsel sunumlar (5 sunum)',
+    d1_s7_title:'Çay / Kahve Arası', d1_s7_desc:'',
+    d1_s8_title:'OTURUM 3 — Kültürel Miras', d1_s8_desc:'Bilimsel sunumlar (4 sunum)',
+    d1_s9_title:'Çay / Kahve Arası', d1_s9_desc:'',
+    d1_s10_title:'OTURUM 4 — Karma Oturum', d1_s10_desc:'Bilimsel sunumlar (6 sunum)',
+    d1_s11_title:'Akşam Yemeği', d1_s11_desc:'Esentepe Restoran',
+    // Day 2
+    field_trip_tag:'Teknik Gezi',
+    d2_s1_title:'Teknik Gezi Başlangıcı', d2_s1_desc:'Arazi gezisi için hareket',
+    d2_s2_title:'Ekşisu', d2_s2_desc:'Ekşisu maden suyu kaynakları ve çevresinin incelenmesi',
+    d2_s3_title:'Volkan Konileri ve Altıntepe Höyüğü', d2_s3_desc:'Volkanik yapılar ve Urartu dönemi arkeolojik alanı',
+    d2_s4_title:'Öğle Yemeği', d2_s4_desc:'Çağlayan Restoran',
+    d2_s5_title:'Çağlayan ve Gürlevik Şelalesi', d2_s5_desc:'Güncel ve fosil tufa oluşumlarının incelenmesi',
+    d2_s6_title:'Gala Yemeği', d2_s6_desc:'Ergan Zirve Restoran',
+    // Day 3
+    d3_s1_title:'Teknik Gezi Başlangıcı', d3_s1_desc:'Arazi gezisi için hareket',
+    d3_s2_title:'Mamahatun Külliyesi', d3_s2_desc:'Selçuklu dönemi mimari kompleksinin incelenmesi',
+    d3_s3_title:'Otlukbeli Traverten Sırt ve Konileri', d3_s3_desc:'Traverten oluşumlarının jeolojik ve jeomorfolojik incelenmesi',
+    d3_s4_title:'Öğle Yemeği', d3_s4_desc:'Ercan Bey Restoran',
+    d3_s5_title:'Otlukbeli Savaşı Mezar Anıtı', d3_s5_desc:'Tarihi savaş alanı ve anıtın incelenmesi',
+    d3_s6_title:'Güncel Traverten Terasları', d3_s6_desc:'Aktif traverten oluşum süreçlerinin yerinde incelenmesi',
+    d3_s7_title:'Akşam Yemeği', d3_s7_desc:'Kapanış yemeği',
+    // Venue
     venue_label:'Mekan', venue_title:'Etkinlik Yeri',
-    sponsors_label:'Destekçiler', sponsors_title:'Kurumsal Destekçilerimiz',
-    reg_label:'Kayıt', reg_title:'Çalıştaya Katılın', reg_desc:'Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.', reg_btn:'Ön Kayıt Yap',
-    ph_name:'Adınız Soyadınız', ph_email:'E-posta Adresiniz', ph_inst:'Kurum / Üniversite', ph_field:'Uzmanlık Alanınız',
-    success_title:'Kaydınız Alınmıştır!', success_desc:'Ön kaydınız başarıyla tamamlanmıştır. Detaylı bilgi ve onay e-postanız en kısa sürede iletilecektir.',
-    footer_desc:'Erzincan\'ın Jeolojik ve Kültürel Mirası Çalıştayı, Erzincan Binali Yıldırım Üniversitesi ev sahipliğinde düzenlenmektedir.',
+    venue_map_city:'Erzincan', venue_map_campus:'Kampüs',
+    venue_uni_label:'Üniversite', venue_uni_val:'Erzincan Binali Yıldırım Üniversitesi',
+    venue_hall_label:'Salon', venue_hall_val:'Prof. Dr. Erdoğan Büyükkasap Kongre ve Kültür Merkezi',
+    venue_addr_label:'Adres', venue_addr_val:'Yalnızbağ Yerleşkesi, 24100 Erzincan',
+    venue_transport_label:'Ulaşım', venue_transport_val:'Erzincan Havalimanı\'ndan ~8 km (araçla ~10 dk)',
+    venue_accom_label:'Konaklama', venue_accom_val:'Erzincan Binali Yıldırım Üniversitesi Konukevi',
     // Speakers
     sp1_name:'Prof. Dr. [İsim]', sp1_role:'Tektonik & Sismoloji', sp1_uni:'Erzincan Binali Yıldırım Üniversitesi',
     sp2_name:'Prof. Dr. [İsim]', sp2_role:'Buzul Jeolojisi', sp2_uni:'İstanbul Teknik Üniversitesi',
     sp3_name:'Prof. Dr. [İsim]', sp3_role:'Kültürel Miras', sp3_uni:'Ankara Üniversitesi',
     sp4_name:'Prof. Dr. [İsim]', sp4_role:'Stratigrafik', sp4_uni:'Hacettepe Üniversitesi',
     invited_speaker:'Davetli Konuşmacı',
-    // Day 1
-    d1_s1_title:'Açılış Töreni', d1_s1_desc:'Hoş geldiniz konuşmaları ve çalıştayın tanıtımı',
-    d1_s2_title:'Kuzey Anadolu Fay Hattı ve Erzincan', d1_s2_desc:'Erzincan segmentinin tektonik özellikleri ve sismik aktivite',
-    d1_s3_title:'Keşiş Dağı Buzul Gölleri', d1_s3_desc:'Yedi Göller bölgesinin buzul jeomorfolojisi ve paleoklimatik önemi',
-    d1_s4_title:'Poster Sunumları — Oturum I', d1_s4_desc:'Katılımcı poster sunumları ve tartışma',
-    d1_s5_title:'Panel: Jeoturizm Potansiyeli', d1_s5_desc:'Erzincan\'ın jeoturizm değerlerinin tartışılması',
-    d1_s6_title:'Karşılama Yemeği', d1_s6_desc:'Erzincan yöresel mutfağı eşliğinde tanışma yemeği',
-    // Day 2
-    d2_s1_title:'Saha Gezisi: Kemah Formasyonu', d2_s1_desc:'Erken Miyosen yaşlı kıvrımlı yapıların incelenmesi',
-    d2_s2_title:'Saha Gezisi: Kemah Kalesi & Karanlık Kanyon', d2_s2_desc:'Tarihi kale ve jeolojik oluşumların yerinde incelenmesi',
-    d2_s3_title:'Atölye: CBS ile Jeolojik Haritalama', d2_s3_desc:'Coğrafi Bilgi Sistemleri kullanarak jeolojik haritalama uygulamaları',
-    d2_s4_title:'Poster Sunumları — Oturum II', d2_s4_desc:'Katılımcı poster sunumları ve tartışma',
-    // Day 3
-    d3_s1_title:'Altıntepe Höyüğü ve Urartu Mirası', d3_s1_desc:'Erzincan\'ın arkeolojik zenginlikleri ve Urartu dönemi',
-    d3_s2_title:'Mama Hatun Türbesi: Mimari Analiz', d3_s2_desc:'Selçuklu dönemi mimarisinin incelenmesi',
-    d3_s3_title:'Saha Gezisi: Girlevik Şelalesi', d3_s3_desc:'Traverten oluşumları ve hidrojeolojik inceleme',
-    d3_s4_title:'Poster Sunumları — Oturum III', d3_s4_desc:'Katılımcı poster sunumları ve tartışma',
-    // Day 4
-    d4_s1_title:'Doğal Kaynaklar ve Çevre Paneli', d4_s1_desc:'Fırat Nehri havzası, su kaynakları yönetimi ve biyoçeşitlilik',
-    d4_s2_title:'Sürdürülebilir Kalkınma ve Jeoparklar', d4_s2_desc:'Erzincan\'ın jeopark potansiyeli ve sürdürülebilir kalkınma stratejileri',
-    d4_s3_title:'Saha Gezisi: Karanlık Kanyon', d4_s3_desc:'Kanyon jeomorfolojisi ve ekoturizm potansiyelinin incelenmesi',
-    d4_s4_title:'Kapanış Oturumu & Sonuç Bildirgesi', d4_s4_desc:'Çalıştay sonuçlarının değerlendirilmesi ve gelecek adımlar',
-    d4_s5_title:'Veda Yemeği', d4_s5_desc:'Çalıştay değerlendirmesi ve sertifika takdimi',
-    // Venue details
-    venue_uni_label:'Üniversite', venue_uni_val:'Erzincan Binali Yıldırım Üniversitesi',
-    venue_hall_label:'Salon', venue_hall_val:'Merkezi Konferans Salonu',
-    venue_addr_label:'Adres', venue_addr_val:'Yalnızbağ Yerleşkesi, 24100 Erzincan',
-    venue_transport_label:'Ulaşım', venue_transport_val:'Erzincan Havalimanı\'na 8 km',
-    venue_accom_label:'Konaklama', venue_accom_val:'Anlaşmalı oteller için iletişime geçin',
     // Sponsors
+    sponsors_label:'Destekçiler', sponsors_title:'Kurumsal Destekçilerimiz',
     sponsor_main:'Ana Sponsor', sponsor_inst:'Kurumsal Destek',
+    sp_ebyu:'Erzincan Binali Yıldırım Üniversitesi', sp_valilik:'Erzincan Valiliği', sp_mta:'Maden Tetkik ve Arama Genel Müdürlüğü', sp_jemirko:'Jeolojik Mirası Koruma Derneği', sp_jmo:'TMMOB Jeoloji Mühendisleri Odası Erzincan Temsilciliği', sp_erzincan24:'Erzincan 24 Doğa ve Kültür Varlıkları Koruma Derneği', sp_unesco:'UNESCO Türkiye Millî Komisyonu',
+    // Registration
+    reg_label:'Kayıt', reg_title:'Çalıştaya Katılın', reg_desc:'Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.', reg_btn:'Ön Kayıt Yap',
+    ph_name:'Adınız Soyadınız', ph_email:'E-posta Adresiniz', ph_inst:'Kurum / Üniversite', ph_field:'Uzmanlık Alanınız',
+    success_title:'Kaydınız Alınmıştır!', success_desc:'Ön kaydınız başarıyla tamamlanmıştır. Detaylı bilgi ve onay e-postanız en kısa sürede iletilecektir.',
     // Footer
+    footer_desc:'Erzincan\'ın Jeolojik ve Kültürel Mirası Çalıştayı, Erzincan Binali Yıldırım Üniversitesi ev sahipliğinde düzenlenmektedir.',
     footer_links:'Bağlantılar', footer_info:'Bilgiler', footer_contact:'İletişim',
-    footer_venue_transport:'Mekan & Ulaşım', footer_register:'Kayıt', footer_submit:'Bildiri Gönder', footer_faq:'SSS',
+    footer_venue_transport:'Mekan & Ulaşım', footer_register:'Kayıt',
     footer_copy:'© 2026 Erzincan Jeolojik ve Kültürel Miras Çalıştayı', footer_rights:'Tüm hakları saklıdır.',
     visitor_label:'Toplam Ziyaretçi'
   },
   en: {
-    nav_home_dot:'Home', nav_about:'About', nav_topics:'Topics', nav_speakers:'Speakers', nav_schedule:'Program', nav_venue:'Venue', nav_cta:'Register',
-    hero_date:'June 18 — 21, 2026',
+    nav_home:'Home', nav_home_dot:'Home', nav_about:'About', nav_topics:'Sessions', nav_speakers:'Speakers', nav_templates:'Templates', nav_ext_abstract:'Extended Abstract', nav_abs_format:'Abstract Format', nav_submit:'Submit Paper', nav_forms:'Forms', nav_form_register:'Workshop Registration', nav_form_trip:'Field Trip Registration', nav_form_submit:'Submit Paper', nav_faq:'FAQ', nav_schedule:'Program', nav_venue:'Venue', nav_cta:'Register',
+    hero_intl:'With International Participation', hero_date:'June 18 — 20, 2026',
     hero_title:'<span class="gold">Geological</span> & Cultural<br>Heritage Workshop',
     hero_subtitle:'Discover millennia of geological heritage',
     hero_location:'📍 Erzincan Binali Yıldırım University \u2022 Erzincan, Türkiye',
@@ -1864,72 +3049,120 @@ const T = {
     about_label:'About the Workshop',
     about_title:'Geological Discovery<br>in the Heart of Anatolia',
     about_p1:'Erzincan, situated on the North Anatolian Fault Zone, possesses a unique geological heritage extending from the Esence Mountains to the Munzur Range. This workshop aims to bring together geologists, archaeologists, cultural heritage specialists and researchers to explore Erzincan\'s millennia-old natural and cultural richness.',
-    about_p2:'Throughout the four-day program, participants will have the opportunity to examine the region\'s geological formations, glacial lakes, historical structures and cultural heritage through field trips, workshops, poster sessions and invited speaker sessions.',
-    stat_speakers:'Speakers', stat_days:'Days', stat_trips:'Field Trips',
-    topics_label:'Workshop Topics', topics_title:'Research Areas',
-    topics_desc:'We address different dimensions of Erzincan\'s natural and cultural heritage through an interdisciplinary approach.',
-    t1_title:'Tectonics & Seismology', t1_desc:'The Erzincan segment of the North Anatolian Fault Zone, earthquake history, active tectonic structures and seismic risk assessment.',
-    t2_title:'Glacial Geology & Geomorphology', t2_desc:'Keşiş Mountain glacial lakes, moraine deposits, periglacial landforms and Quaternary climate changes.',
-    t3_title:'Stratigraphy & Sedimentology', t3_desc:'Kemah Formation, Erzincan Plain sedimentation, Miocene and Pliocene sedimentary records.',
-    t4_title:'Cultural Heritage & Archaeology', t4_desc:'Altıntepe Mound, Kemah Castle, Mama Hatun Tomb, conservation and restoration of historical structures.',
-    t5_title:'Geotourism & Sustainability', t5_desc:'Dark Canyon, Girlevik Waterfall, geoparks and eco-tourism potential, sustainable development strategies.',
-    t6_title:'Natural Resources & Environment', t6_desc:'Euphrates River basin, water resources management, mineral resources, biodiversity and environmental conservation.',
+    about_p2:'Throughout the three-day program, participants will have the opportunity to examine the region\'s geological formations, travertine terraces, historical structures and cultural heritage through scientific sessions, technical field trips and invited speaker sessions.',
+    stat_speakers:'Presentations', stat_days:'Days', stat_trips:'Field Trips',
+    topics_label:'Sessions', topics_title:'Workshop Sessions',
+    topics_desc:'Presentations will be delivered in four main sessions within the scope of the workshop.',
+    t1_title:'Geological Heritage', t1_desc:'Content coming soon.',
+    t2_title:'Geomorphology', t2_desc:'Content coming soon.',
+    t3_title:'Cultural Heritage', t3_desc:'Content coming soon.',
+    t4_title:'Mixed Session', t4_desc:'Content coming soon.',
     speakers_label:'Invited Speakers', speakers_title:'Our Expert Panel', speakers_desc:'Leading academics and researchers contribute to our workshop.',
-    gallery_label:'Gallery', gallery_title:'Scenes from Erzincan',
-    schedule_label:'Program', schedule_title:'Workshop Program', schedule_desc:'An intensive and productive four-day program awaits you.',
-    day1_tab:'Day 1 — Jun 18', day2_tab:'Day 2 — Jun 19', day3_tab:'Day 3 — Jun 20', day4_tab:'Day 4 — Jun 21',
+    gallery_label:'Gallery', gallery_title:'Scenes from Erzincan', gallery_source:'Source: Google Photos',
+    gal_abrenk_vank:'Abrenk Vank Church', gal_altintepe_hoyuk:'Altıntepe Mound', gal_ardos_golu:'Lake Ardos', gal_eksisu:'Ekşisu Springs', gal_ergan_dagi:'Mount Ergan', gal_girlevik:'Girlevik Waterfall', gal_karanlik:'Karanlık Canyon', gal_kemah:'Kemah', gal_kesish_dagi:'Mount Keşiş', gal_konarli:'Konarlı Waterfall', gal_mamahatun:'Mamahatun Mausoleum', gal_merg:'Merg Plateau', gal_otlukbeli:'Lake Otlukbeli', gal_palat:'Lake Polat', gal_sohmarik:'Sohmarik Plateau',
+    // Templates (simplified)
+    ext_abstract_label:'Extended Abstract', ext_abstract_title:'Extended Abstract Template',
+    ext_abstract_desc:'Prepare your extended abstracts according to this template. Download and write directly on it.',
+    ext_download_btn:'\u2B73 Download Template (.docx)',
+    ext_submit_hint:'After preparing your paper, you can submit it from the section below.',
+    abs_format_label:'Abstract Format', abs_format_title:'Abstract Writing Format',
+    abs_format_desc:'Prepare your abstracts according to this template. Turkish and English abstracts are limited to one page each.',
+    abs_download_btn:'\u2B73 Download Template (.docx)',
+    abs_submit_hint:'After preparing your paper, you can submit it from the section below.',
+    // Submit Paper
+    submit_label:'Submit Paper', submit_title:'Submit Your Paper',
+    submit_desc:'You can submit your paper in PDF or Word (.doc, .docx) format using the form below.',
+    submit_formats:'Accepted formats: PDF, DOC, DOCX',
+    submit_file_hint:'<strong>Click to select your file</strong><br>PDF, DOC or DOCX (max 10 MB)',
+    submit_btn:'Submit Paper',
+    submit_success_title:'Paper Received!',
+    submit_success_desc:'Your paper has been successfully submitted. Review results will be communicated via email.',
+    ph_paper_title:'Paper Title',
+    // Trip
+    trip_label:'Field Trip', trip_title:'Field Trip Registration',
+    trip_desc:'Fill out the form below to participate in technical field trips within the workshop.',
+    trip_warning:'<strong>Field trips are paid for external participants who are not invited to the workshop.</strong> For details and fees, please contact <a href="mailto:erjekum2026@gmail.com" style="color:#d4a853;">erjekum2026@gmail.com</a>.',
+    trip_select_placeholder:'Select Duration',
+    trip_opt_1:'1 Day — June 19 (Friday)', trip_opt_2:'2 Days — June 19-20 (Fri-Sat)',
+    trip_btn:'Register for Trip',
+    trip_success_title:'Trip Registration Received!',
+    trip_success_desc:'Your field trip registration has been received. You will be contacted regarding fees and details.',
+    // FAQ
+    faq_label:'FAQ', faq_title:'Frequently Asked Questions',
+    faq_q1:'When and where will the workshop be held?', faq_a1:'The workshop will be held from June 18-20, 2026 at the Prof. Dr. Erdoğan Büyükkasap Congress and Cultural Center, Erzincan Binali Yıldırım University.',
+    faq_q2:'How can I register?', faq_a2:'You can pre-register by filling out the form in the "Register" section of our website. Capacity is limited.',
+    faq_q3:'Are field trips paid?', faq_a3:'Field trips are paid for external participants who are not invited to the workshop. For details and fees, please contact erjekum2026@gmail.com.',
+    faq_q4:'How can I submit my paper?', faq_a4:'You can submit your paper in PDF or Word format through the form in the "Submit Paper" section.',
+    faq_q5:'Is accommodation available?', faq_a5:'Accommodation will be provided at the Erzincan Binali Yıldırım University Guesthouse. Details will be shared after registration.',
+    faq_q6:'In which languages can presentations be made?', faq_a6:'Presentations can be given in Turkish or English.',
+    faq_q7:'What is the abstract format?', faq_a7:'You can download the abstract and extended abstract templates from the "Templates" section of our website.',
+    faq_q8:'How do I get from the airport to the university?', faq_a8:'Erzincan Airport is approximately 8 km from the campus (~10 minutes by car). Taxis and shuttle services are available.',
+    // Venue
+    venue_map_city:'Erzincan', venue_map_campus:'Campus',
+    footer_ext:'Ext: 40280',
+    // Schedule
+    schedule_label:'Program', schedule_title:'Workshop Program', schedule_desc:'An intensive and productive three-day program awaits you.',
+    day1_tab:'Day 1 — Jun 18 (Thursday)', day2_tab:'Day 2 — Jun 19 (Friday)', day3_tab:'Day 3 — Jun 20 (Saturday)',
+    // Day 1
+    d1_s1_title:'Registration & Opening Speeches', d1_s1_desc:'Protocol speeches and official opening of the workshop',
+    d1_s2_title:'Nizamettin KAZANCI', d1_s2_desc:'President of JEMİRKO — Opening address',
+    d1_s3_title:'Tea / Coffee Break', d1_s3_desc:'',
+    d1_s4_title:'SESSION 1 — Geological Heritage', d1_s4_desc:'Scientific presentations (6 presentations)',
+    d1_s5_title:'Lunch Break', d1_s5_desc:'',
+    d1_s6_title:'SESSION 2 — Geomorphology', d1_s6_desc:'Scientific presentations (5 presentations)',
+    d1_s7_title:'Tea / Coffee Break', d1_s7_desc:'',
+    d1_s8_title:'SESSION 3 — Cultural Heritage', d1_s8_desc:'Scientific presentations (4 presentations)',
+    d1_s9_title:'Tea / Coffee Break', d1_s9_desc:'',
+    d1_s10_title:'SESSION 4 — Mixed Session', d1_s10_desc:'Scientific presentations (6 presentations)',
+    d1_s11_title:'Dinner', d1_s11_desc:'Esentepe Restaurant',
+    // Day 2
+    field_trip_tag:'Field Trip',
+    d2_s1_title:'Field Trip Departure', d2_s1_desc:'Departure for field excursion',
+    d2_s2_title:'Ekşisu', d2_s2_desc:'Examination of Ekşisu mineral water springs and surroundings',
+    d2_s3_title:'Volcanic Cones & Altıntepe Mound', d2_s3_desc:'Volcanic structures and Urartian archaeological site',
+    d2_s4_title:'Lunch', d2_s4_desc:'Çağlayan Restaurant',
+    d2_s5_title:'Çağlayan & Gürlevik Waterfalls', d2_s5_desc:'Examination of active and fossil tufa deposits',
+    d2_s6_title:'Gala Dinner', d2_s6_desc:'Ergan Zirve Restaurant',
+    // Day 3
+    d3_s1_title:'Field Trip Departure', d3_s1_desc:'Departure for field excursion',
+    d3_s2_title:'Mamahatun Complex', d3_s2_desc:'Examination of Seljuk-period architectural complex',
+    d3_s3_title:'Otlukbeli Travertine Ridge & Cones', d3_s3_desc:'Geological and geomorphological examination of travertine formations',
+    d3_s4_title:'Lunch', d3_s4_desc:'Ercan Bey Restaurant',
+    d3_s5_title:'Otlukbeli Battle Monument', d3_s5_desc:'Examination of the historic battlefield and monument',
+    d3_s6_title:'Active Travertine Terraces', d3_s6_desc:'On-site examination of active travertine formation processes',
+    d3_s7_title:'Dinner', d3_s7_desc:'Closing dinner',
+    // Venue
     venue_label:'Venue', venue_title:'Event Location',
-    sponsors_label:'Supporters', sponsors_title:'Our Institutional Partners',
-    reg_label:'Registration', reg_title:'Join the Workshop', reg_desc:'Fill out the form to take advantage of early registration. Places are limited.', reg_btn:'Pre-Register',
-    ph_name:'Full Name', ph_email:'Email Address', ph_inst:'Institution / University', ph_field:'Field of Expertise',
-    success_title:'Registration Received!', success_desc:'Your pre-registration has been completed successfully. A confirmation email with detailed information will be sent to you shortly.',
-    footer_desc:'The Geological and Cultural Heritage of Erzincan Workshop is hosted by Erzincan Binali Yıldırım University.',
+    venue_map_city:'Erzincan', venue_map_campus:'Campus',
+    venue_uni_label:'University', venue_uni_val:'Erzincan Binali Yıldırım University',
+    venue_hall_label:'Hall', venue_hall_val:'Prof. Dr. Erdoğan Büyükkasap Congress and Cultural Center',
+    venue_addr_label:'Address', venue_addr_val:'Yalnızbağ Campus, 24100 Erzincan',
+    venue_transport_label:'Transport', venue_transport_val:'~8 km from Erzincan Airport (~10 min by car)',
+    venue_accom_label:'Accommodation', venue_accom_val:'Erzincan Binali Yıldırım University Guesthouse',
     // Speakers
     sp1_name:'Prof. Dr. [Name]', sp1_role:'Tectonics & Seismology', sp1_uni:'Erzincan Binali Yıldırım University',
     sp2_name:'Prof. Dr. [Name]', sp2_role:'Glacial Geology', sp2_uni:'Istanbul Technical University',
     sp3_name:'Prof. Dr. [Name]', sp3_role:'Cultural Heritage', sp3_uni:'Ankara University',
     sp4_name:'Prof. Dr. [Name]', sp4_role:'Stratigraphy', sp4_uni:'Hacettepe University',
     invited_speaker:'Invited Speaker',
-    // Day 1
-    d1_s1_title:'Opening Ceremony', d1_s1_desc:'Welcome speeches and introduction to the workshop',
-    d1_s2_title:'North Anatolian Fault and Erzincan', d1_s2_desc:'Tectonic features and seismic activity of the Erzincan segment',
-    d1_s3_title:'Keşiş Mountain Glacial Lakes', d1_s3_desc:'Glacial geomorphology and paleoclimatic significance of the Seven Lakes area',
-    d1_s4_title:'Poster Presentations — Session I', d1_s4_desc:'Participant poster presentations and discussion',
-    d1_s5_title:'Panel: Geotourism Potential', d1_s5_desc:'Discussion of Erzincan\'s geotourism values',
-    d1_s6_title:'Welcome Dinner', d1_s6_desc:'Welcome dinner featuring Erzincan regional cuisine',
-    // Day 2
-    d2_s1_title:'Field Trip: Kemah Formation', d2_s1_desc:'Examination of Early Miocene folded structures',
-    d2_s2_title:'Field Trip: Kemah Castle & Dark Canyon', d2_s2_desc:'On-site examination of the historic castle and geological formations',
-    d2_s3_title:'Workshop: Geological Mapping with GIS', d2_s3_desc:'Geological mapping applications using Geographic Information Systems',
-    d2_s4_title:'Poster Presentations — Session II', d2_s4_desc:'Participant poster presentations and discussion',
-    // Day 3
-    d3_s1_title:'Altıntepe Mound and Urartian Heritage', d3_s1_desc:'Archaeological richness of Erzincan and the Urartian period',
-    d3_s2_title:'Mama Hatun Tomb: Architectural Analysis', d3_s2_desc:'Examination of Seljuk period architecture',
-    d3_s3_title:'Field Trip: Girlevik Waterfall', d3_s3_desc:'Travertine formations and hydrogeological investigation',
-    d3_s4_title:'Poster Presentations — Session III', d3_s4_desc:'Participant poster presentations and discussion',
-    // Day 4
-    d4_s1_title:'Natural Resources & Environment Panel', d4_s1_desc:'Euphrates River basin, water resources management and biodiversity',
-    d4_s2_title:'Sustainable Development and Geoparks', d4_s2_desc:'Erzincan\'s geopark potential and sustainable development strategies',
-    d4_s3_title:'Field Trip: Dark Canyon', d4_s3_desc:'Canyon geomorphology and ecotourism potential assessment',
-    d4_s4_title:'Closing Session & Final Declaration', d4_s4_desc:'Evaluation of workshop outcomes and future steps',
-    d4_s5_title:'Farewell Dinner', d4_s5_desc:'Workshop evaluation and certificate ceremony',
-    // Venue details
-    venue_uni_label:'University', venue_uni_val:'Erzincan Binali Yıldırım University',
-    venue_hall_label:'Hall', venue_hall_val:'Central Conference Hall',
-    venue_addr_label:'Address', venue_addr_val:'Yalnızbağ Campus, 24100 Erzincan',
-    venue_transport_label:'Transport', venue_transport_val:'8 km from Erzincan Airport',
-    venue_accom_label:'Accommodation', venue_accom_val:'Contact us for partner hotels',
     // Sponsors
+    sponsors_label:'Supporters', sponsors_title:'Our Institutional Partners',
     sponsor_main:'Main Sponsor', sponsor_inst:'Institutional Support',
+    sp_ebyu:'Erzincan Binali Yıldırım University', sp_valilik:'Governorship of Erzincan', sp_mta:'General Directorate of Mineral Research and Exploration', sp_jemirko:'Association for the Protection of Geological Heritage', sp_jmo:'UCTEA Chamber of Geological Engineers, Erzincan Branch', sp_erzincan24:'Erzincan 24 Association for the Protection of Natural and Cultural Heritage', sp_unesco:'UNESCO National Commission of Türkiye',
+    // Registration
+    reg_label:'Registration', reg_title:'Join the Workshop', reg_desc:'Fill out the form to take advantage of early registration. Places are limited.', reg_btn:'Pre-Register',
+    ph_name:'Full Name', ph_email:'Email Address', ph_inst:'Institution / University', ph_field:'Field of Expertise',
+    success_title:'Registration Received!', success_desc:'Your pre-registration has been completed successfully. A confirmation email with detailed information will be sent to you shortly.',
     // Footer
+    footer_desc:'The Geological and Cultural Heritage of Erzincan Workshop is hosted by Erzincan Binali Yıldırım University.',
     footer_links:'Links', footer_info:'Information', footer_contact:'Contact',
-    footer_venue_transport:'Venue & Transport', footer_register:'Registration', footer_submit:'Submit Paper', footer_faq:'FAQ',
+    footer_venue_transport:'Venue & Transport', footer_register:'Registration',
     footer_copy:'© 2026 Erzincan Geological & Cultural Heritage Workshop', footer_rights:'All rights reserved.',
     visitor_label:'Total Visitors'
   },
   it: {
-    nav_home_dot:'Home', nav_about:'Chi siamo', nav_topics:'Temi', nav_speakers:'Relatori', nav_schedule:'Programma', nav_venue:'Sede', nav_cta:'Registrati',
-    hero_date:'18 — 21 Giugno 2026',
+    nav_home:'Home', nav_home_dot:'Home', nav_about:'Chi siamo', nav_topics:'Sessioni', nav_speakers:'Relatori', nav_templates:'Modelli', nav_ext_abstract:'Abstract Esteso', nav_abs_format:'Formato Abstract', nav_submit:'Invia Articolo', nav_forms:'Moduli', nav_form_register:'Registrazione Workshop', nav_form_trip:'Registrazione Escursione', nav_form_submit:'Invia Articolo', nav_faq:'FAQ', nav_schedule:'Programma', nav_venue:'Sede', nav_cta:'Registrati',
+    hero_intl:'Con Partecipazione Internazionale', hero_date:'18 — 20 Giugno 2026',
     hero_title:'<span class="gold">Patrimonio Geologico</span><br>e Culturale — Workshop',
     hero_subtitle:'Scopri millenni di patrimonio geologico',
     hero_location:'📍 Università Erzincan Binali Yıldırım \u2022 Erzincan, Turchia',
@@ -1939,66 +3172,112 @@ const T = {
     about_label:'Informazioni sul Workshop',
     about_title:'Scoperta Geologica<br>nel Cuore dell\'Anatolia',
     about_p1:'Erzincan, situata sulla Faglia Nord-Anatolica, possiede un patrimonio geologico unico che si estende dai Monti Esence alla Catena del Munzur. Questo workshop mira a riunire geologi, archeologi, specialisti del patrimonio culturale e ricercatori per esplorare la ricchezza naturale e culturale millenaria di Erzincan.',
-    about_p2:'Durante il programma di quattro giorni, i partecipanti avranno l\'opportunità di esaminare le formazioni geologiche, i laghi glaciali, le strutture storiche e il patrimonio culturale della regione attraverso escursioni, laboratori, sessioni poster e relazioni su invito.',
-    stat_speakers:'Relatori', stat_days:'Giorni', stat_trips:'Escursioni',
-    topics_label:'Temi del Workshop', topics_title:'Aree di Ricerca',
-    topics_desc:'Affrontiamo diverse dimensioni del patrimonio naturale e culturale di Erzincan con un approccio interdisciplinare.',
-    t1_title:'Tettonica e Sismologia', t1_desc:'Il segmento di Erzincan della Faglia Nord-Anatolica, storia sismica, strutture tettoniche attive e valutazione del rischio sismico.',
-    t2_title:'Geologia Glaciale e Geomorfologia', t2_desc:'Laghi glaciali del Monte Keşiş, depositi morenici, forme periglaciali e cambiamenti climatici quaternari.',
-    t3_title:'Stratigrafia e Sedimentologia', t3_desc:'Formazione di Kemah, sedimentazione della Piana di Erzincan, registrazioni sedimentarie mioceniche e plioceniche.',
-    t4_title:'Patrimonio Culturale e Archeologia', t4_desc:'Tumulo di Altıntepe, Castello di Kemah, Tomba di Mama Hatun, conservazione e restauro di strutture storiche.',
-    t5_title:'Geoturismo e Sostenibilità', t5_desc:'Canyon Oscuro, Cascata Girlevik, geoparchi e potenziale eco-turistico, strategie di sviluppo sostenibile.',
-    t6_title:'Risorse Naturali e Ambiente', t6_desc:'Bacino dell\'Eufrate, gestione delle risorse idriche, risorse minerarie, biodiversità e conservazione ambientale.',
+    about_p2:'Durante il programma di tre giorni, i partecipanti avranno l\'opportunità di esaminare le formazioni geologiche, le terrazze di travertino, le strutture storiche e il patrimonio culturale della regione attraverso sessioni scientifiche, escursioni tecniche e relazioni su invito.',
+    stat_speakers:'Presentazioni', stat_days:'Giorni', stat_trips:'Escursioni',
+    topics_label:'Sessioni', topics_title:'Sessioni del Workshop',
+    topics_desc:'Le presentazioni saranno tenute in quattro sessioni principali nell\'ambito del workshop.',
+    t1_title:'Patrimonio Geologico', t1_desc:'Il contenuto sarà aggiunto a breve.',
+    t2_title:'Geomorfologia', t2_desc:'Il contenuto sarà aggiunto a breve.',
+    t3_title:'Patrimonio Culturale', t3_desc:'Il contenuto sarà aggiunto a breve.',
+    t4_title:'Sessione Mista', t4_desc:'Il contenuto sarà aggiunto a breve.',
     speakers_label:'Relatori Invitati', speakers_title:'Il Nostro Team di Esperti', speakers_desc:'Accademici e ricercatori di spicco contribuiscono al nostro workshop.',
-    gallery_label:'Galleria', gallery_title:'Immagini da Erzincan',
-    schedule_label:'Programma', schedule_title:'Programma del Workshop', schedule_desc:'Un programma intenso e produttivo di quattro giorni vi attende.',
-    day1_tab:'Giorno 1 — 18 Giu', day2_tab:'Giorno 2 — 19 Giu', day3_tab:'Giorno 3 — 20 Giu', day4_tab:'Giorno 4 — 21 Giu',
+    gallery_label:'Galleria', gallery_title:'Immagini da Erzincan', gallery_source:'Fonte: Google Foto',
+    gal_abrenk_vank:'Chiesa di Abrenk Vank', gal_altintepe_hoyuk:'Tumulo di Altıntepe', gal_ardos_golu:'Lago Ardos', gal_eksisu:'Sorgenti di Ekşisu', gal_ergan_dagi:'Monte Ergan', gal_girlevik:'Cascata di Girlevik', gal_karanlik:'Canyon Karanlık', gal_kemah:'Kemah', gal_kesish_dagi:'Monte Keşiş', gal_konarli:'Cascata di Konarlı', gal_mamahatun:'Mausoleo di Mamahatun', gal_merg:'Altopiano di Merg', gal_otlukbeli:'Lago Otlukbeli', gal_palat:'Lago Polat', gal_sohmarik:'Altopiano di Sohmarik',
+    // Templates (simplified)
+    ext_abstract_label:'Abstract Esteso', ext_abstract_title:'Modello di Abstract Esteso',
+    ext_abstract_desc:'Preparate i vostri abstract estesi secondo questo modello. Scaricatelo e scrivete direttamente su di esso.',
+    ext_download_btn:'\u2B73 Scarica Modello (.docx)',
+    ext_submit_hint:'Dopo aver preparato il vostro articolo, potete inviarlo dalla sezione sottostante.',
+    abs_format_label:'Formato Abstract', abs_format_title:'Formato di Scrittura Abstract',
+    abs_format_desc:'Preparate i vostri abstract secondo questo modello. Gli abstract in turco e inglese sono limitati a una pagina ciascuno.',
+    abs_download_btn:'\u2B73 Scarica Modello (.docx)',
+    abs_submit_hint:'Dopo aver preparato il vostro articolo, potete inviarlo dalla sezione sottostante.',
+    // Submit Paper
+    submit_label:'Invia Articolo', submit_title:'Inviate il Vostro Articolo',
+    submit_desc:'Potete inviare il vostro articolo in formato PDF o Word (.doc, .docx) tramite il modulo sottostante.',
+    submit_formats:'Formati accettati: PDF, DOC, DOCX',
+    submit_file_hint:'<strong>Clicca per selezionare il file</strong><br>PDF, DOC o DOCX (max 10 MB)',
+    submit_btn:'Invia Articolo',
+    submit_success_title:'Articolo Ricevuto!',
+    submit_success_desc:'Il vostro articolo è stato inviato con successo. I risultati della revisione saranno comunicati via email.',
+    ph_paper_title:'Titolo dell\'Articolo',
+    // Trip
+    trip_label:'Escursione', trip_title:'Registrazione Escursione Tecnica',
+    trip_desc:'Compilate il modulo sottostante per partecipare alle escursioni tecniche del workshop.',
+    trip_warning:'<strong>Le escursioni tecniche sono a pagamento per i partecipanti esterni non invitati al workshop.</strong> Per dettagli e costi, contattate <a href="mailto:erjekum2026@gmail.com" style="color:#d4a853;">erjekum2026@gmail.com</a>.',
+    trip_select_placeholder:'Seleziona Durata',
+    trip_opt_1:'1 Giorno — 19 Giugno (Venerdì)', trip_opt_2:'2 Giorni — 19-20 Giugno (Ven-Sab)',
+    trip_btn:'Registrati per l\'Escursione',
+    trip_success_title:'Registrazione Escursione Ricevuta!',
+    trip_success_desc:'La vostra registrazione all\'escursione è stata ricevuta. Sarete contattati per costi e dettagli.',
+    // FAQ
+    faq_label:'FAQ', faq_title:'Domande Frequenti',
+    faq_q1:'Quando e dove si terrà il workshop?', faq_a1:'Il workshop si terrà dal 18 al 20 giugno 2026 presso il Centro Congressi e Culturale Prof. Dr. Erdoğan Büyükkasap dell\'Università Erzincan Binali Yıldırım.',
+    faq_q2:'Come posso registrarmi?', faq_a2:'Potete pre-registrarvi compilando il modulo nella sezione "Registrazione" del nostro sito. I posti sono limitati.',
+    faq_q3:'Le escursioni tecniche sono a pagamento?', faq_a3:'Le escursioni tecniche sono a pagamento per i partecipanti esterni non invitati al workshop. Per dettagli e costi, contattate erjekum2026@gmail.com.',
+    faq_q4:'Come posso inviare il mio articolo?', faq_a4:'Potete inviare il vostro articolo in formato PDF o Word tramite il modulo nella sezione "Invia Articolo".',
+    faq_q5:'È disponibile un alloggio?', faq_a5:'L\'alloggio sarà fornito presso la Foresteria dell\'Università Erzincan Binali Yıldırım. I dettagli saranno condivisi dopo la registrazione.',
+    faq_q6:'In quali lingue si possono fare le presentazioni?', faq_a6:'Le presentazioni possono essere tenute in turco o in inglese.',
+    faq_q7:'Qual è il formato dell\'abstract?', faq_a7:'Potete scaricare i modelli di abstract e abstract esteso dalla sezione "Modelli" del nostro sito.',
+    faq_q8:'Come arrivo dall\'aeroporto all\'università?', faq_a8:'L\'Aeroporto di Erzincan dista circa 8 km dal campus (~10 minuti in auto). Sono disponibili taxi e servizi navetta.',
+    // Schedule
+    schedule_label:'Programma', schedule_title:'Programma del Workshop', schedule_desc:'Un programma intenso e produttivo di tre giorni vi attende.',
+    day1_tab:'Giorno 1 — 18 Giu (Giovedì)', day2_tab:'Giorno 2 — 19 Giu (Venerdì)', day3_tab:'Giorno 3 — 20 Giu (Sabato)',
+    // Day 1
+    d1_s1_title:'Registrazione e Discorsi di Apertura', d1_s1_desc:'Discorsi protocollari e apertura ufficiale del workshop',
+    d1_s2_title:'Nizamettin KAZANCI', d1_s2_desc:'Presidente JEMİRKO — Discorso di apertura',
+    d1_s3_title:'Pausa Tè / Caffè', d1_s3_desc:'',
+    d1_s4_title:'SESSIONE 1 — Patrimonio Geologico', d1_s4_desc:'Presentazioni scientifiche (6 presentazioni)',
+    d1_s5_title:'Pausa Pranzo', d1_s5_desc:'',
+    d1_s6_title:'SESSIONE 2 — Geomorfologia', d1_s6_desc:'Presentazioni scientifiche (5 presentazioni)',
+    d1_s7_title:'Pausa Tè / Caffè', d1_s7_desc:'',
+    d1_s8_title:'SESSIONE 3 — Patrimonio Culturale', d1_s8_desc:'Presentazioni scientifiche (4 presentazioni)',
+    d1_s9_title:'Pausa Tè / Caffè', d1_s9_desc:'',
+    d1_s10_title:'SESSIONE 4 — Sessione Mista', d1_s10_desc:'Presentazioni scientifiche (6 presentazioni)',
+    d1_s11_title:'Cena', d1_s11_desc:'Ristorante Esentepe',
+    // Day 2
+    field_trip_tag:'Escursione Tecnica',
+    d2_s1_title:'Partenza Escursione', d2_s1_desc:'Partenza per l\'escursione sul campo',
+    d2_s2_title:'Ekşisu', d2_s2_desc:'Esame delle sorgenti minerali di Ekşisu e dei dintorni',
+    d2_s3_title:'Coni Vulcanici e Tumulo di Altıntepe', d2_s3_desc:'Strutture vulcaniche e sito archeologico urarteo',
+    d2_s4_title:'Pranzo', d2_s4_desc:'Ristorante Çağlayan',
+    d2_s5_title:'Cascate Çağlayan e Gürlevik', d2_s5_desc:'Esame dei depositi di tufa attivi e fossili',
+    d2_s6_title:'Cena di Gala', d2_s6_desc:'Ristorante Ergan Zirve',
+    // Day 3
+    d3_s1_title:'Partenza Escursione', d3_s1_desc:'Partenza per l\'escursione sul campo',
+    d3_s2_title:'Complesso Mamahatun', d3_s2_desc:'Esame del complesso architettonico selgiuchide',
+    d3_s3_title:'Creste e Coni di Travertino di Otlukbeli', d3_s3_desc:'Esame geologico e geomorfologico delle formazioni di travertino',
+    d3_s4_title:'Pranzo', d3_s4_desc:'Ristorante Ercan Bey',
+    d3_s5_title:'Monumento della Battaglia di Otlukbeli', d3_s5_desc:'Esame del campo di battaglia storico e del monumento',
+    d3_s6_title:'Terrazze di Travertino Attive', d3_s6_desc:'Esame in loco dei processi di formazione del travertino attivo',
+    d3_s7_title:'Cena', d3_s7_desc:'Cena di chiusura',
+    // Venue
     venue_label:'Sede', venue_title:'Luogo dell\'Evento',
-    sponsors_label:'Sostenitori', sponsors_title:'I Nostri Partner Istituzionali',
-    reg_label:'Registrazione', reg_title:'Partecipa al Workshop', reg_desc:'Compila il modulo per usufruire della registrazione anticipata. I posti sono limitati.', reg_btn:'Pre-Registrazione',
-    ph_name:'Nome e Cognome', ph_email:'Indirizzo Email', ph_inst:'Istituzione / Università', ph_field:'Campo di Competenza',
-    success_title:'Registrazione Ricevuta!', success_desc:'La pre-registrazione è stata completata con successo. Un\'email di conferma con informazioni dettagliate vi sarà inviata a breve.',
-    footer_desc:'Il Workshop sul Patrimonio Geologico e Culturale di Erzincan è ospitato dall\'Università Erzincan Binali Yıldırım.',
+    venue_map_city:'Erzincan', venue_map_campus:'Campus',
+    footer_ext:'Int: 40280',
+    venue_uni_label:'Università', venue_uni_val:'Università Erzincan Binali Yıldırım',
+    venue_hall_label:'Sala', venue_hall_val:'Centro Congressi e Culturale Prof. Dr. Erdoğan Büyükkasap',
+    venue_addr_label:'Indirizzo', venue_addr_val:'Campus Yalnızbağ, 24100 Erzincan',
+    venue_transport_label:'Trasporti', venue_transport_val:'~8 km dall\'Aeroporto di Erzincan (~10 min in auto)',
+    venue_accom_label:'Alloggio', venue_accom_val:'Foresteria dell\'Università Erzincan Binali Yıldırım',
     // Speakers
     sp1_name:'Prof. Dr. [Nome]', sp1_role:'Tettonica e Sismologia', sp1_uni:'Università Erzincan Binali Yıldırım',
     sp2_name:'Prof. Dr. [Nome]', sp2_role:'Geologia Glaciale', sp2_uni:'Università Tecnica di Istanbul',
     sp3_name:'Prof. Dr. [Nome]', sp3_role:'Patrimonio Culturale', sp3_uni:'Università di Ankara',
     sp4_name:'Prof. Dr. [Nome]', sp4_role:'Stratigrafia', sp4_uni:'Università Hacettepe',
     invited_speaker:'Relatore Invitato',
-    // Day 1
-    d1_s1_title:'Cerimonia di Apertura', d1_s1_desc:'Discorsi di benvenuto e presentazione del workshop',
-    d1_s2_title:'Faglia Nord-Anatolica ed Erzincan', d1_s2_desc:'Caratteristiche tettoniche e attività sismica del segmento di Erzincan',
-    d1_s3_title:'Laghi Glaciali del Monte Keşiş', d1_s3_desc:'Geomorfologia glaciale e significato paleoclimatico dell\'area dei Sette Laghi',
-    d1_s4_title:'Presentazioni Poster — Sessione I', d1_s4_desc:'Presentazioni poster dei partecipanti e discussione',
-    d1_s5_title:'Panel: Potenziale Geoturistico', d1_s5_desc:'Discussione sui valori geoturistici di Erzincan',
-    d1_s6_title:'Cena di Benvenuto', d1_s6_desc:'Cena di benvenuto con la cucina regionale di Erzincan',
-    // Day 2
-    d2_s1_title:'Escursione: Formazione di Kemah', d2_s1_desc:'Esame delle strutture piegate del Miocene inferiore',
-    d2_s2_title:'Escursione: Castello di Kemah e Canyon Oscuro', d2_s2_desc:'Esame in loco del castello storico e delle formazioni geologiche',
-    d2_s3_title:'Laboratorio: Cartografia Geologica con GIS', d2_s3_desc:'Applicazioni di cartografia geologica con Sistemi Informativi Geografici',
-    d2_s4_title:'Presentazioni Poster — Sessione II', d2_s4_desc:'Presentazioni poster dei partecipanti e discussione',
-    // Day 3
-    d3_s1_title:'Tumulo di Altıntepe e Patrimonio Urarteo', d3_s1_desc:'Ricchezze archeologiche di Erzincan e il periodo urarteo',
-    d3_s2_title:'Tomba di Mama Hatun: Analisi Architettonica', d3_s2_desc:'Esame dell\'architettura del periodo selgiuchide',
-    d3_s3_title:'Escursione: Cascata Girlevik', d3_s3_desc:'Formazioni di travertino e indagine idrogeologica',
-    d3_s4_title:'Presentazioni Poster — Sessione III', d3_s4_desc:'Presentazioni poster dei partecipanti e discussione',
-    // Day 4
-    d4_s1_title:'Panel: Risorse Naturali e Ambiente', d4_s1_desc:'Bacino dell\'Eufrate, gestione delle risorse idriche e biodiversità',
-    d4_s2_title:'Sviluppo Sostenibile e Geoparchi', d4_s2_desc:'Potenziale geoparco di Erzincan e strategie di sviluppo sostenibile',
-    d4_s3_title:'Escursione: Canyon Oscuro', d4_s3_desc:'Geomorfologia del canyon e valutazione del potenziale ecoturistico',
-    d4_s4_title:'Sessione di Chiusura e Dichiarazione Finale', d4_s4_desc:'Valutazione dei risultati del workshop e passi futuri',
-    d4_s5_title:'Cena di Commiato', d4_s5_desc:'Valutazione del workshop e cerimonia di consegna dei certificati',
-    // Venue details
-    venue_uni_label:'Università', venue_uni_val:'Università Erzincan Binali Yıldırım',
-    venue_hall_label:'Sala', venue_hall_val:'Sala Conferenze Centrale',
-    venue_addr_label:'Indirizzo', venue_addr_val:'Campus Yalnızbağ, 24100 Erzincan',
-    venue_transport_label:'Trasporti', venue_transport_val:'8 km dall\'Aeroporto di Erzincan',
-    venue_accom_label:'Alloggio', venue_accom_val:'Contattateci per gli hotel convenzionati',
     // Sponsors
+    sponsors_label:'Sostenitori', sponsors_title:'I Nostri Partner Istituzionali',
     sponsor_main:'Sponsor Principale', sponsor_inst:'Supporto Istituzionale',
+    sp_ebyu:'Università Erzincan Binali Yıldırım', sp_valilik:'Governatorato di Erzincan', sp_mta:'Direzione Generale per la Ricerca e l\'Esplorazione Mineraria', sp_jemirko:'Associazione per la Protezione del Patrimonio Geologico', sp_jmo:'Camera degli Ingegneri Geologici TMMOB, Sede di Erzincan', sp_erzincan24:'Associazione Erzincan 24 per la Protezione del Patrimonio Naturale e Culturale', sp_unesco:'Commissione Nazionale UNESCO della Turchia',
+    // Registration
+    reg_label:'Registrazione', reg_title:'Partecipa al Workshop', reg_desc:'Compila il modulo per usufruire della registrazione anticipata. I posti sono limitati.', reg_btn:'Pre-Registrazione',
+    ph_name:'Nome e Cognome', ph_email:'Indirizzo Email', ph_inst:'Istituzione / Università', ph_field:'Campo di Competenza',
+    success_title:'Registrazione Ricevuta!', success_desc:'La pre-registrazione è stata completata con successo. Un\'email di conferma con informazioni dettagliate vi sarà inviata a breve.',
     // Footer
+    footer_desc:'Il Workshop sul Patrimonio Geologico e Culturale di Erzincan è ospitato dall\'Università Erzincan Binali Yıldırım.',
     footer_links:'Link', footer_info:'Informazioni', footer_contact:'Contatti',
-    footer_venue_transport:'Sede e Trasporti', footer_register:'Registrazione', footer_submit:'Invia Articolo', footer_faq:'FAQ',
+    footer_venue_transport:'Sede e Trasporti', footer_register:'Registrazione',
     footer_copy:'© 2026 Workshop Patrimonio Geologico e Culturale di Erzincan', footer_rights:'Tutti i diritti riservati.',
     visitor_label:'Visitatori Totali'
   }
@@ -2026,7 +3305,23 @@ function setLang(lang) {
     const key = el.getAttribute('data-ph-i18n');
     if (T[lang] && T[lang][key]) el.placeholder = T[lang][key];
   });
+  // Update gallery overlay labels based on filter button text
+  const catNameMap = {};
+  document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+    catNameMap[btn.dataset.cat] = btn.textContent;
+  });
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    const cat = item.dataset.cat;
+    if(catNameMap[cat]) {
+      const span = item.querySelector('.gallery-item-overlay span');
+      if(span) span.textContent = catNameMap[cat];
+      const img = item.querySelector('img');
+      if(img) img.alt = catNameMap[cat];
+    }
+  });
 }
+// Apply default language on load
+setLang('tr');
 </script>
 
 <script>
@@ -2048,10 +3343,14 @@ function setLang(lang) {
   }
 
   // Increment on every page load
-  fetch(COUNTER_URL)
-    .then(function(r) { return r.json(); })
-    .then(function(data) { animateCount(data.count); })
-    .catch(function() { el.textContent = '—'; });
+  var x = new XMLHttpRequest();
+  x.open('GET', COUNTER_URL);
+  x.onload = function() {
+    try { animateCount(JSON.parse(x.responseText).count); }
+    catch(e) { el.textContent = '—'; }
+  };
+  x.onerror = function() { el.textContent = '—'; };
+  x.send();
 })();
 </script>
 </body>
