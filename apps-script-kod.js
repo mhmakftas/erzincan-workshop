@@ -1,5 +1,5 @@
 // ============================================================
-//  ERJEKUM 2026 — Tüm Formlar İçin Birleşik Google Apps Script
+//  ERJEOKUM 2026 — Tüm Formlar İçin Birleşik Google Apps Script
 // ============================================================
 //
 //  KURULUM:
@@ -31,7 +31,7 @@ function doGet(e) {
     var ss = SpreadsheetApp.openById(SHEETS_ID);
     var folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
     return ContentService.createTextOutput(
-      'ERJEKUM 2026 Script AKTIF\n' +
+      'ERJEOKUM 2026 Script AKTIF\n' +
       'Sheets: ' + ss.getName() + '\n' +
       'Drive: ' + folder.getName() + '\n' +
       'Tarih: ' + new Date()
@@ -90,12 +90,12 @@ function handleRegister(data) {
   try {
     MailApp.sendEmail({
       to: data.email,
-      subject: 'Kayıt Onayı — ERJEKUM 2026',
+      subject: 'Kayıt Onayı — ERJEOKUM 2026',
       body: 'Sayın ' + data.name + ',\n\n' +
             'Çalıştay ön kaydınız başarıyla alınmıştır.\n\n' +
             'Detaylı bilgi ve program için web sitemizi takip ediniz.\n\n' +
             'Saygılarımızla,\n' +
-            'ERJEKUM 2026 Organizasyon Komitesi\n' +
+            'ERJEOKUM 2026 Organizasyon Komitesi\n' +
             'erjekum2026@gmail.com'
     });
   } catch (mailErr) {}
@@ -104,7 +104,7 @@ function handleRegister(data) {
   try {
     MailApp.sendEmail({
       to: ADMIN_EMAIL,
-      subject: '[YENİ KAYIT] ' + data.name + ' — ERJEKUM 2026',
+      subject: '[YENİ KAYIT] ' + data.name + ' — ERJEOKUM 2026',
       body: 'Yeni bir çalıştay kaydı alındı!\n\n' +
             '--- KAYIT DETAYLARI ---\n' +
             'Ad Soyad: ' + data.name + '\n' +
@@ -160,14 +160,14 @@ function handlePaper(data) {
   try {
     MailApp.sendEmail({
       to: data.authorEmail,
-      subject: 'Bildiriniz Alınmıştır — ERJEKUM 2026',
+      subject: 'Bildiriniz Alınmıştır — ERJEOKUM 2026',
       body: 'Sayın ' + data.authorName + ',\n\n' +
             'Bildiriniz başarıyla alınmıştır.\n\n' +
             'Bildiri Başlığı: ' + data.paperTitle + '\n' +
             'Dosya: ' + data.fileName + '\n\n' +
             'Değerlendirme sonuçları e-posta ile bildirilecektir.\n\n' +
             'Saygılarımızla,\n' +
-            'ERJEKUM 2026 Organizasyon Komitesi\n' +
+            'ERJEOKUM 2026 Organizasyon Komitesi\n' +
             'erjekum2026@gmail.com'
     });
   } catch (mailErr) {}
@@ -176,7 +176,7 @@ function handlePaper(data) {
   try {
     MailApp.sendEmail({
       to: ADMIN_EMAIL,
-      subject: '[YENİ BİLDİRİ] ' + data.paperTitle + ' — ERJEKUM 2026',
+      subject: '[YENİ BİLDİRİ] ' + data.paperTitle + ' — ERJEOKUM 2026',
       body: 'Yeni bir bildiri gönderildi!\n\n' +
             '--- BİLDİRİ DETAYLARI ---\n' +
             'Yazar: ' + data.authorName + '\n' +
@@ -222,13 +222,13 @@ function handleTrip(data) {
   try {
     MailApp.sendEmail({
       to: data.email,
-      subject: 'Teknik Gezi Kaydınız Alınmıştır — ERJEKUM 2026',
+      subject: 'Teknik Gezi Kaydınız Alınmıştır — ERJEOKUM 2026',
       body: 'Sayın ' + data.name + ',\n\n' +
             'Teknik gezi kaydınız alınmıştır.\n\n' +
             'Katılım: ' + data.tripDays + '\n\n' +
             'Teknik gezi ücretlidir. Ücret ve detaylar için sizinle iletişime geçilecektir.\n\n' +
             'Saygılarımızla,\n' +
-            'ERJEKUM 2026 Organizasyon Komitesi\n' +
+            'ERJEOKUM 2026 Organizasyon Komitesi\n' +
             'erjekum2026@gmail.com'
     });
   } catch (mailErr) {}
@@ -237,7 +237,7 @@ function handleTrip(data) {
   try {
     MailApp.sendEmail({
       to: ADMIN_EMAIL,
-      subject: '[TEKNİK GEZİ] ' + data.name + ' — ERJEKUM 2026',
+      subject: '[TEKNİK GEZİ] ' + data.name + ' — ERJEOKUM 2026',
       body: 'Yeni bir teknik gezi kaydı alındı!\n\n' +
             '--- KAYIT DETAYLARI ---\n' +
             'Ad Soyad: ' + data.name + '\n' +
@@ -280,12 +280,12 @@ function handleFeedback(data) {
   try {
     MailApp.sendEmail({
       to: data.email,
-      subject: 'Görüşünüz Alınmıştır — ERJEKUM 2026',
+      subject: 'Görüşünüz Alınmıştır — ERJEOKUM 2026',
       body: 'Sayın ' + data.name + ',\n\n' +
             'Görüş ve öneriniz için teşekkür ederiz. Mesajınız tarafımıza ulaşmıştır.\n\n' +
             'Gerekli durumlarda sizinle iletişime geçilecektir.\n\n' +
             'Saygılarımızla,\n' +
-            'ERJEKUM 2026 Organizasyon Komitesi\n' +
+            'ERJEOKUM 2026 Organizasyon Komitesi\n' +
             'erjekum2026@gmail.com'
     });
   } catch (mailErr) {}
@@ -294,7 +294,7 @@ function handleFeedback(data) {
   try {
     MailApp.sendEmail({
       to: ADMIN_EMAIL,
-      subject: '[GÖRÜŞ/ÖNERİ] ' + data.name + ' — ERJEKUM 2026',
+      subject: '[GÖRÜŞ/ÖNERİ] ' + data.name + ' — ERJEOKUM 2026',
       body: 'Yeni bir görüş/öneri mesajı alındı!\n\n' +
             '--- MESAJ DETAYLARI ---\n' +
             'Ad Soyad: ' + data.name + '\n' +
