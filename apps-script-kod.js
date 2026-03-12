@@ -11,10 +11,11 @@
 //  4. İzinleri onayla (Drive, Sheets, Mail)
 //  5. Verilen URL'yi kopyala → bana gönder
 //
-//  NOT: Bu tek script 3 formu da yönetir:
+//  NOT: Bu tek script 4 formu da yönetir:
 //    - Çalıştay Kayıt (type yok veya 'register')
 //    - Bildiri Gönderme (type: 'paper')
 //    - Teknik Gezi Kayıt (type: 'trip')
+//    - Görüş/Öneri (type: 'feedback')
 //
 // ============================================================
 
@@ -50,6 +51,8 @@ function doPost(e) {
       return handlePaper(data);
     } else if (type === 'trip') {
       return handleTrip(data);
+    } else if (type === 'feedback') {
+      return handleFeedback(data);
     } else {
       return handleRegister(data);
     }
@@ -241,6 +244,62 @@ function handleTrip(data) {
             'E-posta: ' + data.email + '\n' +
             'Kurum: ' + (data.institution || '-') + '\n' +
             'Katılım Süresi: ' + data.tripDays + '\n' +
+            'Tarih: ' + new Date() + '\n\n' +
+            '--- Google Sheets ---\n' +
+            'https://docs.google.com/spreadsheets/d/' + SHEETS_ID
+    });
+  } catch (mailErr) {}
+
+  return ContentService.createTextOutput(
+    JSON.stringify({ status: 'ok' })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+
+// ========================================================
+//  4. GÖRÜŞ / ÖNERİ FORMU
+// ========================================================
+function handleFeedback(data) {
+  var ss    = SpreadsheetApp.openById(SHEETS_ID);
+  var sheet = ss.getSheetByName('Gorus Oneri');
+
+  if (!sheet) {
+    sheet = ss.insertSheet('Gorus Oneri');
+    sheet.appendRow(['Tarih', 'Ad Soyad', 'E-posta', 'Mesaj']);
+    sheet.getRange(1, 1, 1, 4).setFontWeight('bold');
+  }
+
+  sheet.appendRow([
+    new Date(),
+    data.name,
+    data.email,
+    data.message
+  ]);
+
+  // Gönderene onay e-postası
+  try {
+    MailApp.sendEmail({
+      to: data.email,
+      subject: 'Görüşünüz Alınmıştır — ERJEKUM 2026',
+      body: 'Sayın ' + data.name + ',\n\n' +
+            'Görüş ve öneriniz için teşekkür ederiz. Mesajınız tarafımıza ulaşmıştır.\n\n' +
+            'Gerekli durumlarda sizinle iletişime geçilecektir.\n\n' +
+            'Saygılarımızla,\n' +
+            'ERJEKUM 2026 Organizasyon Komitesi\n' +
+            'erjekum2026@gmail.com'
+    });
+  } catch (mailErr) {}
+
+  // Organizatöre bildirim e-postası
+  try {
+    MailApp.sendEmail({
+      to: ADMIN_EMAIL,
+      subject: '[GÖRÜŞ/ÖNERİ] ' + data.name + ' — ERJEKUM 2026',
+      body: 'Yeni bir görüş/öneri mesajı alındı!\n\n' +
+            '--- MESAJ DETAYLARI ---\n' +
+            'Ad Soyad: ' + data.name + '\n' +
+            'E-posta: ' + data.email + '\n' +
+            'Mesaj: ' + data.message + '\n' +
             'Tarih: ' + new Date() + '\n\n' +
             '--- Google Sheets ---\n' +
             'https://docs.google.com/spreadsheets/d/' + SHEETS_ID
