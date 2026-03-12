@@ -16,34 +16,9 @@ body {
   color:#e8e6e3;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
-  cursor: none;
 }
-a, button { cursor: none; }
 
-/* ========== CUSTOM CURSOR ========== */
-.cursor-dot {
-  position:fixed; top:0; left:0;
-  width:6px; height:6px;
-  background:#d4a853;
-  border-radius:50%;
-  pointer-events:none;
-  z-index:99999;
-  transition: transform 0.1s;
-}
-.cursor-ring {
-  position:fixed; top:0; left:0;
-  width:32px; height:32px;
-  border:1.5px solid rgba(212,168,83,0.5);
-  border-radius:50%;
-  pointer-events:none;
-  z-index:99998;
-  transition: width 0.3s, height 0.3s, border-color 0.3s;
-}
-.cursor-ring.hover {
-  width:48px; height:48px;
-  border-color:#d4a853;
-  margin-left:-8px; margin-top:-8px;
-}
+
 
 /* ========== SIDE DOT NAVIGATION ========== */
 .dot-nav {
@@ -266,9 +241,9 @@ a, button { cursor: none; }
 }
 .hero-intl {
   display:inline-block;
-  font-size:0.8rem; font-weight:500;
+  font-size:1rem; font-weight:600;
   letter-spacing:0.35em; text-transform:uppercase;
-  color:rgba(212,168,83,0.7);
+  color:rgba(212,168,83,0.9);
   margin-bottom:0.6rem;
   opacity:0; transform:translateY(20px);
   animation: fadeUp 0.7s 0.2s forwards;
@@ -1366,7 +1341,6 @@ a, button { cursor: none; }
   .topics-grid { grid-template-columns:1fr; }
   .speakers-grid { grid-template-columns:repeat(2, 1fr); }
   .footer-grid { grid-template-columns:1fr; }
-  .cursor-dot, .cursor-ring { display:none; }
   .gallery-grid { grid-template-columns:repeat(2, 1fr); }
   .venue-maps-row { grid-template-columns:1fr; }
   .venue-details-row { grid-template-columns:1fr 1fr; }
@@ -1374,10 +1348,6 @@ a, button { cursor: none; }
 </style>
 </head>
 <body>
-
-<!-- Custom Cursor -->
-<div class="cursor-dot" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- Side Dot Navigation -->
 <nav class="dot-nav" id="dotNav">
@@ -1413,8 +1383,12 @@ a, button { cursor: none; }
     <span class="dot-nav-label" data-i18n="nav_schedule">Program</span>
     <span class="dot-nav-dot"></span>
   </a>
+  <a href="#important-dates" class="dot-nav-item" data-section="important-dates">
+    <span class="dot-nav-label" data-i18n="nav_dates">Önemli Tarihler</span>
+    <span class="dot-nav-dot"></span>
+  </a>
   <a href="#venue" class="dot-nav-item" data-section="venue">
-    <span class="dot-nav-label" data-i18n="nav_venue">Mekan</span>
+    <span class="dot-nav-label" data-i18n="nav_venue">Çalıştay Yeri</span>
     <span class="dot-nav-dot"></span>
   </a>
   <a href="#submit-paper" class="dot-nav-item" data-section="submit-paper">
@@ -1429,18 +1403,22 @@ a, button { cursor: none; }
     <span class="dot-nav-label" data-i18n="nav_faq">SSS</span>
     <span class="dot-nav-dot"></span>
   </a>
+  <a href="#feedback" class="dot-nav-item" data-section="feedback">
+    <span class="dot-nav-label" data-i18n="nav_feedback">Görüş</span>
+    <span class="dot-nav-dot"></span>
+  </a>
 </nav>
 
 <!-- Navbar -->
 <nav class="navbar" id="navbar">
-  <div class="nav-logo">ERJEKUM '26</div>
+  <div class="nav-logo">ERJEOKUM '26</div>
   <ul class="nav-links">
-    <li><a href="#hero" data-i18n="nav_home">Giriş</a></li>
+    <li><a href="#hero" data-i18n="nav_home">Anasayfa</a></li>
     <li><a href="#about" data-i18n="nav_about">Hakkında</a></li>
     <li><a href="#topics" data-i18n="nav_topics">Oturumlar</a></li>
     <li><a href="#speakers" data-i18n="nav_speakers">Konuşmacılar</a></li>
     <li class="nav-dropdown">
-      <span data-i18n="nav_templates">Şablonlar</span>
+      <span data-i18n="nav_templates">Bildiri Gönder</span>
       <div class="nav-dropdown-menu">
         <a href="#extended-abstract" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri</a>
         <a href="#abstract-format" data-i18n="nav_abs_format">Bildiri Özeti</a>
@@ -1452,11 +1430,12 @@ a, button { cursor: none; }
       <div class="nav-dropdown-menu">
         <a href="#register" data-i18n="nav_form_register">Çalıştay Kayıt</a>
         <a href="#trip-register" data-i18n="nav_form_trip">Teknik Gezi Kaydı</a>
-        <a href="#submit-paper" data-i18n="nav_form_submit">Bildiri Gönder</a>
       </div>
     </li>
     <li><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
-    <li><a href="#venue" data-i18n="nav_venue">Mekan</a></li>
+    <li><a href="#important-dates" data-i18n="nav_dates">Önemli Tarihler</a></li>
+    <li><a href="#venue" data-i18n="nav_venue">Çalıştay Yeri</a></li>
+    <li><a href="#feedback" data-i18n="nav_feedback">Görüş/Öneri</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:0;">
     <a href="#register" class="nav-cta" data-i18n="nav_cta">Kayıt Ol</a>
@@ -1486,7 +1465,7 @@ a, button { cursor: none; }
       <span data-i18n="hero_date">18 — 20 Haziran 2026</span>
       <span class="line"></span>
     </div>
-    <p class="hero-subtitle" data-i18n="hero_subtitle">Binlerce yıllık jeolojik mirası keşfet</p>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">Milyonlarca yıllık jeolojik mirası keşfet</p>
     <p class="hero-location" data-i18n="hero_location">📍 Erzincan Binali Yıldırım Üniversitesi &bull; Erzincan, Türkiye</p>
     <div class="hero-btns">
       <a href="#register" class="btn-primary" data-i18n="hero_btn_register">Kayıt Ol</a>
@@ -1511,6 +1490,13 @@ a, button { cursor: none; }
 
 <!-- ABOUT -->
 <section class="section about" id="about">
+  <div class="about-icons" style="display:flex;justify-content:center;gap:1.5rem;margin-bottom:3rem;flex-wrap:wrap;">
+    <img src="fotolar/icons/Altıntepe.png" alt="Altıntepe" style="width:150px;height:150px;object-fit:contain;filter:brightness(0.9) drop-shadow(0 2px 8px rgba(212,168,83,0.3));">
+    <img src="fotolar/icons/Kemah Kalesi.png" alt="Kemah Kalesi" style="width:150px;height:150px;object-fit:contain;filter:brightness(0.9) drop-shadow(0 2px 8px rgba(212,168,83,0.3));">
+    <img src="fotolar/icons/Kemaliye Kanyon.png" alt="Kemaliye Kanyon" style="width:150px;height:150px;object-fit:contain;filter:brightness(0.9) drop-shadow(0 2px 8px rgba(212,168,83,0.3));">
+    <img src="fotolar/icons/Mama Hatun.png" alt="Mama Hatun" style="width:150px;height:150px;object-fit:contain;filter:brightness(0.9) drop-shadow(0 2px 8px rgba(212,168,83,0.3));">
+    <img src="fotolar/icons/Otlukbeli Anıtı.png" alt="Otlukbeli Anıtı" style="width:150px;height:150px;object-fit:contain;filter:brightness(0.9) drop-shadow(0 2px 8px rgba(212,168,83,0.3));">
+  </div>
   <div class="about-grid">
     <div class="about-img-wrap">
       <img src="fotolar/girlevik.jpg" alt="Erzincan" class="about-img">
@@ -1569,39 +1555,31 @@ a, button { cursor: none; }
 <section class="section" id="speakers">
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-label reveal" data-i18n="speakers_label">Davetli Konuşmacılar</div>
-    <h2 class="section-title reveal" data-i18n="speakers_title">Uzman Kadromuz</h2>
+    <h2 class="section-title reveal" data-i18n="speakers_title">Davetli Konuşmacılarımız</h2>
     <p class="section-desc reveal" data-i18n="speakers_desc">Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.</p>
   </div>
-  <div class="speakers-grid">
-    <div class="speaker-card">
-      <img src="fotolar/speaker1.jpg" alt="Konuşmacı" class="speaker-img">
-      <div class="speaker-info">
+  <div class="speakers-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto;">
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name" data-i18n="sp1_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-role" data-i18n="sp1_role">Tektonik & Sismoloji</div>
         <div class="speaker-uni" data-i18n="sp1_uni">Erzincan Binali Yıldırım Üniversitesi</div>
       </div>
     </div>
-    <div class="speaker-card">
-      <img src="fotolar/speaker2.jpg" alt="Konuşmacı" class="speaker-img">
-      <div class="speaker-info">
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name" data-i18n="sp2_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-role" data-i18n="sp2_role">Buzul Jeolojisi</div>
         <div class="speaker-uni" data-i18n="sp2_uni">İstanbul Teknik Üniversitesi</div>
       </div>
     </div>
-    <div class="speaker-card">
-      <img src="fotolar/speaker3.jpg" alt="Konuşmacı" class="speaker-img">
-      <div class="speaker-info">
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name" data-i18n="sp3_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-role" data-i18n="sp3_role">Kültürel Miras</div>
         <div class="speaker-uni" data-i18n="sp3_uni">Ankara Üniversitesi</div>
       </div>
     </div>
-    <div class="speaker-card">
-      <img src="fotolar/kemah-fm.jpg" alt="Konuşmacı" class="speaker-img">
-      <div class="speaker-info">
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name" data-i18n="sp4_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-role" data-i18n="sp4_role">Stratigrafik</div>
         <div class="speaker-uni" data-i18n="sp4_uni">Hacettepe Üniversitesi</div>
       </div>
     </div>
@@ -2183,21 +2161,55 @@ a, button { cursor: none; }
   </div>
 </section>
 
+<!-- IMPORTANT DATES -->
+<section class="section" id="important-dates" style="background:linear-gradient(180deg, #0d1524, #0a0f1a);">
+  <div style="max-width:1100px;margin:0 auto;text-align:center;">
+    <div class="section-label reveal" data-i18n="dates_label">Önemli Tarihler</div>
+    <h2 class="section-title reveal" data-i18n="dates_title">Önemli Tarihler</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem;">
+      <div class="reveal" style="border:1px solid rgba(212,168,83,0.25);border-radius:12px;padding:2rem 1.5rem;background:rgba(255,255,255,0.02);transition:all 0.3s;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:700;color:#d4a853;line-height:1;">15</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:0.3rem;" data-i18n="date_month_may">Mayıs 2026</div>
+        <div style="width:40px;height:2px;background:#d4a853;margin:1rem auto;"></div>
+        <div style="font-size:0.95rem;color:#fff;font-weight:500;" data-i18n="date1_text">Bildiri Özeti Son Tarih</div>
+      </div>
+      <div class="reveal" style="border:1px solid rgba(212,168,83,0.25);border-radius:12px;padding:2rem 1.5rem;background:rgba(255,255,255,0.02);transition:all 0.3s;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:700;color:#d4a853;line-height:1;">25</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:0.3rem;" data-i18n="date_month_may">Mayıs 2026</div>
+        <div style="width:40px;height:2px;background:#d4a853;margin:1rem auto;"></div>
+        <div style="font-size:0.95rem;color:#fff;font-weight:500;" data-i18n="date2_text">Kabul Bildirimi</div>
+      </div>
+      <div class="reveal" style="border:1px solid rgba(212,168,83,0.25);border-radius:12px;padding:2rem 1.5rem;background:rgba(255,255,255,0.02);transition:all 0.3s;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:700;color:#d4a853;line-height:1;">5</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:0.3rem;" data-i18n="date_month_jun">Haziran 2026</div>
+        <div style="width:40px;height:2px;background:#d4a853;margin:1rem auto;"></div>
+        <div style="font-size:0.95rem;color:#fff;font-weight:500;" data-i18n="date3_text">Kayıt Son Tarih</div>
+      </div>
+      <div class="reveal" style="border:1px solid rgba(212,168,83,0.25);border-radius:12px;padding:2rem 1.5rem;background:rgba(255,255,255,0.02);transition:all 0.3s;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:700;color:#d4a853;line-height:1;">18-20</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.6);margin-top:0.3rem;" data-i18n="date_month_jun">Haziran 2026</div>
+        <div style="width:40px;height:2px;background:#d4a853;margin:1rem auto;"></div>
+        <div style="font-size:0.95rem;color:#fff;font-weight:500;" data-i18n="date4_text">Çalıştay</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- VENUE -->
 <section class="section" id="venue">
   <div style="max-width:1300px;margin:0 auto;">
-    <div class="section-label reveal" data-i18n="venue_label">Mekan</div>
-    <h2 class="section-title reveal" data-i18n="venue_title">Etkinlik Yeri</h2>
+    <div class="section-label reveal" data-i18n="venue_label">Çalıştay Yeri</div>
+    <h2 class="section-title reveal" data-i18n="venue_title">Çalıştay Yeri</h2>
   </div>
   <div class="venue-maps-row">
     <div class="venue-map-box reveal">
-      <div class="venue-map-card-label" data-i18n="venue_map_city">Erzincan</div>
-      <iframe src="https://maps.google.com/maps?q=Erzincan,Turkey&z=12&t=k&output=embed&hl=tr"
+      <div class="venue-map-card-label" data-i18n="venue_map_campus">Kampüs</div>
+      <iframe src="https://maps.google.com/maps?q=Erzincan+Binali+Y%C4%B1ld%C4%B1r%C4%B1m+%C3%9Cniversitesi&z=16&t=k&output=embed&hl=tr"
         width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
     </div>
     <div class="venue-map-box reveal">
-      <div class="venue-map-card-label" data-i18n="venue_map_campus">Kampüs</div>
-      <iframe src="https://maps.google.com/maps?q=39.8040373,39.3787021&z=16&t=k&output=embed&hl=tr"
+      <div class="venue-map-card-label" data-i18n="venue_map_route">Havalimanı → Kampüs Güzergahı</div>
+      <iframe src="https://maps.google.com/maps?saddr=Erzincan+Havaliman%C4%B1&daddr=Erzincan+Binali+Y%C4%B1ld%C4%B1r%C4%B1m+%C3%9Cniversitesi&output=embed&hl=tr"
         width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
@@ -2375,11 +2387,31 @@ a, button { cursor: none; }
   </div>
 </section>
 
+<!-- FEEDBACK -->
+<section class="section" id="feedback" style="background:#0d1524;">
+  <div style="max-width:600px;margin:0 auto;text-align:center;">
+    <div class="section-label reveal" data-i18n="feedback_label">Görüş ve Öneri</div>
+    <h2 class="section-title reveal" data-i18n="feedback_title">Görüş ve Önerileriniz</h2>
+    <p class="section-desc reveal" style="margin:0 auto 2rem;text-align:center;" data-i18n="feedback_desc">Çalıştay hakkındaki görüş, öneri ve sorularınızı bizimle paylaşabilirsiniz.</p>
+    <form class="register-form reveal" id="feedbackForm">
+      <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
+      <input type="email" name="email" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
+      <textarea name="message" data-ph-i18n="ph_feedback_msg" placeholder="Mesajınız..." required style="padding:1rem 1.5rem;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#fff;font-family:'Inter',sans-serif;font-size:0.95rem;outline:none;min-height:120px;resize:vertical;transition:border-color 0.3s;"></textarea>
+      <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="feedback_btn">Gönder</button>
+    </form>
+    <div class="form-success" id="feedbackSuccess">
+      <div class="check-circle">✓</div>
+      <h3 data-i18n="feedback_success_title">Mesajınız Alınmıştır!</h3>
+      <p data-i18n="feedback_success_desc">Görüşünüz için teşekkür ederiz. En kısa sürede değerlendirilerek gerekirse size dönüş yapılacaktır.</p>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer class="footer">
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">Erzincan '26</div>
+      <div class="footer-brand">ERJEOKUM '26</div>
       <p class="footer-desc" data-i18n="footer_desc">Erzincan'ın Jeolojik ve Kültürel Mirası Çalıştayı, Erzincan Binali Yıldırım Üniversitesi ev sahipliğinde düzenlenmektedir.</p>
     </div>
     <div>
@@ -2394,7 +2426,7 @@ a, button { cursor: none; }
     <div>
       <div class="footer-heading" data-i18n="footer_info">Bilgiler</div>
       <ul class="footer-links">
-        <li><a href="#venue" data-i18n="footer_venue_transport">Mekan & Ulaşım</a></li>
+        <li><a href="#venue" data-i18n="footer_venue_transport">Çalıştay Yeri & Ulaşım</a></li>
         <li><a href="#register" data-i18n="footer_register">Kayıt</a></li>
         <li><a href="#extended-abstract" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri</a></li>
         <li><a href="#abstract-format" data-i18n="nav_abs_format">Bildiri Özeti</a></li>
@@ -2411,8 +2443,11 @@ a, button { cursor: none; }
     </div>
   </div>
   <div class="footer-bottom">
-    <span data-i18n="footer_copy">&copy; 2026 Erzincan Jeolojik ve Kültürel Miras Çalıştayı</span>
+    <span data-i18n="footer_copy">&copy; 2026 ERJEOKUM — Erzincan Jeolojik ve Kültürel Miras Çalıştayı</span>
     <span data-i18n="footer_rights">Tüm hakları saklıdır.</span>
+  </div>
+  <div style="text-align:center;margin-top:1rem;font-size:0.65rem;color:rgba(255,255,255,0.15);letter-spacing:0.05em;">
+    Site Tasarımı: Mehmet Akif Taş
   </div>
   <div class="visitor-counter">
     <div class="specimen-card">
@@ -2430,43 +2465,7 @@ a, button { cursor: none; }
 </footer>
 
 <script>
-// ========== CUSTOM CURSOR ==========
-const dot = document.getElementById('cursorDot');
-const ring = document.getElementById('cursorRing');
-let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
 
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX; mouseY = e.clientY;
-  dot.style.left = mouseX - 3 + 'px';
-  dot.style.top = mouseY - 3 + 'px';
-});
-
-function animateRing() {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-  ring.style.left = ringX - 16 + 'px';
-  ring.style.top = ringY - 16 + 'px';
-  requestAnimationFrame(animateRing);
-}
-animateRing();
-
-// Hover effect on interactive elements
-document.querySelectorAll('a, button, .btn-primary, .btn-outline, .day-tab, .dot-nav-item').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('hover'));
-  el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
-});
-
-// Hover effect on links/buttons
-document.querySelectorAll('a, button, .topic-card, .speaker-card').forEach(el => {
-  el.addEventListener('mouseenter', () => {
-    ring.style.width = '60px'; ring.style.height = '60px';
-    ring.style.borderColor = 'rgba(212,168,83,0.8)';
-  });
-  el.addEventListener('mouseleave', () => {
-    ring.style.width = '40px'; ring.style.height = '40px';
-    ring.style.borderColor = 'rgba(212,168,83,0.5)';
-  });
-});
 
 // ========== NAVBAR SCROLL ==========
 const navbar = document.getElementById('navbar');
@@ -2674,6 +2673,37 @@ if(tripForm) {
     }).catch(() => {
       tripForm.style.display = 'none';
       tripSuccess.classList.add('show');
+    });
+  });
+}
+
+// ========== FEEDBACK FORM ==========
+const feedbackForm = document.getElementById('feedbackForm');
+const feedbackSuccess = document.getElementById('feedbackSuccess');
+
+if(feedbackForm) {
+  feedbackForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = feedbackForm.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.textContent = currentLang==='en'?'Sending...':currentLang==='it'?'Invio...':'Gönderiliyor...';
+    const data = {
+      type: 'feedback',
+      name: feedbackForm.name.value,
+      email: feedbackForm.email.value,
+      message: feedbackForm.message.value
+    };
+    fetch(SCRIPT_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain'},
+      body: JSON.stringify(data)
+    }).then(() => {
+      feedbackForm.style.display = 'none';
+      feedbackSuccess.classList.add('show');
+    }).catch(() => {
+      feedbackForm.style.display = 'none';
+      feedbackSuccess.classList.add('show');
     });
   });
 }
@@ -2934,7 +2964,7 @@ const T = {
     t2_title:'Jeomorfoloji', t2_desc:'İçerik yakında eklenecektir.',
     t3_title:'Kültürel Miras', t3_desc:'İçerik yakında eklenecektir.',
     t4_title:'Karma Oturum', t4_desc:'İçerik yakında eklenecektir.',
-    speakers_label:'Davetli Konuşmacılar', speakers_title:'Uzman Kadromuz', speakers_desc:'Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.',
+    speakers_label:'Davetli Konuşmacılar', speakers_title:'Davetli Konuşmacılarımız', speakers_desc:'Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.',
     gallery_label:'Galeri', gallery_title:'Erzincan\'dan Kareler', gallery_source:'Kaynak: Google Fotoğraflar',
     gal_abrenk_vank:'Abrenk Vank Kilisesi', gal_altintepe_hoyuk:'Altıntepe Höyük', gal_ardos_golu:'Ardos Gölü', gal_eksisu:'Ekşisu', gal_ergan_dagi:'Ergan Dağı', gal_girlevik:'Girlevik Şelalesi', gal_karanlik:'Karanlık Kanyon', gal_kemah:'Kemah', gal_kesish_dagi:'Keşiş Dağı', gal_konarli:'Konarlı Şelalesi', gal_mamahatun:'Mamahatun Türbesi', gal_merg:'Merg Yaylası', gal_otlukbeli:'Otlukbeli Gölü', gal_palat:'Polat Gölü', gal_sohmarik:'Sohmarik Yaylası',
     // Templates (simplified)
