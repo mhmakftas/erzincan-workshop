@@ -105,11 +105,11 @@ body {
   color:#d4a853;
   letter-spacing:0.05em;
 }
-.nav-links { display:flex; gap:2.5rem; list-style:none; }
-.nav-links a {
+.nav-links { display:flex; gap:1.4rem; list-style:none; align-items:center; }
+.nav-links a, .nav-dropdown > span {
   color:#b0b8c8; text-decoration:none;
-  font-size:0.85rem; font-weight:500;
-  letter-spacing:0.08em; text-transform:uppercase;
+  font-size:0.72rem; font-weight:500;
+  letter-spacing:0.05em; text-transform:uppercase;
   position:relative;
   transition: color 0.3s;
 }
@@ -124,9 +124,7 @@ body {
 /* Navbar dropdown */
 .nav-dropdown { position:relative; }
 .nav-dropdown > span {
-  color:#b0b8c8; font-size:0.85rem; font-weight:500;
-  letter-spacing:0.08em; text-transform:uppercase;
-  cursor:pointer; transition:color 0.3s;
+  cursor:pointer;
   display:flex; align-items:center; gap:0.3rem;
 }
 .nav-dropdown > span::after {
@@ -444,9 +442,9 @@ body {
 }
 .about-img {
   width:100%;
-  aspect-ratio:4/5;
-  object-fit:cover;
+  object-fit:contain;
   filter:brightness(0.9) contrast(1.05);
+  border-radius:8px;
 }
 .about-img-accent {
   position:absolute;
@@ -1352,35 +1350,31 @@ body {
 <!-- Side Dot Navigation -->
 <nav class="dot-nav" id="dotNav">
   <a href="#hero" class="dot-nav-item active" data-section="hero">
-    <span class="dot-nav-label" data-i18n="nav_home_dot">Ana Sayfa</span>
+    <span class="dot-nav-label" data-i18n="nav_home">Anasayfa</span>
     <span class="dot-nav-dot"></span>
   </a>
   <a href="#about" class="dot-nav-item" data-section="about">
     <span class="dot-nav-label" data-i18n="nav_about">Hakkında</span>
     <span class="dot-nav-dot"></span>
   </a>
-  <a href="#topics" class="dot-nav-item" data-section="topics">
-    <span class="dot-nav-label" data-i18n="nav_topics">Oturumlar</span>
+  <a href="#committees" class="dot-nav-item" data-section="committees">
+    <span class="dot-nav-label" data-i18n="nav_committees">Kurullar</span>
     <span class="dot-nav-dot"></span>
   </a>
   <a href="#speakers" class="dot-nav-item" data-section="speakers">
     <span class="dot-nav-label" data-i18n="nav_speakers">Konuşmacılar</span>
     <span class="dot-nav-dot"></span>
   </a>
-  <a href="#gallery" class="dot-nav-item" data-section="gallery">
-    <span class="dot-nav-label" data-i18n="gallery_label">Galeri</span>
-    <span class="dot-nav-dot"></span>
-  </a>
-  <a href="#extended-abstract" class="dot-nav-item" data-section="extended-abstract">
-    <span class="dot-nav-label" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri</span>
-    <span class="dot-nav-dot"></span>
-  </a>
-  <a href="#abstract-format" class="dot-nav-item" data-section="abstract-format">
-    <span class="dot-nav-label" data-i18n="nav_abs_format">Bildiri Özeti</span>
-    <span class="dot-nav-dot"></span>
-  </a>
   <a href="#schedule" class="dot-nav-item" data-section="schedule">
     <span class="dot-nav-label" data-i18n="nav_schedule">Program</span>
+    <span class="dot-nav-dot"></span>
+  </a>
+  <a href="#register" class="dot-nav-item" data-section="register">
+    <span class="dot-nav-label" data-i18n="nav_registration">Kayıt</span>
+    <span class="dot-nav-dot"></span>
+  </a>
+  <a href="#submit-paper" class="dot-nav-item" data-section="submit-paper">
+    <span class="dot-nav-label" data-i18n="nav_forms">Formlar</span>
     <span class="dot-nav-dot"></span>
   </a>
   <a href="#important-dates" class="dot-nav-item" data-section="important-dates">
@@ -1391,20 +1385,12 @@ body {
     <span class="dot-nav-label" data-i18n="nav_venue">Çalıştay Yeri</span>
     <span class="dot-nav-dot"></span>
   </a>
-  <a href="#submit-paper" class="dot-nav-item" data-section="submit-paper">
-    <span class="dot-nav-label" data-i18n="nav_submit">Bildiri Gönder</span>
+  <a href="#accommodation" class="dot-nav-item" data-section="accommodation">
+    <span class="dot-nav-label" data-i18n="nav_accom">Konaklama</span>
     <span class="dot-nav-dot"></span>
   </a>
-  <a href="#register" class="dot-nav-item" data-section="register">
-    <span class="dot-nav-label" data-i18n="nav_cta">Kayıt Ol</span>
-    <span class="dot-nav-dot"></span>
-  </a>
-  <a href="#faq" class="dot-nav-item" data-section="faq">
-    <span class="dot-nav-label" data-i18n="nav_faq">SSS</span>
-    <span class="dot-nav-dot"></span>
-  </a>
-  <a href="#feedback" class="dot-nav-item" data-section="feedback">
-    <span class="dot-nav-label" data-i18n="nav_feedback">Görüş</span>
+  <a href="#gallery" class="dot-nav-item" data-section="gallery">
+    <span class="dot-nav-label" data-i18n="nav_gallery">Galeri</span>
     <span class="dot-nav-dot"></span>
   </a>
 </nav>
@@ -1415,27 +1401,40 @@ body {
   <ul class="nav-links">
     <li><a href="#hero" data-i18n="nav_home">Anasayfa</a></li>
     <li><a href="#about" data-i18n="nav_about">Hakkında</a></li>
-    <li><a href="#topics" data-i18n="nav_topics">Oturumlar</a></li>
-    <li><a href="#speakers" data-i18n="nav_speakers">Konuşmacılar</a></li>
     <li class="nav-dropdown">
-      <span data-i18n="nav_templates">Bildiri Gönder</span>
+      <span data-i18n="nav_committees">Kurullar</span>
       <div class="nav-dropdown-menu">
-        <a href="#extended-abstract" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri</a>
-        <a href="#abstract-format" data-i18n="nav_abs_format">Bildiri Özeti</a>
-        <a href="#submit-paper" data-i18n="nav_submit">Bildiri Gönder</a>
+        <a href="#committees" data-i18n="nav_org_committee">Düzenleme Kurulu</a>
+        <a href="#committees" data-i18n="nav_sci_committee">Bilim Kurulu</a>
+      </div>
+    </li>
+    <li><a href="#speakers" data-i18n="nav_speakers">Davetli Konuşmacılar</a></li>
+    <li class="nav-dropdown">
+      <span data-i18n="nav_schedule">Program</span>
+      <div class="nav-dropdown-menu">
+        <a href="#topics" data-i18n="nav_sessions">Oturumlar</a>
+        <a href="#schedule" data-i18n="nav_detailed_program">Ayrıntılı Program</a>
+      </div>
+    </li>
+    <li class="nav-dropdown">
+      <span data-i18n="nav_registration">Kayıt</span>
+      <div class="nav-dropdown-menu">
+        <a href="#register" data-i18n="nav_workshop_reg">Çalıştay Kayıt</a>
+        <a href="#register" data-i18n="nav_trip_reg">Teknik Gezi Kayıt</a>
       </div>
     </li>
     <li class="nav-dropdown">
       <span data-i18n="nav_forms">Formlar</span>
       <div class="nav-dropdown-menu">
-        <a href="#register" data-i18n="nav_form_register">Çalıştay Kayıt</a>
-        <a href="#trip-register" data-i18n="nav_form_trip">Teknik Gezi Kaydı</a>
+        <a href="#extended-abstract" data-i18n="nav_ext_abstract">Genişletilmiş Bildiri Özeti</a>
+        <a href="#abstract-format" data-i18n="nav_abs_format">Bildiri Özeti Formu</a>
+        <a href="#submit-paper" data-i18n="nav_submit">Bildiri Gönder</a>
       </div>
     </li>
-    <li><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
     <li><a href="#important-dates" data-i18n="nav_dates">Önemli Tarihler</a></li>
     <li><a href="#venue" data-i18n="nav_venue">Çalıştay Yeri</a></li>
-    <li><a href="#feedback" data-i18n="nav_feedback">Görüş/Öneri</a></li>
+    <li><a href="#accommodation" data-i18n="nav_accom">Konaklama</a></li>
+    <li><a href="#gallery" data-i18n="nav_gallery">Galeri</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:0;">
     <a href="#register" class="nav-cta" data-i18n="nav_cta">Kayıt Ol</a>
@@ -1499,14 +1498,14 @@ body {
   </div>
   <div class="about-grid">
     <div class="about-img-wrap">
-      <img src="fotolar/girlevik.jpg" alt="Erzincan" class="about-img">
+      <img src="fotolar/poster-tr.jpg" alt="Erzincan Workshop Poster" class="about-img" id="aboutPoster">
       <div class="about-img-accent"></div>
     </div>
     <div class="about-text">
-      <div class="section-label" data-i18n="about_label">Çalıştay Hakkında</div>
-      <h2 class="section-title" data-i18n-html="about_title">Anadolu'nun Kalbinde<br>Jeolojik Keşif</h2>
+      <div class="section-label" data-i18n="about_label">Hakkında</div>
+      <h2 class="section-title" data-i18n="about_title">Hakkında</h2>
       <p class="section-desc" data-i18n="about_p1">
-        Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları'ndan Munzur Sıradağları'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan'ın binlerce yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.
+        Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları'ndan Munzur Sıradağları'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan'ın milyonlarca yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.
       </p>
       <p class="section-desc" style="margin-top:1rem;" data-i18n="about_p2">
         Üç günlük program boyunca bilimsel oturumlar, teknik arazi gezileri ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, traverten teraslarını, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.
@@ -1551,36 +1550,123 @@ body {
   </div>
 </section>
 
+<!-- COMMITTEES -->
+<section class="section" id="committees">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="committees_label">Kurullar</div>
+    <h2 class="section-title reveal" data-i18n="committees_title">Kurullar</h2>
+    <!-- Onur Kurulu -->
+    <div class="reveal" style="margin-top:2.5rem;">
+      <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.3rem;margin-bottom:1.2rem;" data-i18n="honour_board_title">Onur Kurulu</h3>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+        <li style="color:#b0b8c8;font-size:0.88rem;">Erzincan Valisi — <span style="color:rgba(255,255,255,0.4);">Erzincan Valiliği</span></li>
+        <li style="color:#b0b8c8;font-size:0.88rem;">Belediye Başkanı — <span style="color:rgba(255,255,255,0.4);">Erzincan Belediyesi</span></li>
+        <li style="color:#b0b8c8;font-size:0.88rem;">Rektör — <span style="color:rgba(255,255,255,0.4);">Erzincan Binali Yıldırım Üniversitesi</span></li>
+      </ul>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem;">
+      <!-- Düzenleme Kurulu -->
+      <div class="reveal">
+        <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.3rem;margin-bottom:1.2rem;" data-i18n="org_committee_title">Düzenleme Kurulu</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Pınar POLAT</strong> <span style="color:#d4a853;font-size:0.75rem;">(Başkan)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Coğrafya Bölümü, Erzincan</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mehmet Akif TAŞ</strong> <span style="color:#d4a853;font-size:0.75rem;">(Ulusal Sekreterya)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Coğrafya Bölümü, Erzincan</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yakup ÇELİK</strong> <span style="color:#d4a853;font-size:0.75rem;">(Eş Başkan)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">İstanbul Üniversitesi, Jeoloji Müh. Bölümü</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ezher TAGLIASACCHI</strong> <span style="color:#d4a853;font-size:0.75rem;">(Uluslararası Sekreterya)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Pamukkale Üniversitesi, Jeoloji Müh. Bölümü</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Erdal SARIGÜL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">TMMOB Jeoloji Mühendisleri Odası Erzincan Temsilciliği</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Rukiye ÖZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Coğrafya Bölümü, Yüksek Lisans Öğrencisi</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Murat GÖMÜÇ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Coğrafya Bölümü, Doktora Öğrencisi</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Eren KUTLUDİL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Coğrafya Kulübü Başkanı</span></li>
+          <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Beyzanur ERKAL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Kulübü Başkanı</span></li>
+        </ul>
+      </div>
+      <!-- Bilim Kurulu -->
+      <div class="reveal">
+        <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.3rem;margin-bottom:1.2rem;" data-i18n="sci_committee_title">Bilim Kurulu</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+          <li style="color:#b0b8c8;font-size:0.88rem;">Ali DEMİRSOY</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Ali KANDEMİR</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Enrico CAPEZZUOLİ</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Erdal AKPINAR</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Eşref ATABEY</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Ezher TAGLİASACCHİ</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Fatma TÜKEL</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Gülpınar AKBULUT</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">İbrahim KOPAR</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Kenan İNAN</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Kuddusi ZORLU</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">M. Feridun ÇELİKMEN</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Mehmet Akif TAŞ</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">MTA Ekibi (Ali ERGEN)</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Murat USLU</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Mustafa BAYAM</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Nizamettin KAZANCI</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Pınar POLAT</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Raif KANDEMİR</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Samet ALTINBİLEK</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Volkan DEDE</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Yakup ÇELİK</li>
+          <li style="color:#b0b8c8;font-size:0.88rem;">Yıldırım GÜNGÖR</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SPEAKERS -->
 <section class="section" id="speakers">
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-label reveal" data-i18n="speakers_label">Davetli Konuşmacılar</div>
-    <h2 class="section-title reveal" data-i18n="speakers_title">Davetli Konuşmacılarımız</h2>
+    <h2 class="section-title reveal" data-i18n="speakers_title">Davetli Konuşmacılar</h2>
     <p class="section-desc reveal" data-i18n="speakers_desc">Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.</p>
   </div>
   <div class="speakers-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto;">
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
-        <div class="speaker-name" data-i18n="sp1_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-uni" data-i18n="sp1_uni">Erzincan Binali Yıldırım Üniversitesi</div>
+        <div class="speaker-name">Nizamettin KAZANCI</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">JEMİRKO Başkanı</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
-        <div class="speaker-name" data-i18n="sp2_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-uni" data-i18n="sp2_uni">İstanbul Teknik Üniversitesi</div>
+        <div class="speaker-name">Enrico CAPEZZUOLİ</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Jeolojik Miras</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
-        <div class="speaker-name" data-i18n="sp3_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-uni" data-i18n="sp3_uni">Ankara Üniversitesi</div>
+        <div class="speaker-name">İbrahim KOPAR</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Jeomorfoloji</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
-        <div class="speaker-name" data-i18n="sp4_name">Prof. Dr. [İsim]</div>
-        <div class="speaker-uni" data-i18n="sp4_uni">Hacettepe Üniversitesi</div>
+        <div class="speaker-name">Kenan İNAN</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Kültürel Miras</div>
+      </div>
+    </div>
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
+        <div class="speaker-name">Pınar POLAT</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Düzenleme Kurulu Başkanı</div>
+      </div>
+    </div>
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
+        <div class="speaker-name">Yakup ÇELİK</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Eş Başkan — İstanbul Üni.</div>
+      </div>
+    </div>
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
+        <div class="speaker-name">Ezher TAGLİASACCHİ</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Uluslararası Sekreterya</div>
+      </div>
+    </div>
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
+      <div class="speaker-info" style="padding:0;text-align:left;">
+        <div class="speaker-name">Mehmet Akif TAŞ</div>
+        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Ulusal Sekreterya — EBYÜ</div>
       </div>
     </div>
   </div>
@@ -1590,7 +1676,7 @@ body {
 <section class="section gallery" id="gallery">
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-label reveal" data-i18n="gallery_label">Galeri</div>
-    <h2 class="section-title reveal" data-i18n="gallery_title">Erzincan'dan Kareler</h2>
+    <h2 class="section-title reveal" data-i18n="gallery_title">Galeri</h2>
   </div>
   <div class="gallery-filters">
     <button class="gallery-filter-btn active" data-cat="abrenk-vank" onclick="filterGallery('abrenk-vank')" data-i18n="gal_abrenk_vank">Abrenk Vank Kilisesi</button>
@@ -1932,7 +2018,7 @@ body {
 <section class="section schedule" id="schedule">
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-label reveal" data-i18n="schedule_label">Program</div>
-    <h2 class="section-title reveal" data-i18n="schedule_title">Çalıştay Programı</h2>
+    <h2 class="section-title reveal" data-i18n="schedule_title">Program</h2>
     <p class="section-desc reveal" data-i18n="schedule_desc">Üç gün sürecek yoğun ve verimli bir program sizi bekliyor.</p>
 
     <!-- Day tabs -->
@@ -2237,6 +2323,29 @@ body {
   </div>
 </section>
 
+<!-- ACCOMMODATION -->
+<section class="section" id="accommodation">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="accom_label">Konaklama</div>
+    <h2 class="section-title reveal" data-i18n="accom_title">Konaklama</h2>
+    <p class="section-desc reveal" data-i18n="accom_desc">Çalıştay katılımcıları için alternatif konaklama seçenekleri aşağıda sunulmuştur.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:2.5rem;">
+      <div class="reveal" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:2rem;">
+        <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.1rem;margin-bottom:0.8rem;" data-i18n="accom_guesthouse">Üniversite Konukevi</h3>
+        <p style="color:#b0b8c8;font-size:0.85rem;line-height:1.7;" data-i18n="accom_guesthouse_desc">Erzincan Binali Yıldırım Üniversitesi Konukevi — kampüs içinde, çalıştay alanına yürüme mesafesinde.</p>
+      </div>
+      <div class="reveal" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:2rem;">
+        <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.1rem;margin-bottom:0.8rem;" data-i18n="accom_hotels">Anlaşmalı Oteller</h3>
+        <p style="color:#b0b8c8;font-size:0.85rem;line-height:1.7;" data-i18n="accom_hotels_desc">Şehir merkezinde anlaşmalı otel seçenekleri mevcuttur. Detaylı bilgi için iletişime geçiniz.</p>
+      </div>
+      <div class="reveal" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:2rem;">
+        <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.1rem;margin-bottom:0.8rem;" data-i18n="accom_contact">İletişim</h3>
+        <p style="color:#b0b8c8;font-size:0.85rem;line-height:1.7;" data-i18n="accom_contact_desc">Konaklama rezervasyonu ve detaylı bilgi için: calistay@erzincan.edu.tr | +90 446 XXX XX XX</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SPONSORS -->
 <section class="section sponsors" id="sponsors">
   <div style="max-width:1300px;margin:0 auto;text-align:center;">
@@ -2305,7 +2414,7 @@ body {
 <!-- REGISTER -->
 <section class="section register-section" id="register">
   <div class="section-label reveal" data-i18n="reg_label">Kayıt</div>
-  <h2 class="section-title reveal" data-i18n="reg_title">Çalıştaya Katılın</h2>
+  <h2 class="section-title reveal" data-i18n="reg_title">Kayıt</h2>
   <p class="section-desc reveal" data-i18n="reg_desc">Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.</p>
   <form class="register-form reveal" id="registerForm">
     <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
@@ -2855,39 +2964,8 @@ const heroPhotos = [
   }, 6000);
 })();
 
-// ========== ABOUT IMAGE SLIDESHOW ==========
-(function aboutSlideshow() {
-  const aboutPhotos = [
-    'fotolar/girlevik.jpg',
-    'fotolar/galeri/otlukbeli-golu/foto_24.jpg',
-    'fotolar/galeri/karanlik-kanyon/foto_29.jpg',
-    'fotolar/galeri/kemah/foto_173.jpg',
-    'fotolar/galeri/ergan-dagi/foto_002.jpg',
-    'fotolar/galeri/mamahatun-turbesi/foto_04.jpg',
-    'fotolar/galeri/ardos-golu/foto_02.jpg',
-    'fotolar/galeri/merg-yaylasi/foto_21.jpg',
-    'fotolar/galeri/palat-golu/foto_07.jpg',
-    'fotolar/galeri/girlevik-selalesi/foto_45.jpg'
-  ];
-  // Fisher-Yates shuffle
-  for(let i = aboutPhotos.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [aboutPhotos[i], aboutPhotos[j]] = [aboutPhotos[j], aboutPhotos[i]];
-  }
-  const img = document.querySelector('.about-img');
-  if(!img) return;
-  img.src = aboutPhotos[0];
-  img.style.transition = 'opacity 1.2s ease';
-  let idx = 0;
-  setInterval(() => {
-    idx = (idx + 1) % aboutPhotos.length;
-    img.style.opacity = '0';
-    setTimeout(() => {
-      img.src = aboutPhotos[idx];
-      img.style.opacity = '1';
-    }, 600);
-  }, 7000);
-})();
+// ========== ABOUT POSTER (language-aware) ==========
+// Poster switches based on current language: TR → poster-tr.jpg, EN/IT → poster-en.jpg
 
 // ========== DOT NAVIGATION TRACKING ==========
 const dotNavItems = document.querySelectorAll('.dot-nav-item');
@@ -2945,17 +3023,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 let currentLang = 'tr';
 const T = {
   tr: {
-    nav_home:'Giriş', nav_home_dot:'Ana Sayfa', nav_about:'Hakkında', nav_topics:'Oturumlar', nav_speakers:'Konuşmacılar', nav_templates:'Şablonlar', nav_ext_abstract:'Genişletilmiş Bildiri', nav_abs_format:'Bildiri Özeti', nav_submit:'Bildiri Gönder', nav_forms:'Formlar', nav_form_register:'Çalıştay Kayıt', nav_form_trip:'Teknik Gezi Kaydı', nav_form_submit:'Bildiri Gönder', nav_faq:'SSS', nav_schedule:'Program', nav_venue:'Mekan', nav_cta:'Kayıt Ol',
+    nav_home:'Anasayfa', nav_about:'Hakkında', nav_committees:'Kurullar', nav_org_committee:'Düzenleme Kurulu', nav_sci_committee:'Bilim Kurulu', nav_speakers:'Davetli Konuşmacılar', nav_sessions:'Oturumlar', nav_detailed_program:'Ayrıntılı Program', nav_schedule:'Program', nav_registration:'Kayıt', nav_workshop_reg:'Çalıştay Kayıt', nav_trip_reg:'Teknik Gezi Kayıt', nav_forms:'Formlar', nav_ext_abstract:'Genişletilmiş Bildiri Özeti', nav_abs_format:'Bildiri Özeti Formu', nav_submit:'Bildiri Gönder', nav_dates:'Önemli Tarihler', nav_venue:'Çalıştay Yeri', nav_accom:'Konaklama', nav_gallery:'Galeri', nav_cta:'Kayıt Ol',
     hero_intl:'Uluslararası Katılımlı', hero_date:'18 — 20 Haziran 2026',
     hero_title:'<span class="gold">Jeolojik</span> ve Kültürel<br>Mirası Çalıştayı',
-    hero_subtitle:'Binlerce yıllık jeolojik mirası keşfet',
+    hero_subtitle:'Milyonlarca yıllık jeolojik mirası keşfet',
     hero_location:'📍 Erzincan Binali Yıldırım Üniversitesi \u2022 Erzincan, Türkiye',
     hero_btn_register:'Kayıt Ol', hero_btn_program:'Programı İncele',
     scroll_explore:'Keşfet',
     cd_days:'Gün', cd_hours:'Saat', cd_mins:'Dakika', cd_secs:'Saniye',
-    about_label:'Çalıştay Hakkında',
-    about_title:'Anadolu\'nun Kalbinde<br>Jeolojik Keşif',
-    about_p1:'Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları\'ndan Munzur Sıradağları\'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan\'ın binlerce yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.',
+    about_label:'Hakkında',
+    about_title:'Hakkında',
+    about_p1:'Erzincan, Kuzey Anadolu Fay Hattı üzerinde konumlanmış, Esence Dağları\'ndan Munzur Sıradağları\'na uzanan eşsiz bir jeolojik mirasa sahiptir. Bu çalıştay, jeologları, arkeologları, kültürel miras uzmanlarını ve araştırmacıları bir araya getirerek Erzincan\'ın milyonlarca yıllık doğal ve kültürel zenginliğini keşfetmeyi amaçlamaktadır.',
     about_p2:'Üç günlük program boyunca bilimsel oturumlar, teknik arazi gezileri ve davetli konuşmacı oturumları ile katılımcılar, bölgenin jeolojik oluşumlarını, traverten teraslarını, tarihi yapılarını ve kültürel dokusunu yerinde inceleme fırsatı bulacaklardır.',
     stat_speakers:'Sunum', stat_days:'Gün', stat_trips:'Teknik Gezi',
     topics_label:'Oturumlar', topics_title:'Çalıştay Oturumları',
@@ -2964,8 +3042,8 @@ const T = {
     t2_title:'Jeomorfoloji', t2_desc:'İçerik yakında eklenecektir.',
     t3_title:'Kültürel Miras', t3_desc:'İçerik yakında eklenecektir.',
     t4_title:'Karma Oturum', t4_desc:'İçerik yakında eklenecektir.',
-    speakers_label:'Davetli Konuşmacılar', speakers_title:'Davetli Konuşmacılarımız', speakers_desc:'Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.',
-    gallery_label:'Galeri', gallery_title:'Erzincan\'dan Kareler', gallery_source:'Kaynak: Google Fotoğraflar',
+    speakers_label:'Davetli Konuşmacılar', speakers_title:'Davetli Konuşmacılar', speakers_desc:'Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.',
+    gallery_label:'Galeri', gallery_title:'Galeri', gallery_source:'Kaynak: Google Fotoğraflar',
     gal_abrenk_vank:'Abrenk Vank Kilisesi', gal_altintepe_hoyuk:'Altıntepe Höyük', gal_ardos_golu:'Ardos Gölü', gal_eksisu:'Ekşisu', gal_ergan_dagi:'Ergan Dağı', gal_girlevik:'Girlevik Şelalesi', gal_karanlik:'Karanlık Kanyon', gal_kemah:'Kemah', gal_kesish_dagi:'Keşiş Dağı', gal_konarli:'Konarlı Şelalesi', gal_mamahatun:'Mamahatun Türbesi', gal_merg:'Merg Yaylası', gal_otlukbeli:'Otlukbeli Gölü', gal_palat:'Polat Gölü', gal_sohmarik:'Sohmarik Yaylası',
     // Templates (simplified)
     ext_abstract_label:'Genişletilmiş Bildiri', ext_abstract_title:'Genişletilmiş Bildiri Özeti Şablonu',
@@ -3008,7 +3086,7 @@ const T = {
     venue_map_city:'Erzincan', venue_map_campus:'Kampüs',
     footer_ext:'Dahili: 40280',
     // Schedule
-    schedule_label:'Program', schedule_title:'Çalıştay Programı', schedule_desc:'Üç gün sürecek yoğun ve verimli bir program sizi bekliyor.',
+    schedule_label:'Program', schedule_title:'Program', schedule_desc:'Üç gün sürecek yoğun ve verimli bir program sizi bekliyor.',
     day1_tab:'1. Gün — 18 Haziran (Perşembe)', day2_tab:'2. Gün — 19 Haziran (Cuma)', day3_tab:'3. Gün — 20 Haziran (Cumartesi)',
     // Day 1
     d1_s1_title:'Kayıt ve Açılış Konuşmaları', d1_s1_desc:'Protokol konuşmaları ve çalıştayın resmi açılışı',
@@ -3057,7 +3135,7 @@ const T = {
     sponsor_main:'Ana Sponsor', sponsor_inst:'Kurumsal Destek',
     sp_ebyu:'Erzincan Binali Yıldırım Üniversitesi', sp_valilik:'Erzincan Valiliği', sp_mta:'Maden Tetkik ve Arama Genel Müdürlüğü', sp_jemirko:'Jeolojik Mirası Koruma Derneği', sp_jmo:'TMMOB Jeoloji Mühendisleri Odası Erzincan Temsilciliği', sp_erzincan24:'Erzincan 24 Doğa ve Kültür Varlıkları Koruma Derneği', sp_unesco:'UNESCO Türkiye Millî Komisyonu',
     // Registration
-    reg_label:'Kayıt', reg_title:'Çalıştaya Katılın', reg_desc:'Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.', reg_btn:'Ön Kayıt Yap',
+    reg_label:'Kayıt', reg_title:'Kayıt', reg_desc:'Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.', reg_btn:'Ön Kayıt Yap',
     ph_name:'Adınız Soyadınız', ph_email:'E-posta Adresiniz', ph_inst:'Kurum / Üniversite', ph_field:'Uzmanlık Alanınız',
     success_title:'Kaydınız Alınmıştır!', success_desc:'Ön kaydınız başarıyla tamamlanmıştır. Detaylı bilgi ve onay e-postanız en kısa sürede iletilecektir.',
     // Footer
@@ -3065,20 +3143,40 @@ const T = {
     footer_links:'Bağlantılar', footer_info:'Bilgiler', footer_contact:'İletişim',
     footer_venue_transport:'Mekan & Ulaşım', footer_register:'Kayıt',
     footer_copy:'© 2026 Erzincan Jeolojik ve Kültürel Miras Çalıştayı', footer_rights:'Tüm hakları saklıdır.',
-    visitor_label:'Toplam Ziyaretçi'
-  },
+    // Committees
+    committees_label:'Kurullar', committees_title:'Kurullar',
+    org_committee_title:'Düzenleme Kurulu', sci_committee_title:'Bilim Kurulu',
+    committee_uni1:'Erzincan Binali Yıldırım Üniversitesi', committee_uni2:'İstanbul Teknik Üniversitesi', committee_uni3:'Ankara Üniversitesi', committee_uni4:'Hacettepe Üniversitesi',
+    // Accommodation
+    accom_label:'Konaklama', accom_title:'Konaklama', accom_desc:'Çalıştay katılımcıları için alternatif konaklama seçenekleri aşağıda sunulmuştur.',
+    accom_guesthouse:'Üniversite Konukevi', accom_guesthouse_desc:'Erzincan Binali Yıldırım Üniversitesi Konukevi — kampüs içinde, çalıştay alanına yürüme mesafesinde.',
+    accom_hotels:'Anlaşmalı Oteller', accom_hotels_desc:'Şehir merkezinde anlaşmalı otel seçenekleri mevcuttur. Detaylı bilgi için iletişime geçiniz.',
+    accom_contact:'İletişim', accom_contact_desc:'Konaklama rezervasyonu ve detaylı bilgi için: calistay@erzincan.edu.tr | +90 446 XXX XX XX',
+    visitor_label:'Toplam Ziyaretçi',
+    dates_label:'Önemli Tarihler', dates_title:'Önemli Tarihler',
+    date_month_may:'Mayıs 2026', date_month_jun:'Haziran 2026',
+    date1_text:'Bildiri Özeti Son Tarih', date2_text:'Kabul Bildirimi', date3_text:'Kayıt Son Tarih', date4_text:'Çalıştay',
+    honour_board_title:'Onur Kurulu',
+    feedback_label:'Görüş ve Öneri', feedback_title:'Görüş ve Önerileriniz',
+    feedback_desc:'Çalıştay hakkındaki görüş, öneri ve sorularınızı bizimle paylaşabilirsiniz.',
+    feedback_btn:'Gönder',
+    feedback_success_title:'Mesajınız Alınmıştır!', feedback_success_desc:'Görüşünüz için teşekkür ederiz. En kısa sürede değerlendirilerek gerekirse size dönüş yapılacaktır.',
+    ph_feedback_msg:'Mesajınız...',
+    nav_faq:'SSS', nav_topics:'Oturumlar',
+    venue_map_route:'Havalimanı → Kampüs Güzergahı'
+},
   en: {
-    nav_home:'Home', nav_home_dot:'Home', nav_about:'About', nav_topics:'Sessions', nav_speakers:'Speakers', nav_templates:'Templates', nav_ext_abstract:'Extended Abstract', nav_abs_format:'Abstract Format', nav_submit:'Submit Paper', nav_forms:'Forms', nav_form_register:'Workshop Registration', nav_form_trip:'Field Trip Registration', nav_form_submit:'Submit Paper', nav_faq:'FAQ', nav_schedule:'Program', nav_venue:'Venue', nav_cta:'Register',
+    nav_home:'Home', nav_about:'About', nav_committees:'Committees', nav_org_committee:'Organizing Committee', nav_sci_committee:'Scientific Committee', nav_speakers:'Invited Speakers', nav_sessions:'Sessions', nav_detailed_program:'Detailed Program', nav_schedule:'Program', nav_registration:'Registration', nav_workshop_reg:'Workshop Registration', nav_trip_reg:'Field Trip Registration', nav_forms:'Forms', nav_ext_abstract:'Extended Abstract', nav_abs_format:'Abstract Form', nav_submit:'Submit Paper', nav_dates:'Important Dates', nav_venue:'Workshop Venue', nav_accom:'Accommodation', nav_gallery:'Gallery', nav_cta:'Register',
     hero_intl:'With International Participation', hero_date:'June 18 — 20, 2026',
     hero_title:'<span class="gold">Geological</span> & Cultural<br>Heritage Workshop',
-    hero_subtitle:'Discover millennia of geological heritage',
+    hero_subtitle:'Discover millions of years of geological heritage',
     hero_location:'📍 Erzincan Binali Yıldırım University \u2022 Erzincan, Türkiye',
     hero_btn_register:'Register', hero_btn_program:'View Program',
     scroll_explore:'Explore',
     cd_days:'Days', cd_hours:'Hours', cd_mins:'Minutes', cd_secs:'Seconds',
-    about_label:'About the Workshop',
-    about_title:'Geological Discovery<br>in the Heart of Anatolia',
-    about_p1:'Erzincan, situated on the North Anatolian Fault Zone, possesses a unique geological heritage extending from the Esence Mountains to the Munzur Range. This workshop aims to bring together geologists, archaeologists, cultural heritage specialists and researchers to explore Erzincan\'s millennia-old natural and cultural richness.',
+    about_label:'About',
+    about_title:'About',
+    about_p1:'Erzincan, situated on the North Anatolian Fault Zone, possesses a unique geological heritage extending from the Esence Mountains to the Munzur Range. This workshop aims to bring together geologists, archaeologists, cultural heritage specialists and researchers to explore Erzincan\'s millions-of-years-old natural and cultural richness.',
     about_p2:'Throughout the three-day program, participants will have the opportunity to examine the region\'s geological formations, travertine terraces, historical structures and cultural heritage through scientific sessions, technical field trips and invited speaker sessions.',
     stat_speakers:'Presentations', stat_days:'Days', stat_trips:'Field Trips',
     topics_label:'Sessions', topics_title:'Workshop Sessions',
@@ -3087,8 +3185,8 @@ const T = {
     t2_title:'Geomorphology', t2_desc:'Content coming soon.',
     t3_title:'Cultural Heritage', t3_desc:'Content coming soon.',
     t4_title:'Mixed Session', t4_desc:'Content coming soon.',
-    speakers_label:'Invited Speakers', speakers_title:'Our Expert Panel', speakers_desc:'Leading academics and researchers contribute to our workshop.',
-    gallery_label:'Gallery', gallery_title:'Scenes from Erzincan', gallery_source:'Source: Google Photos',
+    speakers_label:'Invited Speakers', speakers_title:'Invited Speakers', speakers_desc:'Leading academics and researchers contribute to our workshop.',
+    gallery_label:'Gallery', gallery_title:'Gallery', gallery_source:'Source: Google Photos',
     gal_abrenk_vank:'Abrenk Vank Church', gal_altintepe_hoyuk:'Altıntepe Mound', gal_ardos_golu:'Lake Ardos', gal_eksisu:'Ekşisu Springs', gal_ergan_dagi:'Mount Ergan', gal_girlevik:'Girlevik Waterfall', gal_karanlik:'Karanlık Canyon', gal_kemah:'Kemah', gal_kesish_dagi:'Mount Keşiş', gal_konarli:'Konarlı Waterfall', gal_mamahatun:'Mamahatun Mausoleum', gal_merg:'Merg Plateau', gal_otlukbeli:'Lake Otlukbeli', gal_palat:'Lake Polat', gal_sohmarik:'Sohmarik Plateau',
     // Templates (simplified)
     ext_abstract_label:'Extended Abstract', ext_abstract_title:'Extended Abstract Template',
@@ -3131,7 +3229,7 @@ const T = {
     venue_map_city:'Erzincan', venue_map_campus:'Campus',
     footer_ext:'Ext: 40280',
     // Schedule
-    schedule_label:'Program', schedule_title:'Workshop Program', schedule_desc:'An intensive and productive three-day program awaits you.',
+    schedule_label:'Program', schedule_title:'Program', schedule_desc:'An intensive and productive program awaits you.',
     day1_tab:'Day 1 — Jun 18 (Thursday)', day2_tab:'Day 2 — Jun 19 (Friday)', day3_tab:'Day 3 — Jun 20 (Saturday)',
     // Day 1
     d1_s1_title:'Registration & Opening Speeches', d1_s1_desc:'Protocol speeches and official opening of the workshop',
@@ -3180,7 +3278,7 @@ const T = {
     sponsor_main:'Main Sponsor', sponsor_inst:'Institutional Support',
     sp_ebyu:'Erzincan Binali Yıldırım University', sp_valilik:'Governorship of Erzincan', sp_mta:'General Directorate of Mineral Research and Exploration', sp_jemirko:'Association for the Protection of Geological Heritage', sp_jmo:'UCTEA Chamber of Geological Engineers, Erzincan Branch', sp_erzincan24:'Erzincan 24 Association for the Protection of Natural and Cultural Heritage', sp_unesco:'UNESCO National Commission of Türkiye',
     // Registration
-    reg_label:'Registration', reg_title:'Join the Workshop', reg_desc:'Fill out the form to take advantage of early registration. Places are limited.', reg_btn:'Pre-Register',
+    reg_label:'Registration', reg_title:'Registration', reg_desc:'Fill out the form to take advantage of early registration. Places are limited.', reg_btn:'Pre-Register',
     ph_name:'Full Name', ph_email:'Email Address', ph_inst:'Institution / University', ph_field:'Field of Expertise',
     success_title:'Registration Received!', success_desc:'Your pre-registration has been completed successfully. A confirmation email with detailed information will be sent to you shortly.',
     // Footer
@@ -3188,20 +3286,40 @@ const T = {
     footer_links:'Links', footer_info:'Information', footer_contact:'Contact',
     footer_venue_transport:'Venue & Transport', footer_register:'Registration',
     footer_copy:'© 2026 Erzincan Geological & Cultural Heritage Workshop', footer_rights:'All rights reserved.',
-    visitor_label:'Total Visitors'
-  },
+    // Committees
+    committees_label:'Committees', committees_title:'Committees',
+    org_committee_title:'Organizing Committee', sci_committee_title:'Scientific Committee',
+    committee_uni1:'Erzincan Binali Yıldırım University', committee_uni2:'Istanbul Technical University', committee_uni3:'Ankara University', committee_uni4:'Hacettepe University',
+    // Accommodation
+    accom_label:'Accommodation', accom_title:'Accommodation', accom_desc:'Alternative accommodation options for workshop participants are presented below.',
+    accom_guesthouse:'University Guesthouse', accom_guesthouse_desc:'Erzincan Binali Yıldırım University Guesthouse — on campus, within walking distance of the workshop venue.',
+    accom_hotels:'Partner Hotels', accom_hotels_desc:'Partner hotel options are available in the city center. Please contact us for details.',
+    accom_contact:'Contact', accom_contact_desc:'For accommodation reservations and information: calistay@erzincan.edu.tr | +90 446 XXX XX XX',
+    visitor_label:'Total Visitors',
+    dates_label:'Important Dates', dates_title:'Important Dates',
+    date_month_may:'May 2026', date_month_jun:'June 2026',
+    date1_text:'Abstract Submission Deadline', date2_text:'Acceptance Notification', date3_text:'Registration Deadline', date4_text:'Workshop',
+    honour_board_title:'Honorary Board',
+    feedback_label:'Feedback', feedback_title:'Your Feedback',
+    feedback_desc:'Share your opinions, suggestions and questions about the workshop with us.',
+    feedback_btn:'Send',
+    feedback_success_title:'Message Received!', feedback_success_desc:'Thank you for your feedback. It will be reviewed and we will get back to you if necessary.',
+    ph_feedback_msg:'Your message...',
+    nav_faq:'FAQ', nav_topics:'Sessions',
+    venue_map_route:'Airport → Campus Route'
+},
   it: {
-    nav_home:'Home', nav_home_dot:'Home', nav_about:'Chi siamo', nav_topics:'Sessioni', nav_speakers:'Relatori', nav_templates:'Modelli', nav_ext_abstract:'Abstract Esteso', nav_abs_format:'Formato Abstract', nav_submit:'Invia Articolo', nav_forms:'Moduli', nav_form_register:'Registrazione Workshop', nav_form_trip:'Registrazione Escursione', nav_form_submit:'Invia Articolo', nav_faq:'FAQ', nav_schedule:'Programma', nav_venue:'Sede', nav_cta:'Registrati',
+    nav_home:'Home', nav_about:'Chi siamo', nav_committees:'Comitati', nav_org_committee:'Comitato Organizzatore', nav_sci_committee:'Comitato Scientifico', nav_speakers:'Relatori Invitati', nav_sessions:'Sessioni', nav_detailed_program:'Programma Dettagliato', nav_schedule:'Programma', nav_registration:'Registrazione', nav_workshop_reg:'Registrazione Workshop', nav_trip_reg:'Registrazione Escursione', nav_forms:'Moduli', nav_ext_abstract:'Abstract Esteso', nav_abs_format:'Modulo Abstract', nav_submit:'Invia Articolo', nav_dates:'Date Importanti', nav_venue:'Sede del Workshop', nav_accom:'Alloggio', nav_gallery:'Galleria', nav_cta:'Registrati',
     hero_intl:'Con Partecipazione Internazionale', hero_date:'18 — 20 Giugno 2026',
     hero_title:'<span class="gold">Patrimonio Geologico</span><br>e Culturale — Workshop',
-    hero_subtitle:'Scopri millenni di patrimonio geologico',
+    hero_subtitle:'Scopri milioni di anni di patrimonio geologico',
     hero_location:'📍 Università Erzincan Binali Yıldırım \u2022 Erzincan, Turchia',
     hero_btn_register:'Registrati', hero_btn_program:'Vedi Programma',
     scroll_explore:'Scopri',
     cd_days:'Giorni', cd_hours:'Ore', cd_mins:'Minuti', cd_secs:'Secondi',
-    about_label:'Informazioni sul Workshop',
-    about_title:'Scoperta Geologica<br>nel Cuore dell\'Anatolia',
-    about_p1:'Erzincan, situata sulla Faglia Nord-Anatolica, possiede un patrimonio geologico unico che si estende dai Monti Esence alla Catena del Munzur. Questo workshop mira a riunire geologi, archeologi, specialisti del patrimonio culturale e ricercatori per esplorare la ricchezza naturale e culturale millenaria di Erzincan.',
+    about_label:'Chi siamo',
+    about_title:'Chi siamo',
+    about_p1:'Erzincan, situata sulla Faglia Nord-Anatolica, possiede un patrimonio geologico unico che si estende dai Monti Esence alla Catena del Munzur. Questo workshop mira a riunire geologi, archeologi, specialisti del patrimonio culturale e ricercatori per esplorare la ricchezza naturale e culturale plurimillenaria di Erzincan.',
     about_p2:'Durante il programma di tre giorni, i partecipanti avranno l\'opportunità di esaminare le formazioni geologiche, le terrazze di travertino, le strutture storiche e il patrimonio culturale della regione attraverso sessioni scientifiche, escursioni tecniche e relazioni su invito.',
     stat_speakers:'Presentazioni', stat_days:'Giorni', stat_trips:'Escursioni',
     topics_label:'Sessioni', topics_title:'Sessioni del Workshop',
@@ -3210,8 +3328,8 @@ const T = {
     t2_title:'Geomorfologia', t2_desc:'Il contenuto sarà aggiunto a breve.',
     t3_title:'Patrimonio Culturale', t3_desc:'Il contenuto sarà aggiunto a breve.',
     t4_title:'Sessione Mista', t4_desc:'Il contenuto sarà aggiunto a breve.',
-    speakers_label:'Relatori Invitati', speakers_title:'Il Nostro Team di Esperti', speakers_desc:'Accademici e ricercatori di spicco contribuiscono al nostro workshop.',
-    gallery_label:'Galleria', gallery_title:'Immagini da Erzincan', gallery_source:'Fonte: Google Foto',
+    speakers_label:'Relatori Invitati', speakers_title:'Relatori Invitati', speakers_desc:'Accademici e ricercatori di spicco contribuiscono al nostro workshop.',
+    gallery_label:'Galleria', gallery_title:'Galleria', gallery_source:'Fonte: Google Foto',
     gal_abrenk_vank:'Chiesa di Abrenk Vank', gal_altintepe_hoyuk:'Tumulo di Altıntepe', gal_ardos_golu:'Lago Ardos', gal_eksisu:'Sorgenti di Ekşisu', gal_ergan_dagi:'Monte Ergan', gal_girlevik:'Cascata di Girlevik', gal_karanlik:'Canyon Karanlık', gal_kemah:'Kemah', gal_kesish_dagi:'Monte Keşiş', gal_konarli:'Cascata di Konarlı', gal_mamahatun:'Mausoleo di Mamahatun', gal_merg:'Altopiano di Merg', gal_otlukbeli:'Lago Otlukbeli', gal_palat:'Lago Polat', gal_sohmarik:'Altopiano di Sohmarik',
     // Templates (simplified)
     ext_abstract_label:'Abstract Esteso', ext_abstract_title:'Modello di Abstract Esteso',
@@ -3251,7 +3369,7 @@ const T = {
     faq_q7:'Qual è il formato dell\'abstract?', faq_a7:'Potete scaricare i modelli di abstract e abstract esteso dalla sezione "Modelli" del nostro sito.',
     faq_q8:'Come arrivo dall\'aeroporto all\'università?', faq_a8:'L\'Aeroporto di Erzincan dista circa 8 km dal campus (~10 minuti in auto). Sono disponibili taxi e servizi navetta.',
     // Schedule
-    schedule_label:'Programma', schedule_title:'Programma del Workshop', schedule_desc:'Un programma intenso e produttivo di tre giorni vi attende.',
+    schedule_label:'Programma', schedule_title:'Programma', schedule_desc:'Un programma intenso e produttivo vi attende.',
     day1_tab:'Giorno 1 — 18 Giu (Giovedì)', day2_tab:'Giorno 2 — 19 Giu (Venerdì)', day3_tab:'Giorno 3 — 20 Giu (Sabato)',
     // Day 1
     d1_s1_title:'Registrazione e Discorsi di Apertura', d1_s1_desc:'Discorsi protocollari e apertura ufficiale del workshop',
@@ -3301,7 +3419,7 @@ const T = {
     sponsor_main:'Sponsor Principale', sponsor_inst:'Supporto Istituzionale',
     sp_ebyu:'Università Erzincan Binali Yıldırım', sp_valilik:'Governatorato di Erzincan', sp_mta:'Direzione Generale per la Ricerca e l\'Esplorazione Mineraria', sp_jemirko:'Associazione per la Protezione del Patrimonio Geologico', sp_jmo:'Camera degli Ingegneri Geologici TMMOB, Sede di Erzincan', sp_erzincan24:'Associazione Erzincan 24 per la Protezione del Patrimonio Naturale e Culturale', sp_unesco:'Commissione Nazionale UNESCO della Turchia',
     // Registration
-    reg_label:'Registrazione', reg_title:'Partecipa al Workshop', reg_desc:'Compila il modulo per usufruire della registrazione anticipata. I posti sono limitati.', reg_btn:'Pre-Registrazione',
+    reg_label:'Registrazione', reg_title:'Registrazione', reg_desc:'Compila il modulo per usufruire della registrazione anticipata. I posti sono limitati.', reg_btn:'Pre-Registrazione',
     ph_name:'Nome e Cognome', ph_email:'Indirizzo Email', ph_inst:'Istituzione / Università', ph_field:'Campo di Competenza',
     success_title:'Registrazione Ricevuta!', success_desc:'La pre-registrazione è stata completata con successo. Un\'email di conferma con informazioni dettagliate vi sarà inviata a breve.',
     // Footer
@@ -3309,7 +3427,27 @@ const T = {
     footer_links:'Link', footer_info:'Informazioni', footer_contact:'Contatti',
     footer_venue_transport:'Sede e Trasporti', footer_register:'Registrazione',
     footer_copy:'© 2026 Workshop Patrimonio Geologico e Culturale di Erzincan', footer_rights:'Tutti i diritti riservati.',
-    visitor_label:'Visitatori Totali'
+    // Committees
+    committees_label:'Comitati', committees_title:'Comitati',
+    org_committee_title:'Comitato Organizzatore', sci_committee_title:'Comitato Scientifico',
+    committee_uni1:'Università Erzincan Binali Yıldırım', committee_uni2:'Università Tecnica di Istanbul', committee_uni3:'Università di Ankara', committee_uni4:'Università Hacettepe',
+    // Accommodation
+    accom_label:'Alloggio', accom_title:'Alloggio', accom_desc:'Di seguito sono presentate le opzioni di alloggio alternative per i partecipanti al workshop.',
+    accom_guesthouse:'Foresteria Universitaria', accom_guesthouse_desc:'Foresteria dell\'Università Erzincan Binali Yıldırım — nel campus, a pochi passi dalla sede del workshop.',
+    accom_hotels:'Hotel Convenzionati', accom_hotels_desc:'Sono disponibili opzioni alberghiere convenzionate nel centro città. Contattateci per i dettagli.',
+    accom_contact:'Contatti', accom_contact_desc:'Per prenotazioni alloggio e informazioni: calistay@erzincan.edu.tr | +90 446 XXX XX XX',
+    visitor_label:'Visitatori Totali',
+    dates_label:'Date Importanti', dates_title:'Date Importanti',
+    date_month_may:'Maggio 2026', date_month_jun:'Giugno 2026',
+    date1_text:'Scadenza Invio Abstract', date2_text:'Notifica di Accettazione', date3_text:'Scadenza Registrazione', date4_text:'Workshop',
+    honour_board_title:'Comitato d\'Onore',
+    feedback_label:'Feedback', feedback_title:'Il Vostro Feedback',
+    feedback_desc:'Condividete con noi le vostre opinioni, suggerimenti e domande sul workshop.',
+    feedback_btn:'Invia',
+    feedback_success_title:'Messaggio Ricevuto!', feedback_success_desc:'Grazie per il vostro feedback. Verrà esaminato e vi risponderemo se necessario.',
+    ph_feedback_msg:'Il vostro messaggio...',
+    nav_faq:'FAQ', nav_topics:'Sessioni',
+    venue_map_route:'Aeroporto → Percorso Campus'
   }
 };
 
@@ -3349,6 +3487,11 @@ function setLang(lang) {
       if(img) img.alt = catNameMap[cat];
     }
   });
+  // Update about poster based on language
+  const poster = document.getElementById('aboutPoster');
+  if(poster) {
+    poster.src = (lang === 'tr') ? 'fotolar/poster-tr.jpg' : 'fotolar/poster-en.jpg';
+  }
 }
 // Apply default language on load
 setLang('tr');
