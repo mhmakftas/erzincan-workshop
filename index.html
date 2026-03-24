@@ -452,17 +452,7 @@ body {
   filter:brightness(0.9) contrast(1.05);
   border-radius:8px;
 }
-.about-img-accent {
-  position:absolute;
-  top:-20px; left:-20px;
-  width:100%; height:100%;
-  border:2px solid rgba(212,168,83,0.3);
-  z-index:-1;
-  transition: all 0.6s;
-}
-.about-img-wrap:hover .about-img-accent {
-  top:-30px; left:-30px;
-}
+/* about-img-accent removed */
 .about-text {
   opacity:0; transform:translateX(60px);
   transition: all 0.8s cubic-bezier(0.22,1,0.36,1) 0.2s;
@@ -1572,7 +1562,6 @@ body {
   <div class="about-grid">
     <div class="about-img-wrap">
       <img src="fotolar/poster-tr.jpg" alt="Erzincan Workshop Poster" class="about-img" id="aboutPoster">
-      <div class="about-img-accent"></div>
     </div>
     <div class="about-text">
       <div class="section-label" data-i18n="about_label">Hakkında</div>
