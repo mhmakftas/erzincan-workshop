@@ -821,6 +821,14 @@ body {
 .submit-paper-section .section-title { text-align:center; }
 .submit-paper-section .section-desc { margin:0 auto 1rem; text-align:center; }
 .submit-paper-section .submit-info-badge { margin:0 auto 1rem; }
+.trip-section { text-align:center; }
+.trip-section .section-label,
+.trip-section .section-title { text-align:center; }
+.trip-section .section-desc { margin:0 auto 1rem; text-align:center; }
+#faq { text-align:center; }
+#faq .section-label,
+#faq .section-title { text-align:center; }
+#faq .faq-list { text-align:left; }
 .submit-form {
   display:grid; gap:1rem;
   max-width:560px; margin:2rem auto 0;
@@ -2590,9 +2598,10 @@ body {
 </section>
 
 <!-- TECHNICAL TRIP REGISTRATION -->
-<section class="section" id="trip-register">
+<section class="section trip-section" id="trip-register">
   <div class="section-label reveal" data-i18n="trip_label">Teknik Gezi</div>
   <h2 class="section-title reveal" data-i18n="trip_title">Teknik Gezi Katılımı</h2>
+  <div class="trip-warning reveal" data-i18n-html="trip_warning"><strong>Teknik gezi, çalıştaya davetli olmayan dışarıdan katılımcılar için ücretlidir.</strong> Detaylı bilgi ve ücret için <a href="mailto:erjekum2026@gmail.com" style="color:#d4a853;">erjekum2026@gmail.com</a> adresinden iletişime geçiniz.</div>
   <p class="section-desc reveal" data-i18n="trip_desc">Çalıştay kapsamındaki teknik gezilere katılmak için aşağıdaki formu doldurun.</p>
   <form class="register-form reveal" id="tripForm" style="margin-top:1.5rem;">
     <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
@@ -2605,7 +2614,6 @@ body {
     </select>
     <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="trip_btn">Gezi Kaydı Yap</button>
   </form>
-  <div class="trip-warning reveal" data-i18n-html="trip_warning"><strong>Teknik gezi, çalıştaya davetli olmayan dışarıdan katılımcılar için ücretlidir.</strong> Detaylı bilgi ve ücret için <a href="mailto:erjekum2026@gmail.com" style="color:#d4a853;">erjekum2026@gmail.com</a> adresinden iletişime geçiniz.</div>
   <div class="form-success" id="tripSuccess">
     <div class="check-circle">✓</div>
     <h3 data-i18n="trip_success_title">Gezi Kaydınız Alınmıştır!</h3>
