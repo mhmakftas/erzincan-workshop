@@ -2986,21 +2986,33 @@ setInterval(updateCountdown, 1000);
 
 // ========== CALENDAR DOWNLOAD ==========
 function downloadICS() {
+  const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
   const ics = [
-    'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//ERJEOKUM//TR',
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//ERJEOKUM//Workshop//TR',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
     'BEGIN:VEVENT',
-    'DTSTART:20260618T060000Z','DTEND:20260620T140000Z',
-    'SUMMARY:ERJEOKUM 2026 - Erzincan Jeolojik ve Kültürel Mirası Çalıştayı',
-    'DESCRIPTION:Uluslararası Katılımlı Erzincan Jeolojik ve Kültürel Mirası Çalıştayı\\nhttps://erjeokum2026.org',
-    'LOCATION:Erzincan Binali Yıldırım Üniversitesi\\, Yalnızbağ Yerleşkesi\\, Erzincan',
+    'UID:erjeokum2026@erjeokum2026.org',
+    'DTSTAMP:'+now,
+    'DTSTART:20260618T060000Z',
+    'DTEND:20260620T140000Z',
+    'SUMMARY:ERJEOKUM 2026 - Erzincan Jeolojik ve Kulturel Mirasi Calistayi',
+    'DESCRIPTION:Uluslararasi Katilimli Erzincan Jeolojik ve Kulturel Mirasi Calistayi\\nhttps://erjeokum2026.org',
+    'LOCATION:Erzincan Binali Yildirim Universitesi\\, Yalnizbag Yerleskesi\\, Erzincan',
     'URL:https://erjeokum2026.org',
-    'END:VEVENT','END:VCALENDAR'
+    'STATUS:CONFIRMED',
+    'END:VEVENT',
+    'END:VCALENDAR'
   ].join('\r\n');
   const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'erjeokum2026.ics';
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
   URL.revokeObjectURL(a.href);
 }
 
