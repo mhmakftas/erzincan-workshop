@@ -1,0 +1,17 @@
+{
+  "name": "ERJEOKUM 2026 — Erzincan Jeolojik ve Kültürel Mirası Çalıştayı",
+  "short_name": "ERJEOKUM '26",
+  "description": "Uluslararası Katılımlı Erzincan Jeolojik ve Kültürel Mirası Çalıştayı, 18-20 Haziran 2026",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1a",
+  "theme_color": "#d4a853",
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
