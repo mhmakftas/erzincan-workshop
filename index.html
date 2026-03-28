@@ -1667,7 +1667,7 @@ body {
   </div>
   <div class="about-grid">
     <div class="about-img-wrap">
-      <img src="fotolar/poster-tr.png" alt="Erzincan Workshop Poster" class="about-img" id="aboutPoster">
+      <img src="fotolar/poster-tr.png?v=2" alt="Erzincan Workshop Poster" class="about-img" id="aboutPoster">
     </div>
     <div class="about-text">
       <div class="section-label" data-i18n="about_label">Hakkında</div>
@@ -3875,7 +3875,7 @@ function setLang(lang) {
   // Update about poster based on language
   const poster = document.getElementById('aboutPoster');
   if(poster) {
-    poster.src = (lang === 'tr') ? 'fotolar/poster-tr.png' : 'fotolar/poster-en.png';
+    poster.src = (lang === 'tr') ? 'fotolar/poster-tr.png?v=2' : 'fotolar/poster-en.png?v=2';
   }
 }
 // Apply default language on load
