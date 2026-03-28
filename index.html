@@ -917,9 +917,13 @@ body {
 }
 
 /* ========== TRIP FORM ========== */
+@keyframes warningPulse {
+  0%, 100% { border-color:rgba(212,168,83,0.25); box-shadow:0 0 8px rgba(212,168,83,0.05); background:rgba(212,168,83,0.06); }
+  50% { border-color:rgba(212,168,83,0.7); box-shadow:0 0 18px rgba(212,168,83,0.15), 0 0 4px rgba(212,168,83,0.1) inset; background:rgba(212,168,83,0.12); }
+}
 .trip-warning {
   background:rgba(212,168,83,0.08);
-  border:1px solid rgba(212,168,83,0.2);
+  border:1.5px solid rgba(212,168,83,0.3);
   border-radius:8px;
   padding:0.75rem 1.5rem;
   color:rgba(255,255,255,0.7);
@@ -928,6 +932,7 @@ body {
   text-align:center;
   width:fit-content;
   max-width:100%;
+  animation:warningPulse 2.5s ease-in-out infinite;
 }
 .trip-warning strong { color:#d4a853; }
 #tripForm select { border-radius:8px; }
@@ -2682,7 +2687,7 @@ body {
   <div class="section-label reveal" data-i18n="reg_label">Kayıt</div>
   <h2 class="section-title reveal" data-i18n="reg_title">Kayıt</h2>
   <div class="trip-warning reveal" data-i18n-html="reg_warning"><strong>Bu çalıştay, davetli katılımcılarla gerçekleştirilen kapalı bir oturumdur.</strong> Davetli misafirler dışındaki katılımcılar çalıştaya yalnızca dinleyici olarak katılabilirler. Dinleyici katılımı ücretsizdir.</div>
-  <p class="section-desc reveal" data-i18n="reg_desc">Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.</p>
+  <p class="section-desc reveal" data-i18n="reg_desc">Gerekli kontenjan sağlanırsa</p>
   <form class="register-form reveal" id="registerForm">
     <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
     <input type="email" name="email" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
@@ -3496,7 +3501,7 @@ const T = {
     sp_ebyu:'Erzincan Binali Yıldırım Üniversitesi', sp_valilik:'Erzincan Valiliği', sp_mta:'Maden Tetkik ve Arama Genel Müdürlüğü', sp_jemirko:'Jeolojik Mirası Koruma Derneği', sp_jmo:'TMMOB Jeoloji Mühendisleri Odası Erzincan Temsilciliği', sp_erzincan24:'Erzincan 24 Doğa ve Kültür Varlıkları Derneği', sp_unesco:'UNESCO Türkiye Millî Komisyonu',
     // Registration
     reg_warning:'<strong>Bu çalıştay, davetli katılımcılarla gerçekleştirilen kapalı bir oturumdur.</strong> Davetli misafirler dışındaki katılımcılar çalıştaya yalnızca dinleyici olarak katılabilirler. Dinleyici katılımı ücretsizdir.',
-    reg_label:'Kayıt', reg_title:'Kayıt', reg_desc:'Erken kayıt avantajından yararlanmak için formu doldurun. Kontenjan sınırlıdır.', reg_btn:'Ön Kayıt Yap',
+    reg_label:'Kayıt', reg_title:'Kayıt', reg_desc:'Gerekli kontenjan sağlanırsa', reg_btn:'Ön Kayıt Yap',
     ph_name:'Adınız Soyadınız', ph_email:'E-posta Adresiniz', ph_inst:'Kurum / Üniversite', ph_field:'Uzmanlık Alanınız',
     success_title:'Kaydınız Alınmıştır!', success_desc:'Ön kaydınız başarıyla tamamlanmıştır. Detaylı bilgi ve onay e-postanız en kısa sürede iletilecektir.',
     // Footer
@@ -3648,7 +3653,7 @@ const T = {
     sp_ebyu:'Erzincan Binali Yıldırım University', sp_valilik:'Governorship of Erzincan', sp_mta:'General Directorate of Mineral Research and Exploration', sp_jemirko:'Association for the Protection of Geological Heritage', sp_jmo:'UCTEA Chamber of Geological Engineers, Erzincan Branch', sp_erzincan24:'Erzincan 24 Association for Natural and Cultural Heritage', sp_unesco:'UNESCO National Commission of Türkiye',
     // Registration
     reg_warning:'<strong>This workshop is a closed session with invited participants.</strong> Participants other than invited guests may attend the workshop as listeners only. Listener participation is free of charge.',
-    reg_label:'Registration', reg_title:'Registration', reg_desc:'Fill out the form to take advantage of early registration. Places are limited.', reg_btn:'Pre-Register',
+    reg_label:'Registration', reg_title:'Registration', reg_desc:'Subject to sufficient enrollment', reg_btn:'Pre-Register',
     ph_name:'Full Name', ph_email:'Email Address', ph_inst:'Institution / University', ph_field:'Field of Expertise',
     success_title:'Registration Received!', success_desc:'Your pre-registration has been completed successfully. A confirmation email with detailed information will be sent to you shortly.',
     // Footer
@@ -3798,7 +3803,7 @@ const T = {
     sp_ebyu:'Università Erzincan Binali Yıldırım', sp_valilik:'Governatorato di Erzincan', sp_mta:'Direzione Generale per la Ricerca e l\'Esplorazione Mineraria', sp_jemirko:'Associazione per la Protezione del Patrimonio Geologico', sp_jmo:'Camera degli Ingegneri Geologici TMMOB, Sede di Erzincan', sp_erzincan24:'Associazione Erzincan 24 del Patrimonio Naturale e Culturale', sp_unesco:'Commissione Nazionale UNESCO della Turchia',
     // Registration
     reg_warning:'<strong>Questo workshop è una sessione chiusa con partecipanti invitati.</strong> I partecipanti diversi dagli ospiti invitati possono partecipare al workshop solo come ascoltatori. La partecipazione come ascoltatore è gratuita.',
-    reg_label:'Registrazione', reg_title:'Registrazione', reg_desc:'Compila il modulo per usufruire della registrazione anticipata. I posti sono limitati.', reg_btn:'Pre-Registrazione',
+    reg_label:'Registrazione', reg_title:'Registrazione', reg_desc:'Soggetto a raggiungimento del numero minimo di partecipanti', reg_btn:'Pre-Registrazione',
     ph_name:'Nome e Cognome', ph_email:'Indirizzo Email', ph_inst:'Istituzione / Università', ph_field:'Campo di Competenza',
     success_title:'Registrazione Ricevuta!', success_desc:'La pre-registrazione è stata completata con successo. Un\'email di conferma con informazioni dettagliate vi sarà inviata a breve.',
     // Footer
