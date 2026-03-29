@@ -1535,7 +1535,7 @@ body {
     <span class="dot-nav-label" data-i18n="nav_speakers">Konuşmacılar</span>
     <span class="dot-nav-dot"></span>
   </a>
-  <a href="#schedule" class="dot-nav-item" data-section="schedule">
+  <a href="#schedule" class="dot-nav-item" data-section="schedule" style="display:none">
     <span class="dot-nav-label" data-i18n="nav_schedule">Program</span>
     <span class="dot-nav-dot"></span>
   </a>
@@ -1579,7 +1579,7 @@ body {
       </div>
     </li>
     <li><a href="#speakers" data-i18n="nav_speakers">Davetli Konuşmacılar</a></li>
-    <li class="nav-dropdown">
+    <li class="nav-dropdown" style="display:none">
       <span data-i18n="nav_schedule">Program</span>
       <div class="nav-dropdown-menu">
         <a href="#topics" data-i18n="nav_sessions">Oturumlar</a>
@@ -1731,7 +1731,7 @@ body {
     <!-- Onur Kurulu -->
     <div class="reveal" style="margin-top:2.5rem;">
       <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.3rem;margin-bottom:1.2rem;" data-i18n="honour_board_title">Onur Kurulu</h3>
-      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;" data-i18n-html="honour_board_list">
         <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Hamza AYDOĞDU</strong> <span style="color:#d4a853;font-size:0.75rem;">(Vali)</span> — <span style="color:rgba(255,255,255,0.4);">Erzincan Valiliği</span></li>
         <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Bekir AKSUN</strong> <span style="color:#d4a853;font-size:0.75rem;">(Belediye Başkanı)</span> — <span style="color:rgba(255,255,255,0.4);">Erzincan Belediyesi</span></li>
         <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Prof. Dr. Akın LEVENT</strong> <span style="color:#d4a853;font-size:0.75rem;">(Rektör)</span> — <span style="color:rgba(255,255,255,0.4);">Erzincan Binali Yıldırım Üniversitesi</span></li>
@@ -1742,7 +1742,7 @@ body {
       <!-- Düzenleme Kurulu -->
       <div class="reveal">
         <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.3rem;margin-bottom:1.2rem;" data-i18n="org_committee_title">Düzenleme Kurulu</h3>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;" data-i18n-html="org_committee_list">
           <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Pınar POLAT</strong> <span style="color:#d4a853;font-size:0.75rem;">(Başkan)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Coğrafya Bölümü, Erzincan</span></li>
           <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yakup ÇELİK</strong> <span style="color:#d4a853;font-size:0.75rem;">(2. Başkan)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü, İstanbul</span></li>
           <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ezher TAGLIASACCHI</strong> <span style="color:#d4a853;font-size:0.75rem;">(Uluslararası Sekreterya)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Pamukkale Üniversitesi, Jeoloji Müh. Bölümü, Denizli</span></li>
@@ -1763,7 +1763,7 @@ body {
       <!-- Bilim Kurulu -->
       <div class="reveal">
         <h3 style="font-family:'Playfair Display',serif;color:#d4a853;font-size:1.3rem;margin-bottom:1.2rem;" data-i18n="sci_committee_title">Bilim Kurulu</h3>
-        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;" data-i18n-html="sci_committee_list">
           <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali DEMİRSOY</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Hacettepe Üniversitesi, Biyoloji Bölümü, Ankara</span></li>
           <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali ERGEN</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">MTA Genel Müdürlüğü, Jeoloji Etütleri Dairesi, Ankara</span></li>
           <li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali KANDEMİR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Biyoloji Bölümü, Erzincan</span></li>
@@ -1808,133 +1808,133 @@ body {
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Ali DEMİRSOY</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Hacettepe Üniversitesi, Biyoloji Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_demirsoy" style="color:#d4a853;font-size:0.75rem;">Hacettepe Üniversitesi, Biyoloji Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Ali ERGEN</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">MTA Genel Müdürlüğü, Jeoloji Etütleri Dairesi</div>
+        <div class="speaker-role" data-i18n="sp_role_ergen" style="color:#d4a853;font-size:0.75rem;">MTA Genel Müdürlüğü, Jeoloji Etütleri Dairesi</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Enrico CAPEZZUOLİ</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Università di Firenze, Yer Bilimleri Bölümü, İtalya</div>
+        <div class="speaker-role" data-i18n="sp_role_capezzuoli" style="color:#d4a853;font-size:0.75rem;">Università di Firenze, Yer Bilimleri Bölümü, İtalya</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Erdal AKPINAR</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Coğrafya Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_akpinar" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Coğrafya Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Eşref ATABEY</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Tıbbi Jeoloji Uzmanı</div>
+        <div class="speaker-role" data-i18n="sp_role_atabey" style="color:#d4a853;font-size:0.75rem;">Tıbbi Jeoloji Uzmanı</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Ezher TAGLİASACCHİ</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Pamukkale Üniversitesi, Jeoloji Müh. Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_tagliasacchi" style="color:#d4a853;font-size:0.75rem;">Pamukkale Üniversitesi, Jeoloji Müh. Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Fatma ŞİŞMAN TÜKEL</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_tukel" style="color:#d4a853;font-size:0.75rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Gülpınar AKBULUT</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Sivas Cumhuriyet Üniversitesi, Coğrafya Eğitimi</div>
+        <div class="speaker-role" data-i18n="sp_role_akbulut" style="color:#d4a853;font-size:0.75rem;">Sivas Cumhuriyet Üniversitesi, Coğrafya Eğitimi</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">İbrahim KOPAR</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Atatürk Üniversitesi, Coğrafya Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_kopar" style="color:#d4a853;font-size:0.75rem;">Atatürk Üniversitesi, Coğrafya Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Kenan İNAN</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Tarih Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_inan" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Tarih Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Kuttusi ZORLU</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Ardahan Üniversitesi, Coğrafya Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_zorlu" style="color:#d4a853;font-size:0.75rem;">Ardahan Üniversitesi, Coğrafya Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Mehmet Akif TAŞ</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Coğrafya Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_tas" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Coğrafya Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Murat USLU</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Erzurum Vakıflar Bölge Müdürlüğü</div>
+        <div class="speaker-role" data-i18n="sp_role_uslu" style="color:#d4a853;font-size:0.75rem;">Erzurum Vakıflar Bölge Müdürlüğü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Mustafa BAYAM</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Erzincan Müze Müdürlüğü</div>
+        <div class="speaker-role" data-i18n="sp_role_bayam" style="color:#d4a853;font-size:0.75rem;">Erzincan Müze Müdürlüğü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Mustafa Feridun ÇELİKMEN</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">KEMAV Başkanı, Erzincan</div>
+        <div class="speaker-role" data-i18n="sp_role_celikmen" style="color:#d4a853;font-size:0.75rem;">KEMAV Başkanı, Erzincan</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Nizamettin KAZANCI</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">JEMİRKO Başkanı, UNESCO Türkiye Milli Komisyonu Başkan Vekili</div>
+        <div class="speaker-role" data-i18n="sp_role_kazanci" style="color:#d4a853;font-size:0.75rem;">JEMİRKO Başkanı, UNESCO Türkiye Milli Komisyonu Başkan Vekili</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Pınar POLAT</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Coğrafya Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_polat" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Coğrafya Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Raif KANDEMİR</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Karadeniz Teknik Üniversitesi, Jeoloji Müh. Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_kandemir" style="color:#d4a853;font-size:0.75rem;">Karadeniz Teknik Üniversitesi, Jeoloji Müh. Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Samet ALTINBİLEK</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Sosyal Bilimler ve Türkçe Eğitimi Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_altinbilek" style="color:#d4a853;font-size:0.75rem;">EBYÜ, Sosyal Bilimler ve Türkçe Eğitimi Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Volkan DEDE</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Ardahan Üniversitesi, Coğrafya Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_dede" style="color:#d4a853;font-size:0.75rem;">Ardahan Üniversitesi, Coğrafya Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Yakup ÇELİK</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_celik" style="color:#d4a853;font-size:0.75rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü</div>
       </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Yıldırım GÜNGÖR</div>
-        <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü</div>
+        <div class="speaker-role" data-i18n="sp_role_gungor" style="color:#d4a853;font-size:0.75rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü</div>
       </div>
     </div>
   </div>
@@ -2283,7 +2283,7 @@ body {
 </section>
 
 <!-- SCHEDULE -->
-<section class="section schedule" id="schedule">
+<section class="section schedule" id="schedule" style="display:none">
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-label reveal" data-i18n="schedule_label">Program</div>
     <h2 class="section-title reveal" data-i18n="schedule_title">Program</h2>
@@ -2815,7 +2815,7 @@ body {
         <li><a href="#about" data-i18n="nav_about">Hakkında</a></li>
         <li><a href="#topics" data-i18n="nav_topics">Oturumlar</a></li>
         <li><a href="#speakers" data-i18n="nav_speakers">Konuşmacılar</a></li>
-        <li><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
+        <li style="display:none"><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
       </ul>
     </div>
     <div>
@@ -3487,7 +3487,7 @@ const T = {
     sp1_name:'Prof. Dr. [İsim]', sp1_role:'Tektonik & Sismoloji', sp1_uni:'Erzincan Binali Yıldırım Üniversitesi',
     sp2_name:'Prof. Dr. [İsim]', sp2_role:'Buzul Jeolojisi', sp2_uni:'İstanbul Teknik Üniversitesi',
     sp3_name:'Prof. Dr. [İsim]', sp3_role:'Kültürel Miras', sp3_uni:'Ankara Üniversitesi',
-    sp4_name:'Prof. Dr. [İsim]', sp4_role:'Stratigrafik', sp4_uni:'Hacettepe Üniversitesi',
+    sp4_name:'Prof. Dr. [İsim]', sp4_role:'Stratigrafi', sp4_uni:'Hacettepe Üniversitesi',
     invited_speaker:'Davetli Konuşmacı',
     // Sponsors
     sponsors_label:'Destekçiler', sponsors_title:'Kurumsal Destekçilerimiz',
@@ -3528,7 +3528,29 @@ const T = {
     feedback_success_title:'Mesajınız Alınmıştır!', feedback_success_desc:'Görüşünüz için teşekkür ederiz. En kısa sürede değerlendirilerek gerekirse size dönüş yapılacaktır.',
     ph_feedback_msg:'Mesajınız...',
     nav_faq:'SSS', nav_topics:'Oturumlar',
-    venue_map_route:'Havalimanı → Kampüs Güzergahı'
+    venue_map_route:'Havalimanı → Kampüs Güzergahı',
+    sp_role_demirsoy:'Hacettepe Üniversitesi, Biyoloji Bölümü',
+    sp_role_ergen:'MTA Genel Müdürlüğü, Jeoloji Etütleri Dairesi',
+    sp_role_capezzuoli:'Università di Firenze, Yer Bilimleri Bölümü, İtalya',
+    sp_role_akpinar:'EBYÜ, Coğrafya Bölümü',
+    sp_role_atabey:'Tıbbi Jeoloji Uzmanı',
+    sp_role_tagliasacchi:'Pamukkale Üniversitesi, Jeoloji Müh. Bölümü',
+    sp_role_tukel:'İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü',
+    sp_role_akbulut:'Sivas Cumhuriyet Üniversitesi, Coğrafya Eğitimi',
+    sp_role_kopar:'Atatürk Üniversitesi, Coğrafya Bölümü',
+    sp_role_inan:'EBYÜ, Tarih Bölümü',
+    sp_role_zorlu:'Ardahan Üniversitesi, Coğrafya Bölümü',
+    sp_role_tas:'EBYÜ, Coğrafya Bölümü',
+    sp_role_uslu:'Erzurum Vakıflar Bölge Müdürlüğü',
+    sp_role_bayam:'Erzincan Müze Müdürlüğü',
+    sp_role_celikmen:'KEMAV Başkanı, Erzincan',
+    sp_role_kazanci:'JEMİRKO Başkanı, UNESCO Türkiye Milli Komisyonu Başkan Vekili',
+    sp_role_polat:'EBYÜ, Coğrafya Bölümü',
+    sp_role_kandemir:'Karadeniz Teknik Üniversitesi, Jeoloji Müh. Bölümü',
+    sp_role_altinbilek:'EBYÜ, Sosyal Bilimler ve Türkçe Eğitimi Bölümü',
+    sp_role_dede:'Ardahan Üniversitesi, Coğrafya Bölümü',
+    sp_role_celik:'İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü',
+    sp_role_gungor:'İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü'
 },
   en: {
     nav_home:'Home', nav_about:'About', nav_committees:'Committees', nav_org_committee:'Organizing Committee', nav_sci_committee:'Scientific Committee', nav_speakers:'Invited Speakers', nav_sessions:'Sessions', nav_detailed_program:'Detailed Program', nav_schedule:'Program', nav_registration:'Registration', nav_workshop_reg:'Workshop Registration', nav_trip_reg:'Field Trip Registration', nav_forms:'Forms', nav_ext_abstract:'Extended Abstract', nav_abs_format:'Abstract Form', nav_submit:'Submit Paper', nav_dates:'Important Dates', nav_venue:'Workshop Venue', nav_accom:'Accommodation', nav_gallery:'Gallery', nav_cta:'Register',
@@ -3674,13 +3696,38 @@ const T = {
     date_month_may:'May 2026', date_month_jun:'June 2026',
     date1_text:'Abstract Submission Deadline', date2_text:'Acceptance Notification', date3_text:'Registration Deadline', date4_text:'Workshop',
     honour_board_title:'Honorary Board',
+    honour_board_list:'<li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Hamza AYDOĞDU</strong> <span style="color:#d4a853;font-size:0.75rem;">(Governor)</span> — <span style="color:rgba(255,255,255,0.4);">Governorship of Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Bekir AKSUN</strong> <span style="color:#d4a853;font-size:0.75rem;">(Mayor)</span> — <span style="color:rgba(255,255,255,0.4);">Municipality of Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Prof. Dr. Akın LEVENT</strong> <span style="color:#d4a853;font-size:0.75rem;">(Rector)</span> — <span style="color:rgba(255,255,255,0.4);">Erzincan Binali Yıldırım University</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Prof. Dr. Kenan İNAN</strong> <span style="color:#d4a853;font-size:0.75rem;">(Dean, Faculty of Arts and Sciences)</span> — <span style="color:rgba(255,255,255,0.4);">Erzincan Binali Yıldırım University</span></li>',
+    org_committee_list:'<li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Pınar POLAT</strong> <span style="color:#d4a853;font-size:0.75rem;">(Chair)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yakup ÇELİK</strong> <span style="color:#d4a853;font-size:0.75rem;">(Co-Chair)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Istanbul Univ.-Cerrahpaşa, Dept. of Geological Engineering, İstanbul</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ezher TAGLIASACCHI</strong> <span style="color:#d4a853;font-size:0.75rem;">(International Secretary)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Pamukkale University, Dept. of Geological Engineering, Denizli</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mehmet Akif TAŞ</strong> <span style="color:#d4a853;font-size:0.75rem;">(National Secretary)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Adem BAŞIBÜYÜK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Erdal AKPINAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Vedat KARADENİZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Muhammet Enes YANIK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Özgür Aydın BEKAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Erdal SARIGÜL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">UCTEA Chamber of Geological Engineers, Erzincan Branch</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Murat GÖMÜÇ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, PhD Student</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Halil İbrahim DÖNMEZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, PhD Student</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Rukiye ÖZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, MSc Student</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Eren KUTLUDİL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Geography Club President</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Berkan ÖKSÜZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Istanbul Univ.-Cerrahpaşa, Geology Club</span></li>',
+    sci_committee_list:'<li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali DEMİRSOY</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Hacettepe University, Dept. of Biology, Ankara</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali ERGEN</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">General Directorate of MTA, Dept. of Geological Surveys, Ankara</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali KANDEMİR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Biology, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Enrico CAPEZZUOLİ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università di Firenze, Dept. of Earth Sciences, Italy</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Erdal AKPINAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Eşref ATABEY</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Medical Geology Specialist</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ezher TAGLİASACCHİ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Pamukkale University, Dept. of Geological Engineering, Denizli</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Fatma ŞİŞMAN TÜKEL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Istanbul Univ.-Cerrahpaşa, Dept. of Geological Engineering, İstanbul</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Gülpınar AKBULUT</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Sivas Cumhuriyet University, Dept. of Geography Education</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">İbrahim KOPAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Atatürk University, Dept. of Geography, Erzurum</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">İbrahim ÜNGÖR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of History, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Kenan İNAN</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of History, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Kuttusi ZORLU</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Ardahan University, Dept. of Geography</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mehmet Akif TAŞ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Murat USLU</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Erzurum Regional Directorate of Foundations, Erzurum</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mustafa BAYAM</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Erzincan Museum Directorate, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mustafa Feridun ÇELİKMEN</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">President of Kemaliye Culture and Development Foundation (KEMAV), Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Nizamettin KAZANCI</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">President of JEMİRKO, Vice President of UNESCO National Commission of Türkiye</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Pınar POLAT</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Geography, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Raif KANDEMİR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Karadeniz Technical University, Dept. of Geological Engineering, Trabzon</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Samet ALTINBİLEK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dept. of Social Sciences and Turkish Education, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Volkan DEDE</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Ardahan University, Dept. of Geography</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yakup ÇELİK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Istanbul Univ.-Cerrahpaşa, Dept. of Geological Engineering</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yıldırım GÜNGÖR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Istanbul Univ.-Cerrahpaşa, Dept. of Geological Engineering</span></li>',
     feedback_label:'Feedback', feedback_title:'Your Feedback',
     feedback_desc:'Share your opinions, suggestions and questions about the workshop with us.',
     feedback_btn:'Send',
     feedback_success_title:'Message Received!', feedback_success_desc:'Thank you for your feedback. It will be reviewed and we will get back to you if necessary.',
     ph_feedback_msg:'Your message...',
     nav_faq:'FAQ', nav_topics:'Sessions',
-    venue_map_route:'Airport → Campus Route'
+    venue_map_route:'Airport → Campus Route',
+    sp_role_demirsoy:'Hacettepe University, Dept. of Biology',
+    sp_role_ergen:'General Directorate of MTA, Geological Surveys Dept.',
+    sp_role_capezzuoli:'University of Florence, Dept. of Earth Sciences, Italy',
+    sp_role_akpinar:'EBYÜ, Dept. of Geography',
+    sp_role_atabey:'Medical Geology Specialist',
+    sp_role_tagliasacchi:'Pamukkale University, Dept. of Geological Eng.',
+    sp_role_tukel:'Istanbul Univ.-Cerrahpaşa, Dept. of Geological Eng.',
+    sp_role_akbulut:'Sivas Cumhuriyet University, Geography Education',
+    sp_role_kopar:'Atatürk University, Dept. of Geography',
+    sp_role_inan:'EBYÜ, Dept. of History',
+    sp_role_zorlu:'Ardahan University, Dept. of Geography',
+    sp_role_tas:'EBYÜ, Dept. of Geography',
+    sp_role_uslu:'Erzurum Regional Directorate of Foundations',
+    sp_role_bayam:'Erzincan Museum Directorate',
+    sp_role_celikmen:'President of KEMAV, Erzincan',
+    sp_role_kazanci:'President of JEMİRKO, Vice President of UNESCO National Commission of Türkiye',
+    sp_role_polat:'EBYÜ, Dept. of Geography',
+    sp_role_kandemir:'Karadeniz Technical University, Dept. of Geological Eng.',
+    sp_role_altinbilek:'EBYÜ, Dept. of Social Sciences and Turkish Education',
+    sp_role_dede:'Ardahan University, Dept. of Geography',
+    sp_role_celik:'Istanbul Univ.-Cerrahpaşa, Dept. of Geological Eng.',
+    sp_role_gungor:'Istanbul Univ.-Cerrahpaşa, Dept. of Geological Eng.'
 },
   it: {
     nav_home:'Home', nav_about:'Chi siamo', nav_committees:'Comitati', nav_org_committee:'Comitato Organizzatore', nav_sci_committee:'Comitato Scientifico', nav_speakers:'Relatori Invitati', nav_sessions:'Sessioni', nav_detailed_program:'Programma Dettagliato', nav_schedule:'Programma', nav_registration:'Registrazione', nav_workshop_reg:'Registrazione Workshop', nav_trip_reg:'Registrazione Escursione', nav_forms:'Moduli', nav_ext_abstract:'Abstract Esteso', nav_abs_format:'Modulo Abstract', nav_submit:'Invia Articolo', nav_dates:'Date Importanti', nav_venue:'Sede del Workshop', nav_accom:'Alloggio', nav_gallery:'Galleria', nav_cta:'Registrati',
@@ -3809,7 +3856,7 @@ const T = {
     hero_btn_calendar:'📅 Aggiungi al Calendario',
     privacy_label:'Legale', privacy_title:'Informativa sulla Privacy',
     privacy_p1:'Questo sito raccoglie solo le informazioni personali (nome, email, istituzione) necessarie per la registrazione e l\'invio di contributi per il Workshop ERJEOKUM 2026.',
-    privacy_p2:'I dati raccolti sono utilizzati esclusivamente per l\'organizzazione del workshop e non vengono condivisi con terze parti.',
+    privacy_p2:'I dati raccolti sono utilizzati esclusivamente per l\'organizzazione del workshop e non vengono condivisi con terze parti. I vostri dati sono conservati in modo sicuro su Google Forms e Google Sheets.',
     privacy_p3:'Per richiedere la cancellazione o la correzione dei vostri dati personali, contattateci a erjekum2026@gmail.com.',
     // Committees
     committees_label:'Comitati', committees_title:'Comitati', committees_download_btn:'⤓ Scarica Elenco Comitati (.xlsx)',
@@ -3818,19 +3865,44 @@ const T = {
     // Accommodation
     accom_label:'Alloggio', accom_title:'Alloggio', accom_desc:'Di seguito sono presentate le opzioni di alloggio alternative per i partecipanti al workshop.',
     accom_guesthouse:'Foresteria Universitaria', accom_guesthouse_desc:'Foresteria dell\'Università Erzincan Binali Yıldırım — nel campus, a pochi passi dalla sede del workshop.',
-    accom_contact:'Contatti', accom_contact_desc:'<strong>Foresteria dell\\\'Università Erzincan Binali Yıldırım</strong><br>📞 +90 (446) 220 06 06<br>✉️ konukevi@erzincan.edu.tr<br>📍 Università Erzincan Binali Yıldırım, Campus Yalnızbağ, 24002 / ERZİNCAN',
+    accom_contact:'Contatti', accom_contact_desc:'<strong>Foresteria dell\'Università Erzincan Binali Yıldırım</strong><br>📞 +90 (446) 220 06 06<br>✉️ konukevi@erzincan.edu.tr<br>📍 Università Erzincan Binali Yıldırım, Campus Yalnızbağ, 24002 / ERZİNCAN',
     visitor_label:'Visitatori Totali',
     dates_label:'Date Importanti', dates_title:'Date Importanti',
     date_month_may:'Maggio 2026', date_month_jun:'Giugno 2026',
     date1_text:'Scadenza Invio Abstract', date2_text:'Notifica di Accettazione', date3_text:'Scadenza Registrazione', date4_text:'Workshop',
     honour_board_title:'Comitato d\'Onore',
+    honour_board_list:'<li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Hamza AYDOĞDU</strong> <span style="color:#d4a853;font-size:0.75rem;">(Governatore)</span> — <span style="color:rgba(255,255,255,0.4);">Governatorato di Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Bekir AKSUN</strong> <span style="color:#d4a853;font-size:0.75rem;">(Sindaco)</span> — <span style="color:rgba(255,255,255,0.4);">Comune di Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Prof. Dr. Akın LEVENT</strong> <span style="color:#d4a853;font-size:0.75rem;">(Rettore)</span> — <span style="color:rgba(255,255,255,0.4);">Università Erzincan Binali Yıldırım</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Prof. Dr. Kenan İNAN</strong> <span style="color:#d4a853;font-size:0.75rem;">(Preside, Facoltà di Lettere e Scienze)</span> — <span style="color:rgba(255,255,255,0.4);">Università Erzincan Binali Yıldırım</span></li>',
+    org_committee_list:'<li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Pınar POLAT</strong> <span style="color:#d4a853;font-size:0.75rem;">(Presidente)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yakup ÇELİK</strong> <span style="color:#d4a853;font-size:0.75rem;">(Vice Presidente)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica, İstanbul</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ezher TAGLIASACCHI</strong> <span style="color:#d4a853;font-size:0.75rem;">(Segreteria Internazionale)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Pamukkale, Dip. di Ingegneria Geologica, Denizli</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mehmet Akif TAŞ</strong> <span style="color:#d4a853;font-size:0.75rem;">(Segreteria Nazionale)</span><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Adem BAŞIBÜYÜK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Erdal AKPINAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Vedat KARADENİZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Muhammet Enes YANIK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Özgür Aydın BEKAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Erdal SARIGÜL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Camera degli Ingegneri Geologici TMMOB, Sede di Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Murat GÖMÜÇ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Dottorando</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Halil İbrahim DÖNMEZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Dottorando</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Rukiye ÖZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Studente di Master</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Eren KUTLUDİL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Presidente del Club di Geografia</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Berkan ÖKSÜZ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Univ. Istanbul-Cerrahpaşa, Club di Geologia</span></li>',
+    sci_committee_list:'<li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali DEMİRSOY</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Hacettepe, Dip. di Biologia, Ankara</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali ERGEN</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Direzione Generale MTA, Dip. di Indagini Geologiche, Ankara</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ali KANDEMİR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Biologia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Enrico CAPEZZUOLİ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università di Firenze, Dip. di Scienze della Terra, Italia</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Erdal AKPINAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Eşref ATABEY</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Specialista in Geologia Medica</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Ezher TAGLİASACCHİ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Pamukkale, Dip. di Ingegneria Geologica, Denizli</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Fatma ŞİŞMAN TÜKEL</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica, İstanbul</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Gülpınar AKBULUT</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Sivas Cumhuriyet, Dip. di Educazione alla Geografia</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">İbrahim KOPAR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Atatürk, Dip. di Geografia, Erzurum</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">İbrahim ÜNGÖR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Storia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Kenan İNAN</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Storia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Kuttusi ZORLU</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Ardahan, Dip. di Geografia</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mehmet Akif TAŞ</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Murat USLU</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Direzione Regionale delle Fondazioni di Erzurum, Erzurum</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mustafa BAYAM</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Direzione del Museo di Erzincan, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Mustafa Feridun ÇELİKMEN</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Presidente della Fondazione Cultura e Sviluppo di Kemaliye (KEMAV), Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Nizamettin KAZANCI</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Presidente JEMİRKO, Vice Presidente Commissione Nazionale UNESCO Turchia</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Pınar POLAT</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Geografia, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Raif KANDEMİR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Tecnica del Karadeniz, Dip. di Ingegneria Geologica, Trabzon</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Samet ALTINBİLEK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">EBYÜ, Dip. di Scienze Sociali e Educazione Turca, Erzincan</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Volkan DEDE</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Università Ardahan, Dip. di Geografia</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yakup ÇELİK</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica</span></li><li style="color:#b0b8c8;font-size:0.88rem;"><strong style="color:#e8e6e3;">Yıldırım GÜNGÖR</strong><br><span style="color:rgba(255,255,255,0.4);font-size:0.8rem;">Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica</span></li>',
     feedback_label:'Feedback', feedback_title:'Il Vostro Feedback',
     feedback_desc:'Condividete con noi le vostre opinioni, suggerimenti e domande sul workshop.',
     feedback_btn:'Invia',
     feedback_success_title:'Messaggio Ricevuto!', feedback_success_desc:'Grazie per il vostro feedback. Verrà esaminato e vi risponderemo se necessario.',
     ph_feedback_msg:'Il vostro messaggio...',
     nav_faq:'FAQ', nav_topics:'Sessioni',
-    venue_map_route:'Aeroporto → Percorso Campus'
+    venue_map_route:'Aeroporto → Percorso Campus',
+    sp_role_demirsoy:'Università Hacettepe, Dip. di Biologia',
+    sp_role_ergen:'Direzione Generale MTA, Dip. di Indagini Geologiche',
+    sp_role_capezzuoli:'Università di Firenze, Dip. di Scienze della Terra, Italia',
+    sp_role_akpinar:'EBYÜ, Dip. di Geografia',
+    sp_role_atabey:'Specialista in Geologia Medica',
+    sp_role_tagliasacchi:'Università Pamukkale, Dip. di Ingegneria Geologica',
+    sp_role_tukel:'Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica',
+    sp_role_akbulut:'Università Sivas Cumhuriyet, Dip. di Educazione alla Geografia',
+    sp_role_kopar:'Università Atatürk, Dip. di Geografia',
+    sp_role_inan:'EBYÜ, Dip. di Storia',
+    sp_role_zorlu:'Università Ardahan, Dip. di Geografia',
+    sp_role_tas:'EBYÜ, Dip. di Geografia',
+    sp_role_uslu:'Direzione Regionale delle Fondazioni di Erzurum',
+    sp_role_bayam:'Direzione del Museo di Erzincan',
+    sp_role_celikmen:'Presidente KEMAV, Erzincan',
+    sp_role_kazanci:'Presidente JEMİRKO, Vice Presidente Commissione Nazionale UNESCO Turchia',
+    sp_role_polat:'EBYÜ, Dip. di Geografia',
+    sp_role_kandemir:'Università Tecnica del Karadeniz, Dip. di Ingegneria Geologica',
+    sp_role_altinbilek:'EBYÜ, Dip. di Scienze Sociali e Educazione Turca',
+    sp_role_dede:'Università Ardahan, Dip. di Geografia',
+    sp_role_celik:'Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica',
+    sp_role_gungor:'Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica'
   }
 };
 
