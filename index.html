@@ -1803,6 +1803,9 @@ body {
 <!-- SPEAKERS -->
 <section class="section" id="speakers">
   <div style="max-width:1300px;margin:0 auto;">
+    <div class="reveal" style="margin-bottom:2.5rem;text-align:center;">
+      <img id="flyerImg" src="fotolar/flyer-tr.jpg" alt="Çalıştay Flyer" style="width:100%;max-width:1100px;border-radius:10px;border:1px solid rgba(212,168,83,0.2);box-shadow:0 4px 20px rgba(0,0,0,0.3);">
+    </div>
     <div class="section-label reveal" data-i18n="speakers_label">Davetli Konuşmacılar</div>
     <h2 class="section-title reveal" data-i18n="speakers_title">Davetli Konuşmacılar</h2>
     <p class="section-desc reveal" data-i18n="speakers_desc">Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.</p>
@@ -3952,6 +3955,11 @@ function setLang(lang) {
   const poster = document.getElementById('aboutPoster');
   if(poster) {
     poster.src = (lang === 'tr') ? 'fotolar/poster-tr.png?v=5' : 'fotolar/poster-en.png?v=5';
+  }
+  // Update flyer based on language
+  const flyer = document.getElementById('flyerImg');
+  if(flyer) {
+    flyer.src = (lang === 'tr') ? 'fotolar/flyer-tr.jpg' : 'fotolar/flyer-en.jpg';
   }
 }
 // Apply default language on load
