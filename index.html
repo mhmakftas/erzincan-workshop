@@ -4008,10 +4008,12 @@ setLang('tr');
 
 <script>
 // ========== VISITOR COUNTER ==========
-// Google Apps Script endpoint — deploy your own (see counter-script.js)
+// Free public counter API — abacus.jasoncameron.dev (no signup required)
+// /hit endpoint increments and returns: {"value": N}
 (function() {
-  var COUNTER_URL = 'https://script.google.com/macros/s/AKfycbyUQUyaeaynPb9PqLlBckpT7DbZveXSHAFelGWcVKKDtGowxaX8fuaPgMIsjWRDlFG4/exec';
+  var COUNTER_URL = 'https://abacus.jasoncameron.dev/hit/erjeokum2026/visits';
   var el = document.getElementById('visitorCount');
+  if (!el) return;
 
   function animateCount(target) {
     var duration = 1200, start = performance.now();
@@ -4024,15 +4026,22 @@ setLang('tr');
     requestAnimationFrame(tick);
   }
 
-  // Increment on every page load
-  var x = new XMLHttpRequest();
-  x.open('GET', COUNTER_URL);
-  x.onload = function() {
-    try { animateCount(JSON.parse(x.responseText).count); }
-    catch(e) { el.textContent = '—'; }
-  };
-  x.onerror = function() { el.textContent = '—'; };
-  x.send();
+  // Use fetch with timeout fallback for better error handling
+  var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  var timer = ctrl ? setTimeout(function(){ ctrl.abort(); }, 8000) : null;
+
+  fetch(COUNTER_URL, ctrl ? { signal: ctrl.signal } : undefined)
+    .then(function(r) {
+      if (timer) clearTimeout(timer);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      var n = data.value || data.count || 0;
+      if (n > 0) animateCount(n);
+      else el.textContent = '—';
+    })
+    .catch(function() { el.textContent = '—'; });
 })();
 </script>
 </body>
