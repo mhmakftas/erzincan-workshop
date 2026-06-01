@@ -1522,6 +1522,10 @@ body {
 .paper-title{font-size:0.9rem;color:rgba(255,255,255,0.62);line-height:1.55;flex-grow:1;margin:0.3rem 0 0.6rem;}
 .paper-dl{display:inline-flex;align-items:center;gap:0.45rem;padding:0.6rem 1.15rem;background:transparent;border:1.5px solid #d4a853;color:#d4a853;border-radius:7px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.04em;text-decoration:none;transition:all 0.3s;width:fit-content;}
 .paper-dl:hover{background:#d4a853;color:#0a0f1a;}
+.topic-papers{list-style:none;margin-top:1.1rem;padding-top:0.9rem;border-top:1px solid rgba(212,168,83,0.15);display:flex;flex-direction:column;gap:0.55rem;}
+.topic-papers li{font-size:0.8rem;color:rgba(255,255,255,0.55);line-height:1.45;padding-left:1rem;position:relative;}
+.topic-papers li::before{content:'▸';position:absolute;left:0;color:#d4a853;font-size:0.7rem;top:0.15rem;}
+.topic-papers li strong{color:rgba(255,255,255,0.82);font-weight:600;}
 </style>
 </head>
 <body>
@@ -1545,7 +1549,7 @@ body {
     <span class="dot-nav-label" data-i18n="nav_speakers">Konuşmacılar</span>
     <span class="dot-nav-dot"></span>
   </a>
-  <a href="#schedule" class="dot-nav-item" data-section="schedule" style="display:none">
+  <a href="#schedule" class="dot-nav-item" data-section="schedule">
     <span class="dot-nav-label" data-i18n="nav_schedule">Program</span>
     <span class="dot-nav-dot"></span>
   </a>
@@ -1590,7 +1594,7 @@ body {
     </li>
     <li><a href="#speakers" data-i18n="nav_speakers">Davetli Konuşmacılar</a></li>
     <li><a href="#paper-authors" data-i18n="papers_label">Bildiriler</a></li>
-    <li class="nav-dropdown" style="display:none">
+    <li class="nav-dropdown">
       <span data-i18n="nav_schedule">Program</span>
       <div class="nav-dropdown-menu">
         <a href="#topics" data-i18n="nav_sessions">Oturumlar</a>
@@ -1718,21 +1722,38 @@ body {
       <div class="topic-num">01</div>
       <div class="topic-title" data-i18n="t1_title">Erzincan-Otlukbeli Oturumu</div>
       <div class="topic-desc" data-i18n="t1_desc">Otlukbeli bölgesinin jeolojik mirası, traverten oluşumları, volkanik yapılar ve jeokoruma konularında bilimsel sunumlar.</div>
+      <ul class="topic-papers">
+        <li><strong>Enrico Capezzuoli</strong> — Travertine and Calcareous Tufa: “Master Keys” in Geological and Cultural Heritage</li>
+        <li><strong>Ali Ergen</strong> — Erzincan'ın Jeolojik Miras Alanlarına İlişkin Yeni Örnekler</li>
+        <li><strong>Raif Kandemir</strong> — Jeoçeşitlilik ve Çevresel Tehditler</li>
+      </ul>
     </div>
     <div class="topic-card">
       <div class="topic-num">02</div>
       <div class="topic-title" data-i18n="t2_title">Erzincan-Çağlayan Oturumu</div>
       <div class="topic-desc" data-i18n="t2_desc">Çağlayan ve çevresinin jeomorfolojik özellikleri, tufa oluşumları, KAF zonu ve ötelenmiş vadiler üzerine sunumlar.</div>
+      <ul class="topic-papers">
+        <li><strong>E. Tagliasacchi · Y. Çelik</strong> — Akarsu Sistemlerinin Doğal Arşivi: Gürlevik Şelalesi ve Jeomiras Potansiyeli</li>
+        <li><strong>Fatma Şişman Tükel</strong> — Erzincan Volkan Konilerinin Jeokimyasal ve Petrojenetik Değerlendirmesi</li>
+        <li><strong>Mutlu Seven</strong> — Esence (Keşiş) Dağları'nda Buzul Jeomorfolojisinin Jeomiras Potansiyeli</li>
+      </ul>
     </div>
     <div class="topic-card">
       <div class="topic-num">03</div>
       <div class="topic-title" data-i18n="t3_title">Erzincan-Kemaliye Oturumu</div>
       <div class="topic-desc" data-i18n="t3_desc">Kemaliye ve çevresinin tarihi yapıları, kültürel miras alanları, vakıf eserleri ve müze çalışmaları üzerine sunumlar.</div>
+      <ul class="topic-papers">
+        <li><strong>Eşref Atabey</strong> — Kemaliye'nin Jeolojisi, Doğa Değerleri, Antropojenik Tehlikeler ve Koruma Statüsü</li>
+        <li><strong>Fethi Ahmet Yüksel</strong> — Terkedilmiş Kültürel Miras Alanlarında Arkeojeofizik Çalışmalar: Erzincan Örneği</li>
+      </ul>
     </div>
     <div class="topic-card">
       <div class="topic-num">04</div>
       <div class="topic-title" data-i18n="t4_title">Erzincan Karma Oturum</div>
       <div class="topic-desc" data-i18n="t4_desc">Biyolojik çeşitlilik, tıbbi jeoloji, coğrafya eğitimi, volkanik koniler ve kültürel kalkınma konularında disiplinler arası sunumlar.</div>
+      <ul class="topic-papers">
+        <li><strong>Nizamettin Kazancı</strong> — UNESCO Jeoparkları; Barış Çağrılarından Doğa Korumaya Geçiş</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -2363,7 +2384,7 @@ body {
 </section>
 
 <!-- SCHEDULE -->
-<section class="section schedule" id="schedule" style="display:none">
+<section class="section schedule" id="schedule">
   <div style="max-width:1300px;margin:0 auto;">
     <div class="section-label reveal" data-i18n="schedule_label">Program</div>
     <h2 class="section-title reveal" data-i18n="schedule_title">Program</h2>
@@ -2428,6 +2449,11 @@ body {
         <div class="tl-content">
           <div class="tl-title" data-i18n="d1_s4_title">OTURUM 1 — Erzincan-Otlukbeli Oturumu</div>
           <div class="tl-desc" data-i18n="d1_s4_desc">Bilimsel sunumlar (5 sunum)</div>
+          <ul class="topic-papers" style="margin-top:0.7rem;">
+            <li><strong>Enrico Capezzuoli</strong> — Travertine and Calcareous Tufa: “Master Keys” in Geological and Cultural Heritage</li>
+            <li><strong>Ali Ergen</strong> — Erzincan'ın Jeolojik Miras Alanlarına İlişkin Yeni Örnekler</li>
+            <li><strong>Raif Kandemir</strong> — Jeoçeşitlilik ve Çevresel Tehditler</li>
+          </ul>
         </div>
       </div>
       <div class="timeline-item">
@@ -2442,6 +2468,11 @@ body {
         <div class="tl-content">
           <div class="tl-title" data-i18n="d1_s6_title">OTURUM 2 — Erzincan-Çağlayan Oturumu</div>
           <div class="tl-desc" data-i18n="d1_s6_desc">Bilimsel sunumlar (6 sunum)</div>
+          <ul class="topic-papers" style="margin-top:0.7rem;">
+            <li><strong>E. Tagliasacchi · Y. Çelik</strong> — Akarsu Sistemlerinin Doğal Arşivi: Gürlevik Şelalesi ve Jeomiras Potansiyeli</li>
+            <li><strong>Fatma Şişman Tükel</strong> — Erzincan Volkan Konilerinin Jeokimyasal ve Petrojenetik Değerlendirmesi</li>
+            <li><strong>Mutlu Seven</strong> — Esence (Keşiş) Dağları'nda Buzul Jeomorfolojisinin Jeomiras Potansiyeli</li>
+          </ul>
         </div>
       </div>
       <div class="timeline-item">
@@ -2456,6 +2487,10 @@ body {
         <div class="tl-content">
           <div class="tl-title" data-i18n="d1_s8_title">OTURUM 3 — Erzincan-Kemaliye Oturumu</div>
           <div class="tl-desc" data-i18n="d1_s8_desc">Bilimsel sunumlar (4 sunum)</div>
+          <ul class="topic-papers" style="margin-top:0.7rem;">
+            <li><strong>Eşref Atabey</strong> — Kemaliye'nin Jeolojisi, Doğa Değerleri, Antropojenik Tehlikeler ve Koruma Statüsü</li>
+            <li><strong>Fethi Ahmet Yüksel</strong> — Terkedilmiş Kültürel Miras Alanlarında Arkeojeofizik Çalışmalar: Erzincan Örneği</li>
+          </ul>
         </div>
       </div>
       <div class="timeline-item">
@@ -2470,6 +2505,9 @@ body {
         <div class="tl-content">
           <div class="tl-title" data-i18n="d1_s10_title">OTURUM 4 — Erzincan Karma Oturum</div>
           <div class="tl-desc" data-i18n="d1_s10_desc">Bilimsel sunumlar (7 sunum)</div>
+          <ul class="topic-papers" style="margin-top:0.7rem;">
+            <li><strong>Nizamettin Kazancı</strong> — UNESCO Jeoparkları; Barış Çağrılarından Doğa Korumaya Geçiş</li>
+          </ul>
         </div>
       </div>
       <div class="timeline-item">
@@ -2907,7 +2945,7 @@ body {
         <li><a href="#about" data-i18n="nav_about">Hakkında</a></li>
         <li><a href="#topics" data-i18n="nav_topics">Oturumlar</a></li>
         <li><a href="#speakers" data-i18n="nav_speakers">Konuşmacılar</a></li>
-        <li style="display:none"><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
+        <li><a href="#schedule" data-i18n="nav_schedule">Program</a></li>
       </ul>
     </div>
     <div>
