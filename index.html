@@ -1513,6 +1513,15 @@ body {
   a { color:#000; text-decoration:underline; }
   * { box-shadow:none !important; backdrop-filter:none !important; }
 }
+/* ===== BİLDİRİ SUNACAK YAZARLAR ===== */
+.papers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.4rem;max-width:1200px;margin:2.5rem auto 0;}
+.paper-card{background:rgba(255,255,255,0.03);border:1px solid rgba(212,168,83,0.18);border-radius:12px;padding:1.5rem 1.6rem;display:flex;flex-direction:column;gap:0.55rem;transition:all 0.35s cubic-bezier(0.22,1,0.36,1);}
+.paper-card:hover{border-color:rgba(212,168,83,0.45);background:rgba(255,255,255,0.05);transform:translateY(-3px);}
+.paper-author{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;color:#fff;}
+.paper-inst{font-size:0.78rem;color:#d4a853;letter-spacing:0.02em;}
+.paper-title{font-size:0.9rem;color:rgba(255,255,255,0.62);line-height:1.55;flex-grow:1;margin:0.3rem 0 0.6rem;}
+.paper-dl{display:inline-flex;align-items:center;gap:0.45rem;padding:0.6rem 1.15rem;background:transparent;border:1.5px solid #d4a853;color:#d4a853;border-radius:7px;font-family:'Inter',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.04em;text-decoration:none;transition:all 0.3s;width:fit-content;}
+.paper-dl:hover{background:#d4a853;color:#0a0f1a;}
 </style>
 </head>
 <body>
@@ -1580,6 +1589,7 @@ body {
       </div>
     </li>
     <li><a href="#speakers" data-i18n="nav_speakers">Davetli Konuşmacılar</a></li>
+    <li><a href="#paper-authors" data-i18n="papers_label">Bildiriler</a></li>
     <li class="nav-dropdown" style="display:none">
       <span data-i18n="nav_schedule">Program</span>
       <div class="nav-dropdown-menu">
@@ -1941,6 +1951,71 @@ body {
         <div class="speaker-name">Vedat GÜNGÖR</div>
         <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Uzman Sanat Tarihçi — Erzincan Müzesi</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- BİLDİRİ SUNACAK YAZARLAR -->
+<section class="section" id="paper-authors">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="papers_label">Bildiriler</div>
+    <h2 class="section-title reveal" data-i18n="papers_title">Bildiri Sunacak Yazarlar</h2>
+    <p class="section-desc reveal" data-i18n="papers_desc">Çalıştayda sunulacak bildirilerin özetlerini aşağıdan indirebilirsiniz.</p>
+  </div>
+  <div class="papers-grid">
+    <div class="paper-card reveal">
+      <div class="paper-author">Eşref ATABEY</div>
+      <div class="paper-inst">Tıbbi Jeoloji Uzmanı</div>
+      <div class="paper-title">Kemaliye'nin Jeolojisi, Doğa Değerleri, Antropojenik Tehlikeler ve Koruma Statüsü</div>
+      <a href="fotolar/bildiriler/atabey-kemaliye.pdf" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Enrico CAPEZZUOLI</div>
+      <div class="paper-inst">University of Florence</div>
+      <div class="paper-title">Travertine and Calcareous Tufa: “Master Keys” in Geological and Cultural Heritage</div>
+      <a href="fotolar/bildiriler/capezzuoli-travertine.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Ali ERGEN</div>
+      <div class="paper-inst">MTA Genel Müdürlüğü, Jeoloji Etütleri Dairesi</div>
+      <div class="paper-title">Erzincan'ın Jeolojik Miras Alanlarına İlişkin Yeni Örnekler</div>
+      <a href="fotolar/bildiriler/ergen-jeolojik-miras.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Raif KANDEMİR</div>
+      <div class="paper-inst">Karadeniz Teknik Üniversitesi</div>
+      <div class="paper-title">Jeoçeşitlilik ve Çevresel Tehditler</div>
+      <a href="fotolar/bildiriler/kandemir-jeocesitlilik.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Nizamettin KAZANCI</div>
+      <div class="paper-inst">JEMİRKO Başkanı · Ankara Üniversitesi</div>
+      <div class="paper-title">UNESCO Jeoparkları; Barış Çağrılarından Doğa Korumaya Geçiş</div>
+      <a href="fotolar/bildiriler/kazanci-unesco-jeopark.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Mutlu SEVEN</div>
+      <div class="paper-inst">Kilis 7 Aralık Üniversitesi</div>
+      <div class="paper-title">Esence (Keşiş) Dağları'nda Buzul Jeomorfolojisinin Jeomiras Potansiyeli Açısından Değerlendirilmesi (Erzincan, Türkiye)</div>
+      <a href="fotolar/bildiriler/seven-buzul-jeomorfoloji.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Ezher TAGLİASACCHİ · Yakup ÇELİK</div>
+      <div class="paper-inst">Pamukkale Üniversitesi · İstanbul Üni.-Cerrahpaşa</div>
+      <div class="paper-title">Akarsu Sistemlerinin Doğal Arşivi: Gürlevik Şelalesi ve Jeomiras Potansiyeli</div>
+      <a href="fotolar/bildiriler/tagliasacchi-celik-gurlevik.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Fatma ŞİŞMAN TÜKEL</div>
+      <div class="paper-inst">İstanbul Üniversitesi-Cerrahpaşa</div>
+      <div class="paper-title">Kuzey Anadolu Fayı'nın Magmatik İzlerinden Jeolojik Mirasa: Erzincan Volkan Konilerinin Jeokimyasal ve Petrojenetik Değerlendirmesi</div>
+      <a href="fotolar/bildiriler/tukel-volkan-konileri.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
+    </div>
+    <div class="paper-card reveal">
+      <div class="paper-author">Fethi Ahmet YÜKSEL</div>
+      <div class="paper-inst">İstanbul Üniversitesi-Cerrahpaşa, Mühendislik Fakültesi</div>
+      <div class="paper-title">Terkedilmiş Kültürel Miras Alanlarında Gömülü Yapı Temellerinin Belirlenmesinde Arkeojeofizik Çalışmalar: Erzincan Örneği</div>
+      <a href="fotolar/bildiriler/yuksel-arkeojeofizik.docx" download class="paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir</a>
     </div>
   </div>
 </section>
@@ -3417,6 +3492,7 @@ const T = {
     t3_title:'Erzincan-Kemaliye Oturumu', t3_desc:'Kemaliye ve çevresinin tarihi yapıları, kültürel miras alanları, vakıf eserleri ve müze çalışmaları üzerine sunumlar.',
     t4_title:'Erzincan Karma Oturum', t4_desc:'Biyolojik çeşitlilik, tıbbi jeoloji, coğrafya eğitimi, volkanik koniler ve kültürel kalkınma konularında disiplinler arası sunumlar.',
     speakers_label:'Davetli Konuşmacılar', speakers_title:'Davetli Konuşmacılar', speakers_desc:'Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.',
+    papers_label:'Bildiriler', papers_title:'Bildiri Sunacak Yazarlar', papers_desc:'Çalıştayda sunulacak bildirilerin özetlerini aşağıdan indirebilirsiniz.', paper_dl_btn:'⤓ Özeti İndir',
     gallery_label:'Galeri', gallery_title:'Galeri', gallery_source:'Kaynak: Google Fotoğraflar',
     gal_abrenk_vank:'Abrenk Vank Kilisesi', gal_altintepe_hoyuk:'Altıntepe Höyük', gal_ardos_golu:'Ardos Gölü', gal_eksisu:'Ekşisu', gal_ergan_dagi:'Ergan Dağı', gal_girlevik:'Gürlevik Şelalesi', gal_karanlik:'Karanlık Kanyon', gal_kemah:'Kemah', gal_kesish_dagi:'Esence Dağı', gal_konarli:'Konarlı Şelalesi', gal_mamahatun:'Mamahatun Türbesi', gal_merg:'Merg Yaylası', gal_otlukbeli:'Otlukbeli Gölü', gal_palat:'Polat Gölü', gal_sohmarik:'Sohmarik Yaylası',
     // Templates (simplified)
@@ -3597,6 +3673,7 @@ const T = {
     t3_title:'Erzincan-Kemaliye Session', t3_desc:'Presentations on historical structures, cultural heritage sites, waqf monuments and museum studies of Kemaliye and surroundings.',
     t4_title:'Erzincan Mixed Session', t4_desc:'Interdisciplinary presentations on biodiversity, medical geology, geography education, volcanic cones and cultural development.',
     speakers_label:'Invited Speakers', speakers_title:'Invited Speakers', speakers_desc:'Leading academics and researchers contribute to our workshop.',
+    papers_label:'Papers', papers_title:'Presenting Authors', papers_desc:'You can download the abstracts of the papers to be presented at the workshop below.', paper_dl_btn:'⤓ Download Abstract',
     gallery_label:'Gallery', gallery_title:'Gallery', gallery_source:'Source: Google Photos',
     gal_abrenk_vank:'Abrenk Vank Church', gal_altintepe_hoyuk:'Altıntepe Mound', gal_ardos_golu:'Lake Ardos', gal_eksisu:'Ekşisu Springs', gal_ergan_dagi:'Mount Ergan', gal_girlevik:'Gürlevik Waterfall', gal_karanlik:'Karanlık Canyon', gal_kemah:'Kemah', gal_kesish_dagi:'Mount Esence', gal_konarli:'Konarlı Waterfall', gal_mamahatun:'Mamahatun Mausoleum', gal_merg:'Merg Plateau', gal_otlukbeli:'Lake Otlukbeli', gal_palat:'Lake Polat', gal_sohmarik:'Sohmarik Plateau',
     // Templates (simplified)
@@ -3777,6 +3854,7 @@ const T = {
     t3_title:'Sessione Erzincan-Kemaliye', t3_desc:'Presentazioni su strutture storiche, siti del patrimonio culturale, monumenti waqf e studi museali di Kemaliye e dintorni.',
     t4_title:'Sessione Mista Erzincan', t4_desc:'Presentazioni interdisciplinari su biodiversità, geologia medica, educazione geografica, coni vulcanici e sviluppo culturale.',
     speakers_label:'Relatori Invitati', speakers_title:'Relatori Invitati', speakers_desc:'Accademici e ricercatori di spicco contribuiscono al nostro workshop.',
+    papers_label:'Articoli', papers_title:'Autori Relatori', papers_desc:'Puoi scaricare gli abstract degli articoli che saranno presentati al workshop qui sotto.', paper_dl_btn:'⤓ Scarica Abstract',
     gallery_label:'Galleria', gallery_title:'Galleria', gallery_source:'Fonte: Google Foto',
     gal_abrenk_vank:'Chiesa di Abrenk Vank', gal_altintepe_hoyuk:'Tumulo di Altıntepe', gal_ardos_golu:'Lago Ardos', gal_eksisu:'Sorgenti di Ekşisu', gal_ergan_dagi:'Monte Ergan', gal_girlevik:'Cascata di Gürlevik', gal_karanlik:'Canyon Karanlık', gal_kemah:'Kemah', gal_kesish_dagi:'Monte Keşiş', gal_konarli:'Cascata di Konarlı', gal_mamahatun:'Mausoleo di Mamahatun', gal_merg:'Altopiano di Merg', gal_otlukbeli:'Lago Otlukbeli', gal_palat:'Lago Polat', gal_sohmarik:'Altopiano di Sohmarik',
     // Templates (simplified)
