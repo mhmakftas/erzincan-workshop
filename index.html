@@ -1513,16 +1513,17 @@ body {
   a { color:#000; text-decoration:underline; }
   * { box-shadow:none !important; backdrop-filter:none !important; }
 }
-/* ===== BİLDİRİ İÇERİKLERİ ===== */
+/* ===== BİLDİRİ SUNACAK YAZARLAR ===== */
 .topic-papers{list-style:none;margin-top:1.1rem;padding-top:0.9rem;border-top:1px solid rgba(212,168,83,0.15);display:flex;flex-direction:column;gap:0.55rem;}
 .topic-papers li{font-size:0.8rem;color:rgba(255,255,255,0.55);line-height:1.45;padding-left:1rem;position:relative;}
 .topic-papers li::before{content:'▸';position:absolute;left:0;color:#d4a853;font-size:0.7rem;top:0.15rem;}
 .topic-papers li strong{color:rgba(255,255,255,0.82);font-weight:600;}
-.speaker-paper{margin-top:0.7rem;padding-top:0.7rem;border-top:1px solid rgba(212,168,83,0.18);width:100%;}
+.speaker-paper{margin-top:0.7rem;padding-top:0.7rem;border-top:1px solid rgba(212,168,83,0.18);}
 .sp-paper-title{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.4;margin-bottom:0.55rem;font-style:italic;}
 .sp-paper-dl{display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.8rem;border:1px solid #d4a853;color:#d4a853;border-radius:6px;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.03em;text-decoration:none;transition:all 0.3s;}
 .sp-paper-dl:hover{background:#d4a853;color:#0a0f1a;}
-.speaker-card:has(.speaker-paper){align-items:flex-start !important;}
+#speakers .speaker-card{display:flex;}
+#speakers .speaker-info{position:static;background:none;padding:0;}
 </style>
 </head>
 <body>
@@ -1852,22 +1853,22 @@ body {
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Ali ERGEN</div>
-        
+        <div class="speaker-role" data-i18n="sp_role_ergen" style="color:#d4a853;font-size:0.75rem;">MTA Genel Müdürlüğü, Jeoloji Etütleri Dairesi</div>
         <div class="speaker-paper">
           <div class="sp-paper-title">Erzincan'ın Jeolojik Miras Alanlarına İlişkin Yeni Örnekler</div>
           <a href="fotolar/bildiriler/ergen-jeolojik-miras.pdf" download class="sp-paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir (PDF)</a>
         </div>
-
+      </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Enrico CAPEZZUOLİ</div>
-        
+        <div class="speaker-role" data-i18n="sp_role_capezzuoli" style="color:#d4a853;font-size:0.75rem;">Università di Firenze, Yer Bilimleri Bölümü, İtalya</div>
         <div class="speaker-paper">
           <div class="sp-paper-title">Travertine and Calcareous Tufa: “Master Keys” in Geological and Cultural Heritage</div>
           <a href="fotolar/bildiriler/capezzuoli-travertine.pdf" download class="sp-paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir (PDF)</a>
         </div>
-
+      </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
@@ -1878,32 +1879,32 @@ body {
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Eşref ATABEY</div>
-        
+        <div class="speaker-role" data-i18n="sp_role_atabey" style="color:#d4a853;font-size:0.75rem;">Tıbbi Jeoloji Uzmanı</div>
         <div class="speaker-paper">
           <div class="sp-paper-title">Kemaliye'nin Jeolojisi, Doğa Değerleri, Antropojenik Tehlikeler ve Koruma Statüsü</div>
           <a href="fotolar/bildiriler/atabey-kemaliye.pdf" download class="sp-paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir (PDF)</a>
         </div>
-
+      </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Ezher TAGLİASACCHİ</div>
-        
+        <div class="speaker-role" data-i18n="sp_role_tagliasacchi" style="color:#d4a853;font-size:0.75rem;">Pamukkale Üniversitesi, Jeoloji Müh. Bölümü</div>
         <div class="speaker-paper">
           <div class="sp-paper-title">Akarsu Sistemlerinin Doğal Arşivi: Gürlevik Şelalesi ve Jeomiras Potansiyeli (Y. Çelik ile)</div>
           <a href="fotolar/bildiriler/tagliasacchi-celik-gurlevik.pdf" download class="sp-paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir (PDF)</a>
         </div>
-
+      </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Fatma ŞİŞMAN TÜKEL</div>
-        
+        <div class="speaker-role" data-i18n="sp_role_tukel" style="color:#d4a853;font-size:0.75rem;">İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü</div>
         <div class="speaker-paper">
           <div class="sp-paper-title">Erzincan Volkan Konilerinin Jeokimyasal ve Petrojenetik Değerlendirmesi</div>
           <a href="fotolar/bildiriler/tukel-volkan-konileri.pdf" download class="sp-paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir (PDF)</a>
         </div>
-
+      </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
@@ -1944,12 +1945,12 @@ body {
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Nizamettin KAZANCI</div>
-        
+        <div class="speaker-role" data-i18n="sp_role_kazanci" style="color:#d4a853;font-size:0.75rem;">JEMİRKO Başkanı, UNESCO Türkiye Milli Komisyonu Başkan Vekili</div>
         <div class="speaker-paper">
           <div class="sp-paper-title">UNESCO Jeoparkları; Barış Çağrılarından Doğa Korumaya Geçiş</div>
           <a href="fotolar/bildiriler/kazanci-unesco-jeopark.pdf" download class="sp-paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir (PDF)</a>
         </div>
-
+      </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
@@ -1960,12 +1961,12 @@ body {
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Raif KANDEMİR</div>
-        
+        <div class="speaker-role" data-i18n="sp_role_kandemir" style="color:#d4a853;font-size:0.75rem;">Karadeniz Teknik Üniversitesi, Jeoloji Müh. Bölümü</div>
         <div class="speaker-paper">
           <div class="sp-paper-title">Jeoçeşitlilik ve Çevresel Tehditler</div>
           <a href="fotolar/bildiriler/kandemir-jeocesitlilik.pdf" download class="sp-paper-dl" data-i18n="paper_dl_btn">⤓ Özeti İndir (PDF)</a>
         </div>
-
+      </div>
     </div>
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
@@ -1997,7 +1998,7 @@ body {
         <div class="speaker-role" style="color:#d4a853;font-size:0.75rem;">Uzman Sanat Tarihçi — Erzincan Müzesi</div>
       </div>
     </div>
-    <div class="speaker-card" style="flex-direction:row;align-items:flex-start;gap:0;padding:1.5rem 2rem;">
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Mutlu SEVEN</div>
         <div class="speaker-role" data-i18n="sp_role_seven" style="color:#d4a853;font-size:0.75rem;">Kilis 7 Aralık Üniversitesi, Coğrafya Bölümü</div>
@@ -2007,7 +2008,7 @@ body {
         </div>
       </div>
     </div>
-    <div class="speaker-card" style="flex-direction:row;align-items:flex-start;gap:0;padding:1.5rem 2rem;">
+    <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Fethi Ahmet YÜKSEL</div>
         <div class="speaker-role" data-i18n="sp_role_yuksel" style="color:#d4a853;font-size:0.75rem;">İstanbul Üniversitesi-Cerrahpaşa, Mühendislik Fakültesi</div>
