@@ -1522,7 +1522,7 @@ body {
 .sp-paper-title{font-size:0.72rem;color:rgba(255,255,255,0.55);line-height:1.4;margin-bottom:0.55rem;font-style:italic;}
 .sp-paper-dl{display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.8rem;border:1px solid #d4a853;color:#d4a853;border-radius:6px;font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.03em;text-decoration:none;transition:all 0.3s;}
 .sp-paper-dl:hover{background:#d4a853;color:#0a0f1a;}
-#speakers .speaker-card{display:flex;background:rgba(255,255,255,0.02);border:1px solid rgba(212,168,83,0.13);border-radius:12px;}
+#speakers .speaker-card{display:flex;background:rgba(255,255,255,0.02);border:1px solid rgba(212,168,83,0.13);border-radius:12px;break-inside:avoid;margin-bottom:1.4rem;}
 #speakers .speaker-card:hover{border-color:rgba(212,168,83,0.4);background:rgba(212,168,83,0.045);}
 #speakers .speaker-info{position:static;background:none;padding:0;}
 </style>
@@ -1852,7 +1852,7 @@ body {
     <h2 class="section-title reveal" data-i18n="speakers_title">Davetli Konuşmacılar</h2>
     <p class="section-desc reveal" data-i18n="speakers_desc">Alanında öncü akademisyenler ve araştırmacılar çalıştayımıza katkı sunuyor.</p>
   </div>
-  <div class="speakers-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto;">
+  <div class="speakers-grid" style="display:block;columns:320px;column-gap:1.4rem;max-width:1100px;margin:0 auto;">
     <div class="speaker-card" style="flex-direction:row;align-items:center;gap:0;padding:1.5rem 2rem;">
       <div class="speaker-info" style="padding:0;text-align:left;">
         <div class="speaker-name">Nizamettin KAZANCI</div>
@@ -3604,7 +3604,6 @@ const T = {
     d3_s7_title:'Akşam Yemeği', d3_s7_desc:'Kapanış yemeği',
     // Venue
     venue_label:'Mekan', venue_title:'Etkinlik Yeri',
-    venue_map_city:'Erzincan', venue_map_campus:'Kampüs',
     venue_uni_label:'Üniversite', venue_uni_val:'Erzincan Binali Yıldırım Üniversitesi',
     venue_hall_label:'Salon', venue_hall_val:'Prof. Dr. Erdoğan Büyükkasap Kongre ve Kültür Merkezi',
     venue_addr_label:'Adres', venue_addr_val:'Yalnızbağ Yerleşkesi, 24100 Erzincan',
@@ -3673,7 +3672,6 @@ const T = {
     sp_role_kazanci:'JEMİRKO Başkanı, UNESCO Türkiye Milli Komisyonu Başkan Vekili',
     sp_role_polat:'EBYÜ, Coğrafya Bölümü',
     sp_role_kandemir:'Karadeniz Teknik Üniversitesi, Jeoloji Müh. Bölümü',
-    sp_role_dede:'Ardahan Üniversitesi, Coğrafya Bölümü',
     sp_role_celik:'İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü',
     sp_role_gungor:'İstanbul Üni.-Cerrahpaşa, Jeoloji Müh. Bölümü',
     sp_role_seven:'Kilis 7 Aralık Üniversitesi, Coğrafya Bölümü', sp_role_vgungor:'Uzman Sanat Tarihçi — Erzincan Müzesi',
@@ -3780,7 +3778,6 @@ const T = {
     d3_s7_title:'Dinner', d3_s7_desc:'Closing dinner',
     // Venue
     venue_label:'Venue', venue_title:'Event Location',
-    venue_map_city:'Erzincan', venue_map_campus:'Campus',
     venue_uni_label:'University', venue_uni_val:'Erzincan Binali Yıldırım University',
     venue_hall_label:'Hall', venue_hall_val:'Prof. Dr. Erdoğan Büyükkasap Congress and Cultural Center',
     venue_addr_label:'Address', venue_addr_val:'Yalnızbağ Campus, 24100 Erzincan',
@@ -3849,7 +3846,6 @@ const T = {
     sp_role_kazanci:'President of JEMİRKO, Vice President of UNESCO National Commission of Türkiye',
     sp_role_polat:'EBYÜ, Dept. of Geography',
     sp_role_kandemir:'Karadeniz Technical University, Dept. of Geological Eng.',
-    sp_role_dede:'Ardahan University, Dept. of Geography',
     sp_role_celik:'Istanbul Univ.-Cerrahpaşa, Dept. of Geological Eng.',
     sp_role_gungor:'Istanbul Univ.-Cerrahpaşa, Dept. of Geological Eng.',
     sp_role_seven:'Kilis 7 Aralık University, Dept. of Geography', sp_role_vgungor:'Art History Specialist — Erzincan Museum',
@@ -4023,7 +4019,6 @@ const T = {
     sp_role_kazanci:'Presidente JEMİRKO, Vice Presidente Commissione Nazionale UNESCO Turchia',
     sp_role_polat:'EBYÜ, Dip. di Geografia',
     sp_role_kandemir:'Università Tecnica del Karadeniz, Dip. di Ingegneria Geologica',
-    sp_role_dede:'Università Ardahan, Dip. di Geografia',
     sp_role_celik:'Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica',
     sp_role_gungor:'Univ. Istanbul-Cerrahpaşa, Dip. di Ingegneria Geologica',
     sp_role_seven:'Università Kilis 7 Aralık, Dip. di Geografia', sp_role_vgungor:"Storico dell'Arte — Museo di Erzincan",
