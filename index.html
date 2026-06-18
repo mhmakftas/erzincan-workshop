@@ -1095,6 +1095,59 @@ body {
   color:rgba(255,255,255,0.7); font-size:0.85rem;
   background:rgba(0,0,0,0.5); padding:0.4rem 1.2rem; border-radius:4px;
 }
+/* ========== THANK YOU (sayaç yerine) ========== */
+.thanks-section { text-align:center; padding:4rem 1.5rem; }
+.thanks-wrap { max-width:780px; margin:0 auto; }
+.thanks-title {
+  font-family:'Playfair Display',serif; font-size:2.6rem; color:#d4a853;
+  margin-bottom:1.2rem; letter-spacing:0.02em;
+  animation: thanksGlow 2.4s ease-in-out infinite;
+}
+.thanks-text { color:#c8cdd6; font-size:1.05rem; line-height:1.85; }
+@keyframes thanksGlow {
+  0%,100% { text-shadow:0 0 4px rgba(212,168,83,0.25), 0 0 12px rgba(212,168,83,0.12); opacity:0.9; }
+  50%     { text-shadow:0 0 16px rgba(212,168,83,0.9), 0 0 40px rgba(212,168,83,0.5), 0 0 64px rgba(212,168,83,0.28); opacity:1; }
+}
+/* ========== THANK YOU POPUP ========== */
+.thanks-popup {
+  position:fixed; inset:0; z-index:3000; display:none;
+  align-items:center; justify-content:center; padding:1.5rem;
+  background:rgba(8,10,16,0.82); backdrop-filter:blur(6px);
+  opacity:0; transition:opacity 0.4s;
+}
+.thanks-popup.active { display:flex; opacity:1; }
+.thanks-popup-box {
+  display:flex; max-width:880px; width:100%; max-height:92vh;
+  background:linear-gradient(145deg,#141823,#0e1119);
+  border:1px solid rgba(212,168,83,0.3); border-radius:14px; overflow:hidden;
+  box-shadow:0 20px 70px rgba(0,0,0,0.6); position:relative;
+  animation: popupIn 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes popupIn { from { transform:translateY(24px) scale(0.96); opacity:0; } to { transform:none; opacity:1; } }
+.thanks-popup-poster { flex:0 0 44%; background:#0a0c12; }
+.thanks-popup-poster img { width:100%; height:100%; object-fit:cover; display:block; }
+.thanks-popup-msg { flex:1; padding:2rem 1.9rem; display:flex; flex-direction:column; justify-content:center; text-align:left; overflow-y:auto; }
+.thanks-popup-msg .thanks-title { font-size:1.55rem; text-align:left; margin-bottom:0.55rem; }
+.thanks-popup-msg .thanks-text { font-size:0.9rem; line-height:1.65; }
+.thanks-popup-msg .thanks-lang-en { margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid rgba(212,168,83,0.18); }
+.thanks-popup-close {
+  position:absolute; top:0.7rem; right:0.85rem; z-index:2;
+  width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
+  background:rgba(0,0,0,0.45); color:#fff; font-size:1.35rem; line-height:1;
+}
+.thanks-popup-close:hover { background:rgba(212,168,83,0.45); }
+@media (max-width:640px) {
+  .thanks-popup-box { flex-direction:column; max-width:380px; }
+  .thanks-popup-poster { flex:0 0 auto; max-height:40vh; }
+  .thanks-popup-msg { padding:1.6rem 1.4rem; text-align:center; }
+  .thanks-popup-msg .thanks-title { text-align:center; font-size:1.7rem; }
+  .thanks-title { font-size:2rem; }
+}
+/* ========== CALISTAY GALLERY ========== */
+.cs-empty {
+  grid-column:1/-1; text-align:center; padding:3.5rem 1rem;
+  color:rgba(255,255,255,0.45); font-size:0.95rem; font-style:italic;
+}
 
 /* ========== INSTAGRAM BUTTON ========== */
 .instagram-btn {
@@ -1656,7 +1709,7 @@ body {
     <div class="hero-btns">
       <a href="#register" class="btn-primary" data-i18n="hero_btn_register">Kayıt Ol</a>
       <a href="#topics" class="btn-outline" data-i18n="hero_btn_program">Programı İncele</a>
-      <a href="#" class="btn-outline" id="addToCalBtn" data-i18n="hero_btn_calendar" onclick="downloadICS();return false;" style="font-size:0.7rem;">📅 Takvime Ekle</a>
+      <a href="#calistay-galeri" class="btn-outline" id="csGalleryBtn" data-i18n="hero_btn_gallery" style="font-size:0.7rem;">📸 Çalıştay Galerisi</a>
     </div>
   </div>
   <div class="scroll-indicator">
@@ -1665,13 +1718,11 @@ body {
   </div>
 </section>
 
-<!-- COUNTDOWN -->
-<section class="countdown-section">
-  <div class="countdown-wrap" id="countdown">
-    <div class="countdown-item"><div class="countdown-num" id="cd-days">228</div><div class="countdown-label" data-i18n="cd_days">Gün</div></div>
-    <div class="countdown-item"><div class="countdown-num" id="cd-hours">14</div><div class="countdown-label" data-i18n="cd_hours">Saat</div></div>
-    <div class="countdown-item"><div class="countdown-num" id="cd-mins">32</div><div class="countdown-label" data-i18n="cd_mins">Dakika</div></div>
-    <div class="countdown-item"><div class="countdown-num" id="cd-secs">08</div><div class="countdown-label" data-i18n="cd_secs">Saniye</div></div>
+<!-- THANK YOU (sayaç yerine) -->
+<section class="countdown-section thanks-section">
+  <div class="thanks-wrap reveal">
+    <h2 class="thanks-title" data-i18n="thanks_title">Teşekkür Ederiz</h2>
+    <p class="thanks-text" data-i18n="thanks_text">Uluslararası Katılımlı Erzincan Jeolojik ve Kültürel Miras Çalıştayı'na katılımınız ve değerli katkılarınız için tüm konuşmacılarımıza, katılımcılarımıza ve destekçilerimize en içten teşekkürlerimizi sunarız. Erzincan'da buluşup bu mirası birlikte paylaşmak bizler için bir onurdu.</p>
   </div>
 </section>
 
@@ -2300,6 +2351,24 @@ body {
   </div>
 </section>
 
+<!-- CALISTAY GALLERY (gunlere gore sekmeli, mekan galerisinden ayri) -->
+<section class="section" id="calistay-galeri">
+  <div style="max-width:1300px;margin:0 auto;">
+    <div class="section-label reveal" data-i18n="cs_gallery_label">Çalıştaydan Kareler</div>
+    <h2 class="section-title reveal" data-i18n="cs_gallery_title">Çalıştay Galerisi</h2>
+  </div>
+  <div class="gallery-filters">
+    <button class="gallery-filter-btn active" data-day="1" onclick="filterCsGallery('1')" data-i18n="cs_day1">1. Gün</button>
+    <button class="gallery-filter-btn" data-day="2" onclick="filterCsGallery('2')" data-i18n="cs_day2">2. Gün</button>
+    <button class="gallery-filter-btn" data-day="3" onclick="filterCsGallery('3')" data-i18n="cs_day3">3. Gün</button>
+  </div>
+  <div class="gallery-grid" id="csGalleryGrid">
+    <div class="cs-empty" data-day="1" data-i18n="cs_gallery_soon">Bu güne ait fotoğraflar yakında eklenecek.</div>
+    <div class="cs-empty" data-day="2" data-i18n="cs_gallery_soon" style="display:none;">Bu güne ait fotoğraflar yakında eklenecek.</div>
+    <div class="cs-empty" data-day="3" data-i18n="cs_gallery_soon" style="display:none;">Bu güne ait fotoğraflar yakında eklenecek.</div>
+  </div>
+</section>
+
 <!-- GALLERY -->
 <section class="section gallery" id="gallery">
   <div style="max-width:1300px;margin:0 auto;">
@@ -2604,6 +2673,24 @@ body {
   </div>
   <p class="gallery-source" data-i18n="gallery_source">Kaynak: Google Fotoğraflar</p>
 </section>
+
+<!-- THANK YOU POPUP (sol afiş / sağ mesaj) -->
+<div class="thanks-popup" id="thanksPopup">
+  <div class="thanks-popup-box">
+    <button class="thanks-popup-close" onclick="closeThanksPopup()" aria-label="Kapat">&times;</button>
+    <div class="thanks-popup-poster"><img id="popupPoster" src="fotolar/poster-tr.png?v=9" alt="ERJEOKUM 2026 Afiş"></div>
+    <div class="thanks-popup-msg">
+      <div class="thanks-lang">
+        <h2 class="thanks-title">Teşekkür Ederiz</h2>
+        <p class="thanks-text">Uluslararası Katılımlı Erzincan Jeolojik ve Kültürel Miras Çalıştayı'na katılımınız ve değerli katkılarınız için tüm konuşmacılarımıza, katılımcılarımıza ve destekçilerimize en içten teşekkürlerimizi sunarız. Erzincan'da buluşup bu mirası birlikte paylaşmak bizler için bir onurdu.</p>
+      </div>
+      <div class="thanks-lang thanks-lang-en">
+        <h2 class="thanks-title">Thank You</h2>
+        <p class="thanks-text">We sincerely thank all our speakers, participants and supporters for your attendance and valuable contributions to the International Erzincan Geological and Cultural Heritage Workshop. It was an honour to meet in Erzincan and share this heritage together.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Lightbox -->
 <div class="lightbox" id="lightbox">
@@ -3123,23 +3210,8 @@ function animateParticles() {
 }
 animateParticles();
 
-// ========== COUNTDOWN ==========
-function updateCountdown() {
-  const target = new Date('2026-06-18T09:00:00+03:00');
-  const now = new Date();
-  const diff = target - now;
-  if (diff <= 0) return;
-  const d = Math.floor(diff / (1000*60*60*24));
-  const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-  const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-  const s = Math.floor((diff % (1000*60)) / 1000);
-  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
-  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
-}
-updateCountdown();
-setInterval(updateCountdown, 1000);
+// ========== COUNTDOWN (kaldırıldı — yerine teşekkür mesajı) ==========
+// Etkinlik tamamlandı; geri sayım DOM'u ve zamanlayıcısı devre dışı bırakıldı.
 
 // ========== CALENDAR DOWNLOAD ==========
 function downloadICS() {
@@ -3342,7 +3414,7 @@ function filterGallery(cat) {
 })();
 
 function openLightbox(el) {
-  const grid = document.getElementById('galleryGrid');
+  const grid = el.closest('.gallery-grid');
   galleryItems = Array.from(grid.querySelectorAll('.gallery-item')).filter(i => i.style.display !== 'none');
   currentLbIndex = galleryItems.indexOf(el);
   const img = el.querySelector('img');
@@ -3396,6 +3468,38 @@ filterGallery = function(cat) {
   }
   document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
 };
+
+// ========== CALISTAY GALLERY (gün sekmeleri) ==========
+function filterCsGallery(day) {
+  document.querySelectorAll('#calistay-galeri .gallery-filter-btn').forEach(b => b.classList.toggle('active', b.dataset.day === day));
+  document.querySelectorAll('#csGalleryGrid > [data-day]').forEach(el => {
+    el.style.display = el.dataset.day === day ? '' : 'none';
+  });
+}
+filterCsGallery('1');
+
+// ========== THANK YOU POPUP ==========
+function closeThanksPopup() {
+  const p = document.getElementById('thanksPopup');
+  if(p) p.classList.remove('active');
+  document.body.style.overflow = '';
+}
+(function initThanksPopup() {
+  let shown = false; try { shown = localStorage.getItem('thanksShown') === '1'; } catch(e) {}
+  if (shown) return;
+  setTimeout(function() {
+    const p = document.getElementById('thanksPopup');
+    if (!p) return;
+    p.classList.add('active');
+    try { localStorage.setItem('thanksShown', '1'); } catch(e) {}
+  }, 900);
+})();
+document.getElementById('thanksPopup')?.addEventListener('click', function(e) {
+  if (e.target === this) closeThanksPopup();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeThanksPopup();
+});
 
 // ========== INTERSECTION OBSERVER ==========
 const observerOpts = { threshold:0.15, rootMargin:'0px 0px -50px 0px' };
@@ -3650,7 +3754,13 @@ const T = {
     footer_venue_transport:'Mekan & Ulaşım', footer_register:'Kayıt',
     footer_copy:'© 2026 ERJEOKUM — Erzincan Jeolojik ve Kültürel Miras Çalıştayı', footer_rights:'Tüm hakları saklıdır.',
     footer_privacy:'Gizlilik Politikası', footer_guesthouse:'Konukevi',
-    hero_btn_calendar:'📅 Takvime Ekle',
+    hero_btn_gallery:'📸 Çalıştay Galerisi',
+    thanks_title:'Teşekkür Ederiz',
+    thanks_text:'Uluslararası Katılımlı Erzincan Jeolojik ve Kültürel Miras Çalıştayı\'na katılımınız ve değerli katkılarınız için tüm konuşmacılarımıza, katılımcılarımıza ve destekçilerimize en içten teşekkürlerimizi sunarız. Erzincan\'da buluşup bu mirası birlikte paylaşmak bizler için bir onurdu.',
+    cs_gallery_label:'Çalıştaydan Kareler',
+    cs_gallery_title:'Çalıştay Galerisi',
+    cs_day1:'1. Gün', cs_day2:'2. Gün', cs_day3:'3. Gün',
+    cs_gallery_soon:'Bu güne ait fotoğraflar yakında eklenecek.',
     privacy_label:'Yasal', privacy_title:'Gizlilik Politikası',
     privacy_p1:'Bu web sitesi, ERJEOKUM 2026 Çalıştayı kapsamında katılımcılardan yalnızca kayıt ve bildiri gönderimi için gerekli olan kişisel bilgileri (ad, soyad, e-posta, kurum bilgisi) toplamaktadır.',
     privacy_p2:'Toplanan veriler yalnızca çalıştay organizasyonu amacıyla kullanılmakta olup üçüncü taraflarla paylaşılmamaktadır. Verileriniz Google Forms ve Google Sheets altyapısında güvenli olarak saklanmaktadır.',
@@ -3816,7 +3926,13 @@ const T = {
     footer_venue_transport:'Venue & Transport', footer_register:'Registration',
     footer_copy:'© 2026 ERJEOKUM — Erzincan Geological and Cultural Heritage Workshop', footer_rights:'All rights reserved.',
     footer_privacy:'Privacy Policy', footer_guesthouse:'Guesthouse',
-    hero_btn_calendar:'📅 Add to Calendar',
+    hero_btn_gallery:'📸 Workshop Gallery',
+    thanks_title:'Thank You',
+    thanks_text:'We sincerely thank all our speakers, participants and supporters for your attendance and valuable contributions to the International Erzincan Geological and Cultural Heritage Workshop. It was an honour to meet in Erzincan and share this heritage together.',
+    cs_gallery_label:'Moments from the Workshop',
+    cs_gallery_title:'Workshop Gallery',
+    cs_day1:'Day 1', cs_day2:'Day 2', cs_day3:'Day 3',
+    cs_gallery_soon:'Photos for this day will be added soon.',
     privacy_label:'Legal', privacy_title:'Privacy Policy',
     privacy_p1:'This website collects only the personal information (full name, email address, institution) required for registration and paper submission for the ERJEOKUM 2026 Workshop.',
     privacy_p2:'Collected data is used solely for workshop organization purposes and is not shared with third parties. Your data is securely stored on Google Forms and Google Sheets infrastructure.',
@@ -3981,7 +4097,13 @@ const T = {
     footer_venue_transport:'Sede e Trasporti', footer_register:'Registrazione',
     footer_copy:'© 2026 ERJEOKUM — Workshop sul Patrimonio Geologico e Culturale di Erzincan', footer_rights:'Tutti i diritti riservati.',
     footer_privacy:'Informativa sulla Privacy', footer_guesthouse:'Foresteria',
-    hero_btn_calendar:'📅 Aggiungi al Calendario',
+    hero_btn_gallery:'📸 Galleria del Workshop',
+    thanks_title:'Grazie',
+    thanks_text:'Ringraziamo di cuore tutti i relatori, i partecipanti e i sostenitori per la partecipazione e i preziosi contributi al Workshop Internazionale sul Patrimonio Geologico e Culturale di Erzincan. È stato un onore incontrarci a Erzincan e condividere insieme questo patrimonio.',
+    cs_gallery_label:'Istantanee dal Workshop',
+    cs_gallery_title:'Galleria del Workshop',
+    cs_day1:'1° Giorno', cs_day2:'2° Giorno', cs_day3:'3° Giorno',
+    cs_gallery_soon:'Le foto di questa giornata saranno aggiunte a breve.',
     privacy_label:'Legale', privacy_title:'Informativa sulla Privacy',
     privacy_p1:'Questo sito raccoglie solo le informazioni personali (nome, email, istituzione) necessarie per la registrazione e l\'invio degli articoli per il Workshop ERJEOKUM 2026.',
     privacy_p2:'I dati raccolti sono utilizzati esclusivamente per l\'organizzazione del workshop e non vengono condivisi con terze parti. I vostri dati sono conservati in modo sicuro su Google Forms e Google Sheets.',
@@ -4070,6 +4192,9 @@ function setLang(lang) {
   if(poster) {
     poster.src = (lang === 'tr') ? 'fotolar/poster-tr.png?v=9' : 'fotolar/poster-en.png?v=7';
   }
+  // Popup afişi (dile göre)
+  const popupP = document.getElementById('popupPoster');
+  if(popupP) { popupP.src = (lang === 'tr') ? 'fotolar/poster-tr.png?v=9' : 'fotolar/poster-en.png?v=7'; }
   // Update flyer based on language
   const flyer = document.getElementById('flyerImg');
   if(flyer) {
