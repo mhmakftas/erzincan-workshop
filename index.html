@@ -1124,7 +1124,7 @@ body {
   animation: popupIn 0.5s cubic-bezier(0.22,1,0.36,1);
 }
 @keyframes popupIn { from { transform:translateY(24px) scale(0.96); opacity:0; } to { transform:none; opacity:1; } }
-.thanks-popup-poster { flex:0 0 44%; background:#0a0c12; }
+.thanks-popup-poster { flex:0 0 44%; background:#0a0c12; overflow:hidden; }
 .thanks-popup-poster img { width:100%; height:100%; object-fit:cover; display:block; }
 .thanks-popup-msg { flex:1; min-height:0; padding:2rem 1.9rem; display:flex; flex-direction:column; justify-content:flex-start; text-align:left; overflow-y:auto; -webkit-overflow-scrolling:touch; }
 .thanks-popup-msg .thanks-title { font-size:1.55rem; text-align:left; margin-bottom:0.55rem; }
@@ -1138,7 +1138,8 @@ body {
 .thanks-popup-close:hover { background:rgba(212,168,83,0.45); }
 @media (max-width:640px) {
   .thanks-popup-box { flex-direction:column; max-width:380px; }
-  .thanks-popup-poster { flex:0 0 auto; max-height:34vh; }
+  .thanks-popup-poster { flex:0 0 auto; height:36vh; }
+  .thanks-popup-poster img { object-fit:contain; }
   .thanks-popup-msg { padding:1.6rem 1.4rem; text-align:center; }
   .thanks-popup-msg .thanks-title { text-align:center; font-size:1.7rem; }
   .thanks-title { font-size:2rem; }
