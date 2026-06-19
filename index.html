@@ -3495,14 +3495,15 @@ function closeThanksPopup() {
   document.body.style.overflow = '';
 }
 (function initThanksPopup() {
-  let shown = false; try { shown = localStorage.getItem('thanksShown') === '1'; } catch(e) {}
+  // Her oturumda bir kez (sessionStorage) — tarayıcı kapatılıp açılınca yeniden gösterilir
+  let shown = false; try { shown = sessionStorage.getItem('thanksShown') === '1'; } catch(e) {}
   if (shown) return;
   setTimeout(function() {
     const p = document.getElementById('thanksPopup');
     if (!p) return;
     p.classList.add('active');
     document.body.style.overflow = 'hidden';
-    try { localStorage.setItem('thanksShown', '1'); } catch(e) {}
+    try { sessionStorage.setItem('thanksShown', '1'); } catch(e) {}
   }, 900);
 })();
 document.getElementById('thanksPopup')?.addEventListener('click', function(e) {
