@@ -1138,6 +1138,9 @@ body {
   box-shadow:0 4px 14px rgba(212,168,83,0.4); transition:transform 0.2s, box-shadow 0.2s;
 }
 .thanks-popup-btn:hover { transform:translateY(-2px); box-shadow:0 7px 22px rgba(212,168,83,0.62); }
+/* ========== KAPALI (etkinlik sonrasi) butonlar/formlar ========== */
+.closed-btn { opacity:0.4 !important; pointer-events:none !important; cursor:not-allowed !important; filter:grayscale(0.55); box-shadow:none !important; }
+.closed-note { display:block; max-width:620px; margin:0 auto 1.4rem; text-align:center; padding:0.7rem 1.2rem; border:1px solid rgba(212,168,83,0.3); border-radius:8px; background:rgba(212,168,83,0.07); color:#d4a853; font-size:0.85rem; font-weight:600; letter-spacing:0.01em; }
 .thanks-popup-close {
   position:absolute; top:0.7rem; right:0.85rem; z-index:2;
   width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
@@ -1699,7 +1702,7 @@ body {
     <li><a href="#gallery" data-i18n="nav_gallery">Galeri</a></li>
   </ul>
   <div style="display:flex;align-items:center;gap:0.5rem;">
-    <a href="#register" class="nav-cta" data-i18n="nav_cta">Kayıt Ol</a>
+    <a href="#register" class="nav-cta closed-btn" data-i18n="nav_cta" aria-disabled="true" tabindex="-1">Kayıt Ol</a>
     <div class="lang-switcher">
       <button class="lang-btn active" onclick="setLang('tr')"><img src="https://flagcdn.com/w20/tr.png" width="16" height="11" alt="TR" style="vertical-align:-1px;margin-right:4px;">TR</button>
       <button class="lang-btn" onclick="setLang('en')"><img src="https://flagcdn.com/w20/gb.png" width="16" height="11" alt="EN" style="vertical-align:-1px;margin-right:4px;">EN</button>
@@ -1732,7 +1735,7 @@ body {
     <p class="hero-subtitle" data-i18n="hero_subtitle">Milyonlarca yıllık jeolojik mirası keşfet</p>
     <p class="hero-location" data-i18n="hero_location">📍 Erzincan Binali Yıldırım Üniversitesi &bull; Erzincan, Türkiye</p>
     <div class="hero-btns">
-      <a href="#register" class="btn-primary" data-i18n="hero_btn_register">Kayıt Ol</a>
+      <a href="#register" class="btn-primary closed-btn" data-i18n="hero_btn_register" aria-disabled="true" tabindex="-1">Kayıt Ol</a>
       <a href="#topics" class="btn-outline" data-i18n="hero_btn_program">Programı İncele</a>
       <a href="#calistay-galeri" class="btn-outline" id="csGalleryBtn" data-i18n="hero_btn_gallery" style="font-size:0.7rem;">📸 Çalıştay Galerisi</a>
     </div>
@@ -3036,7 +3039,7 @@ body {
       <a href="fotolar/genisletilmis-bildiri-ozeti-sablon.docx" download class="template-download-btn reveal" data-i18n="ext_download_btn">⤓ Şablonu İndir (.docx)</a>
     </div>
     <p class="section-desc reveal" style="margin-top:2rem;" data-i18n="ext_submit_hint">Bildirinizi hazırladıktan sonra aşağıdaki bölümden gönderebilirsiniz.</p>
-    <a href="#submit-paper" class="btn-primary reveal" style="display:inline-block;margin-top:1rem;" data-i18n="nav_submit">Bildiri Gönder</a>
+    <a href="#submit-paper" class="btn-primary reveal closed-btn" style="display:inline-block;margin-top:1rem;" data-i18n="nav_submit" aria-disabled="true" tabindex="-1">Bildiri Gönder</a>
   </div>
 </section>
 
@@ -3050,7 +3053,7 @@ body {
       <a href="fotolar/bildiri-yazim-formati.docx" download class="template-download-btn reveal" data-i18n="abs_download_btn">⤓ Şablonu İndir (.docx)</a>
     </div>
     <p class="section-desc reveal" style="margin-top:2rem;" data-i18n="abs_submit_hint">Bildirinizi hazırladıktan sonra aşağıdaki bölümden gönderebilirsiniz.</p>
-    <a href="#submit-paper" class="btn-primary reveal" style="display:inline-block;margin-top:1rem;" data-i18n="nav_submit">Bildiri Gönder</a>
+    <a href="#submit-paper" class="btn-primary reveal closed-btn" style="display:inline-block;margin-top:1rem;" data-i18n="nav_submit" aria-disabled="true" tabindex="-1">Bildiri Gönder</a>
   </div>
 </section>
 
@@ -3217,6 +3220,7 @@ body {
   <div class="trip-warning reveal" data-i18n-html="submit_warning"><strong>Bu çalıştay, davetli katılımcılarla gerçekleştirilen kapalı bir oturum niteliğindedir.</strong> Bildiri gönderimi yalnızca davet edilen araştırmacılara açıktır. Davetli olmayan katılımcılar, çalıştaya dinleyici olarak katılabilirler.</div>
   <p class="section-desc reveal" data-i18n="submit_desc">Hazırladığınız bildiriyi PDF veya Word (.doc, .docx) formatında aşağıdaki form aracılığıyla gönderebilirsiniz.</p>
   <div class="submit-info-badge reveal" data-i18n="submit_formats">Kabul edilen formatlar: PDF, DOC, DOCX</div>
+  <div class="closed-note reveal">Bildiri gönderimi sona ermiştir · Submission is closed</div>
   <form class="submit-form reveal" id="submitPaperForm">
     <input type="text" name="authorName" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
     <input type="email" name="authorEmail" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
@@ -3228,7 +3232,7 @@ body {
       <div class="file-name-display" id="fileName"></div>
       <input type="file" name="paperFile" accept=".pdf,.doc,.docx" required id="paperFileInput">
     </div>
-    <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="submit_btn">Bildiriyi Gönder</button>
+    <button type="submit" class="btn-primary closed-btn" style="width:100%;text-align:center;" data-i18n="submit_btn" disabled>Bildiriyi Gönder</button>
   </form>
   <div class="form-success" id="submitSuccess">
     <div class="check-circle">✓</div>
@@ -3243,12 +3247,13 @@ body {
   <h2 class="section-title reveal" data-i18n="reg_title">Kayıt</h2>
   <div class="trip-warning reveal" data-i18n-html="reg_warning"><strong>Bu çalıştay, davetli katılımcılarla gerçekleştirilen kapalı bir oturumdur.</strong> Davetli misafirler dışındaki katılımcılar çalıştaya yalnızca dinleyici olarak katılabilirler. Dinleyici katılımı ücretsizdir.</div>
   <p class="section-desc reveal" data-i18n="reg_desc">Gerekli kontenjan sağlanırsa</p>
+  <div class="closed-note reveal">Kayıt süreci sona ermiştir · Registration is closed</div>
   <form class="register-form reveal" id="registerForm">
     <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
     <input type="email" name="email" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
     <input type="text" name="institution" data-ph-i18n="ph_inst" placeholder="Kurum / Üniversite">
     <input type="text" name="field" data-ph-i18n="ph_field" placeholder="Uzmanlık Alanınız">
-    <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="reg_btn">Ön Kayıt Yap</button>
+    <button type="submit" class="btn-primary closed-btn" style="width:100%;text-align:center;" data-i18n="reg_btn" disabled>Ön Kayıt Yap</button>
   </form>
   <div class="form-success" id="formSuccess">
     <div class="check-circle">✓</div>
@@ -3263,6 +3268,7 @@ body {
   <h2 class="section-title reveal" data-i18n="trip_title">Teknik Gezi Katılımı</h2>
   <div class="trip-warning reveal" data-i18n-html="trip_warning"><strong>Teknik gezi, çalıştaya davetli olmayan dışarıdan katılımcılar için ücretlidir.</strong> Detaylı bilgi ve ücret için <a href="mailto:erjekum2026@gmail.com" style="color:#d4a853;">erjekum2026@gmail.com</a> adresinden iletişime geçiniz.</div>
   <p class="section-desc reveal" data-i18n="trip_desc">Çalıştay kapsamındaki teknik gezilere katılmak için aşağıdaki formu doldurun.</p>
+  <div class="closed-note reveal">Kayıt süreci sona ermiştir · Registration is closed</div>
   <form class="register-form reveal" id="tripForm" style="margin-top:1.5rem;">
     <input type="text" name="name" data-ph-i18n="ph_name" placeholder="Adınız Soyadınız" required>
     <input type="email" name="email" data-ph-i18n="ph_email" placeholder="E-posta Adresiniz" required>
@@ -3272,7 +3278,7 @@ body {
       <option value="1gun" data-i18n="trip_opt_1">1 Gün — 19 Haziran (Cuma)</option>
       <option value="2gun" data-i18n="trip_opt_2">2 Gün — 19-20 Haziran (Cuma-Cumartesi)</option>
     </select>
-    <button type="submit" class="btn-primary" style="width:100%;text-align:center;" data-i18n="trip_btn">Gezi Kaydı Yap</button>
+    <button type="submit" class="btn-primary closed-btn" style="width:100%;text-align:center;" data-i18n="trip_btn" disabled>Gezi Kaydı Yap</button>
   </form>
   <div class="form-success" id="tripSuccess">
     <div class="check-circle">✓</div>
