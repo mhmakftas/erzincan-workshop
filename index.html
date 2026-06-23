@@ -1130,6 +1130,14 @@ body {
 .thanks-popup-msg .thanks-title { font-size:1.55rem; text-align:left; margin-bottom:0.55rem; }
 .thanks-popup-msg .thanks-text { font-size:0.9rem; line-height:1.65; }
 .thanks-popup-msg .thanks-lang-en { margin-top:1.2rem; padding-top:1.2rem; border-top:1px solid rgba(212,168,83,0.18); }
+.thanks-popup-btn {
+  align-self:flex-start; margin-top:1.5rem; display:inline-block;
+  padding:0.7rem 1.4rem; border-radius:8px; text-decoration:none;
+  background:linear-gradient(135deg,#d4a853,#c8973f); color:#15171f;
+  font-weight:700; font-size:0.88rem; letter-spacing:0.01em;
+  box-shadow:0 4px 14px rgba(212,168,83,0.4); transition:transform 0.2s, box-shadow 0.2s;
+}
+.thanks-popup-btn:hover { transform:translateY(-2px); box-shadow:0 7px 22px rgba(212,168,83,0.62); }
 .thanks-popup-close {
   position:absolute; top:0.7rem; right:0.85rem; z-index:2;
   width:34px; height:34px; border-radius:50%; border:none; cursor:pointer;
@@ -1143,6 +1151,7 @@ body {
   .thanks-popup-msg { padding:1.6rem 1.4rem; text-align:center; }
   .thanks-popup-msg .thanks-title { text-align:center; font-size:1.7rem; }
   .thanks-title { font-size:2rem; }
+  .thanks-popup-btn { align-self:center; }
 }
 /* ========== CALISTAY GALLERY ========== */
 .cs-empty {
@@ -3003,6 +3012,7 @@ body {
         <h2 class="thanks-title">Thank You</h2>
         <p class="thanks-text">We sincerely thank all our speakers, participants and supporters for your attendance and valuable contributions to the International Erzincan Geological and Cultural Heritage Workshop. It was an honour to meet in Erzincan and share this heritage together.</p>
       </div>
+      <a href="#calistay-galeri" class="thanks-popup-btn" onclick="closeThanksPopup()">📸 Galeriye Git · Go to Gallery</a>
     </div>
   </div>
 </div>
