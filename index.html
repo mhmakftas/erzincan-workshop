@@ -1158,6 +1158,12 @@ body {
   0%,100% { box-shadow:0 0 3px rgba(212,168,83,0.3), 0 0 9px rgba(212,168,83,0.14); }
   50%     { box-shadow:0 0 15px rgba(212,168,83,0.85), 0 0 30px rgba(212,168,83,0.5); }
 }
+/* ========== CALISTAY GALERI (gun + mekan) ========== */
+.cs-loc-group { margin-bottom:2.8rem; }
+.cs-loc-title { font-family:'Playfair Display',serif; color:#d4a853; font-size:1.3rem; font-weight:600; max-width:1300px; margin:0 auto; padding:0 0 0.5rem; border-bottom:1px solid rgba(212,168,83,0.18); }
+.cs-video-item { grid-column:span 2; aspect-ratio:16/9; }
+.cs-video-item video { width:100%; height:100%; object-fit:cover; display:block; background:#000; }
+@media(max-width:760px){ .cs-video-item { grid-column:1 / -1; } }
 
 /* ========== INSTAGRAM BUTTON ========== */
 .instagram-btn {
@@ -2372,10 +2378,309 @@ body {
     <button class="gallery-filter-btn" data-day="2" onclick="filterCsGallery('2')" data-i18n="cs_day2">2. Gün</button>
     <button class="gallery-filter-btn" data-day="3" onclick="filterCsGallery('3')" data-i18n="cs_day3">3. Gün</button>
   </div>
-  <div class="gallery-grid" id="csGalleryGrid">
-    <div class="cs-empty" data-day="1" data-i18n="cs_gallery_soon">Bu güne ait fotoğraflar yakında eklenecek.</div>
-    <div class="cs-empty" data-day="2" data-i18n="cs_gallery_soon" style="display:none;">Bu güne ait fotoğraflar yakında eklenecek.</div>
-    <div class="cs-empty" data-day="3" data-i18n="cs_gallery_soon" style="display:none;">Bu güne ait fotoğraflar yakında eklenecek.</div>
+  <div id="csGalleryDays">
+  <div class="cs-day" data-day="1">
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Çalıştay</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_01.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_02.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_03.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_04.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_05.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_06.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_07.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_08.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_09.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_10.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_11.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_12.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_13.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_14.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_15.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_16.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_17.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_18.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_19.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_20.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_21.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_22.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_23.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_24.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_25.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_26.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_27.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_28.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_29.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_30.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_31.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_32.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_33.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_34.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_35.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_36.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_37.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_38.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_39.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_40.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_41.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_42.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun1/calistay/foto_43.jpg" alt="Çalıştay" loading="lazy"><div class="gallery-item-overlay"><span>Çalıştay</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-day" data-day="2" style="display:none;">
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Altıntepe ve Volkanik Domlar</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item cs-video-item"><video controls preload="none" poster="fotolar/galeri/calistay/video/altintepe-1.jpg" src="fotolar/galeri/calistay/video/altintepe-1.mp4"></video></div>
+        <div class="gallery-item cs-video-item"><video controls preload="none" poster="fotolar/galeri/calistay/video/altintepe-2.jpg" src="fotolar/galeri/calistay/video/altintepe-2.mp4"></video></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_01.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_02.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_03.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_04.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_05.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_06.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_07.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_08.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_09.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_10.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_11.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_12.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_13.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_14.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_15.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_16.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_17.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_18.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_19.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_20.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_21.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_22.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_23.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_24.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_25.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_26.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_27.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_28.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_29.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_30.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_31.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_32.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_33.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_34.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_35.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_36.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_37.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_38.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_39.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_40.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_41.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_42.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_43.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_44.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_45.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_46.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_47.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_48.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_49.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_50.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_51.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_52.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_53.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_54.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_55.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_56.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_57.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_58.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_59.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_60.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_61.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_62.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_63.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/altintepe-volkanik-domlar/foto_64.jpg" alt="Altıntepe ve Volkanik Domlar" loading="lazy"><div class="gallery-item-overlay"><span>Altıntepe ve Volkanik Domlar</span></div></div>
+      </div>
+    </div>
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Ekşisu ve Kaplıcalar</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_01.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_02.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_03.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_04.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_05.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_06.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_07.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_08.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_09.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_10.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_11.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/eksisu-kaplicalar/foto_12.jpg" alt="Ekşisu ve Kaplıcalar" loading="lazy"><div class="gallery-item-overlay"><span>Ekşisu ve Kaplıcalar</span></div></div>
+      </div>
+    </div>
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Ergan</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item cs-video-item"><video controls preload="none" poster="fotolar/galeri/calistay/video/ergan.jpg" src="fotolar/galeri/calistay/video/ergan.mp4"></video></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_01.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_02.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_03.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_04.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_05.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_06.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_07.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_08.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_09.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_10.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_11.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_12.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_13.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_14.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_15.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/ergan/foto_16.jpg" alt="Ergan" loading="lazy"><div class="gallery-item-overlay"><span>Ergan</span></div></div>
+      </div>
+    </div>
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Çağlayan</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_01.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_02.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_03.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_04.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_05.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_06.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_07.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_08.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_09.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_10.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_11.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_12.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_13.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_14.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun2/caglayan/foto_15.jpg" alt="Çağlayan" loading="lazy"><div class="gallery-item-overlay"><span>Çağlayan</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cs-day" data-day="3" style="display:none;">
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Otlukbeli</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item cs-video-item"><video controls preload="none" poster="fotolar/galeri/calistay/video/otlukbeli.jpg" src="fotolar/galeri/calistay/video/otlukbeli.mp4"></video></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_01.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_02.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_03.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_04.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_05.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_06.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_07.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_08.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_09.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_10.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_11.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_12.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_13.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_14.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_15.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_16.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_17.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_18.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_19.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_20.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_21.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_22.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_23.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_24.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_25.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_26.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_27.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_28.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_29.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_30.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_31.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_32.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_33.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_34.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_35.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_36.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_37.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_38.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_39.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_40.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_41.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_42.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_43.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_44.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_45.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_46.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_47.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_48.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_49.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_50.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_51.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_52.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_53.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_54.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_55.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_56.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_57.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_58.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_59.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_60.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_61.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_62.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_63.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_64.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_65.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_66.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_67.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_68.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_69.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_70.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_71.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_72.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/otlukbeli/foto_73.jpg" alt="Otlukbeli" loading="lazy"><div class="gallery-item-overlay"><span>Otlukbeli</span></div></div>
+      </div>
+    </div>
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Tercan</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_01.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_02.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_03.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_04.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_05.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_06.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_07.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_08.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_09.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_10.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_11.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_12.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_13.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_14.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_15.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_16.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_17.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_18.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_19.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_20.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_21.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_22.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_23.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_24.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_25.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/tercan/foto_26.jpg" alt="Tercan" loading="lazy"><div class="gallery-item-overlay"><span>Tercan</span></div></div>
+      </div>
+    </div>
+    <div class="cs-loc-group">
+      <h3 class="cs-loc-title">Diğer</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/diger/foto_01.jpg" alt="Diğer" loading="lazy"><div class="gallery-item-overlay"><span>Diğer</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/diger/foto_02.jpg" alt="Diğer" loading="lazy"><div class="gallery-item-overlay"><span>Diğer</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="fotolar/galeri/calistay/gun3/diger/foto_03.jpg" alt="Diğer" loading="lazy"><div class="gallery-item-overlay"><span>Diğer</span></div></div>
+      </div>
+    </div>
+  </div>
   </div>
 </section>
 
@@ -3425,7 +3730,7 @@ function filterGallery(cat) {
 
 function openLightbox(el) {
   const grid = el.closest('.gallery-grid');
-  galleryItems = Array.from(grid.querySelectorAll('.gallery-item')).filter(i => i.style.display !== 'none');
+  galleryItems = Array.from(grid.querySelectorAll('.gallery-item')).filter(i => i.style.display !== 'none' && i.querySelector('img'));
   currentLbIndex = galleryItems.indexOf(el);
   const img = el.querySelector('img');
   document.getElementById('lightboxImg').src = img.src;
@@ -3482,7 +3787,7 @@ filterGallery = function(cat) {
 // ========== CALISTAY GALLERY (gün sekmeleri) ==========
 function filterCsGallery(day) {
   document.querySelectorAll('#calistay-galeri .gallery-filter-btn').forEach(b => b.classList.toggle('active', b.dataset.day === day));
-  document.querySelectorAll('#csGalleryGrid > [data-day]').forEach(el => {
+  document.querySelectorAll('#csGalleryDays > .cs-day').forEach(el => {
     el.style.display = el.dataset.day === day ? '' : 'none';
   });
 }
